@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HookedByKerrah 🧶</title>
+  <title>HookedByKerrah</title>
   <style>
     :root{
-      --bg:#fff7f2;
+      --bg:#fbfaf8;
       --card:#ffffff;
-      --text:#2b2b2b;
+      --text:#1f1f1f;
       --muted:#6b6b6b;
-      --brand:#e07a5f;
-      --brand2:#f3c6b8;
-      --border: rgba(0,0,0,.08);
-      --shadow: 0 10px 25px rgba(0,0,0,.08);
-      --radius: 16px;
+      --brand:#2b2b2b;
+      --accent:#e07a5f;
+      --border: rgba(0,0,0,.10);
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --max: 1120px;
     }
     *{box-sizing:border-box}
     body{
@@ -22,83 +23,81 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:var(--bg);
       color:var(--text);
-      line-height:1.4;
+      line-height:1.45;
     }
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:1100px; margin:0 auto; padding:18px;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:20px;}
     header{
-      background:linear-gradient(0deg, rgba(255,255,255,.35), rgba(255,255,255,.35)), var(--brand2);
+      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
       border-bottom:1px solid var(--border);
     }
-    .topbar{
-      display:flex; gap:14px; align-items:center; justify-content:space-between;
-      padding:18px 0;
+    .top{
+      display:flex; gap:16px; align-items:flex-start; justify-content:space-between;
+      padding:22px 0 10px;
+      flex-wrap:wrap;
     }
-    .logo{
-      display:flex; flex-direction:column; gap:4px;
-    }
-    .logo h1{margin:0; font-size:28px; letter-spacing:.2px}
-    .logo p{margin:0; color:var(--muted)}
+    .brand h1{margin:0; font-size:30px; letter-spacing:.2px}
+    .brand p{margin:6px 0 0; color:var(--muted); max-width:58ch}
     nav{
-      display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
       font-size:14px;
     }
     nav a{
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(255,255,255,.55);
+      background:white;
       border:1px solid var(--border);
     }
-    nav a:hover{border-color:rgba(0,0,0,.18)}
+    nav a:hover{border-color:rgba(0,0,0,.20)}
     .hero{
-      padding:10px 0 22px;
       display:grid;
       grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:stretch;
+      gap:14px;
+      padding:10px 0 22px;
     }
-    .heroCard{
-      background:rgba(255,255,255,.65);
+    .panel{
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
-      padding:18px;
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
+      padding:16px;
     }
-    .heroCard h2{margin:0 0 8px; font-size:20px}
-    .heroCard p{margin:0 0 12px; color:var(--muted)}
-    .pillRow{display:flex; gap:8px; flex-wrap:wrap}
-    .pill{
+    .panel h2{margin:0 0 8px; font-size:18px}
+    .panel p{margin:0 0 12px; color:var(--muted)}
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
       font-size:12px;
-      padding:8px 10px;
+      padding:7px 10px;
       border-radius:999px;
-      background:white;
       border:1px solid var(--border);
+      background:#fff;
+      color:var(--muted);
     }
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .btn{
       display:inline-block;
-      border:none;
-      background:var(--brand);
-      color:white;
       padding:12px 14px;
       border-radius:12px;
-      font-weight:600;
+      font-weight:700;
+      border:1px solid var(--border);
+      background:#fff;
       cursor:pointer;
     }
-    .btn.secondary{
-      background:white;
-      color:var(--text);
-      border:1px solid var(--border);
+    .btn.primary{
+      background:var(--accent);
+      color:#fff;
+      border-color: transparent;
     }
 
     section{padding:18px 0}
-    .sectionTitle{
+    .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between;
       gap:12px; flex-wrap:wrap;
-      margin-bottom:12px;
+      margin:10px 0 12px;
     }
-    .sectionTitle h3{margin:0; font-size:18px}
-    .sectionTitle span{color:var(--muted); font-size:14px}
+    .sectionHead h3{margin:0; font-size:18px}
+    .sectionHead span{color:var(--muted); font-size:14px}
 
     .grid{
       display:grid;
@@ -110,14 +109,27 @@
       border:1px solid var(--border);
       border-radius:var(--radius);
       overflow:hidden;
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
       display:flex;
       flex-direction:column;
+      min-height: 220px;
     }
-    .img{
+    .imgWrap{
       width:100%;
       aspect-ratio: 4 / 3;
       background:#f1f1f1;
+      border-bottom:1px solid var(--border);
+      overflow:hidden;
+    }
+    .imgWrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .imgFallback{
+      width:100%;
+      height:100%;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -131,101 +143,114 @@
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       margin-top:auto;
     }
-    .price{
-      font-weight:700;
-    }
+    .price{font-weight:800}
     .buy{
       background:var(--brand);
-      color:white;
+      color:#fff;
       padding:10px 12px;
       border-radius:12px;
-      font-weight:700;
+      font-weight:800;
       border:none;
       cursor:pointer;
       white-space:nowrap;
     }
-    .buy:disabled{
-      opacity:.6;
-      cursor:not-allowed;
-    }
+    .buy:disabled{opacity:.55; cursor:not-allowed}
 
-    .infoGrid{
+    .twoCol{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:14px;
     }
-    .infoCard{
-      background:white;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow: var(--shadow);
+
+    .list{
+      margin:0; padding-left:18px; color:var(--muted);
+      font-size:14px;
     }
-    .infoCard h4{margin:0 0 8px}
-    .infoCard p{margin:0; color:var(--muted)}
+    .variants{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+      color:var(--text);
+      margin-top:10px;
+    }
+    .variants h5{margin:0 0 8px; font-size:14px}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+    th, td{
+      text-align:left;
+      padding:8px 6px;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      vertical-align:top;
+    }
+    th{color:var(--muted); font-weight:700}
+    tr:last-child td{border-bottom:none}
+
     footer{
       padding:26px 0;
       color:var(--muted);
       font-size:14px;
       border-top:1px solid var(--border);
-      background:rgba(255,255,255,.35);
-      margin-top:10px;
+      background:rgba(255,255,255,.5);
+      margin-top:12px;
     }
 
     @media (max-width: 900px){
       .hero{grid-template-columns:1fr}
       .grid{grid-template-columns: repeat(2, 1fr);}
-      .infoGrid{grid-template-columns:1fr}
+      .twoCol{grid-template-columns:1fr}
     }
     @media (max-width: 520px){
       .grid{grid-template-columns: 1fr;}
-      .logo h1{font-size:24px}
+      .brand h1{font-size:26px}
     }
   </style>
 </head>
-<body>
 
+<body>
 <header>
   <div class="wrap">
-    <div class="topbar">
-      <div class="logo">
-        <h1>HookedByKerrah 🧶</h1>
-        <p>Handmade crochet — cozy, cute, and made with love.</p>
+    <div class="top">
+      <div class="brand">
+        <h1>HookedByKerrah</h1>
+        <p>Handcrafted crochet pieces designed for comfort, style, and cozy everyday wear.</p>
       </div>
       <nav>
         <a href="#shop">Shop</a>
-        <a href="#about">About</a>
+        <a href="#seasonal">Seasonal</a>
+        <a href="#custom">Custom Orders</a>
         <a href="#policies">Policies</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
 
     <div class="hero">
-      <div class="heroCard">
-        <h2>Your next favorite handmade piece</h2>
-        <p>Browse by category below. Want something custom? I can create colors, sizes, and designs to match your vibe.</p>
-        <div class="pillRow">
-          <div class="pill">✨ Handmade</div>
-          <div class="pill">🎁 Gift-ready</div>
-          <div class="pill">🧶 Custom options</div>
-          <div class="pill">📦 Local/Shipping</div>
+      <div class="panel">
+        <h2>Shop by category</h2>
+        <p>Browse essentials and seasonal drops. Add photos + PayPal links when you’re ready.</p>
+        <div class="chips">
+          <span class="chip">Made to order</span>
+          <span class="chip">Handmade</span>
+          <span class="chip">Custom options</span>
+          <span class="chip">Local / Shipping</span>
         </div>
-        <div class="ctaRow">
-          <a class="btn" href="#shop">Shop categories</a>
-          <a class="btn secondary" href="#custom">Request a custom order</a>
+        <div class="cta">
+          <a class="btn primary" href="#shop">Browse items</a>
+          <a class="btn" href="#custom">Request a custom</a>
         </div>
       </div>
 
-      <div class="heroCard">
-        <h2>Quick info</h2>
-        <p style="margin-bottom:10px;">
-          Add your Instagram/TikTok and checkout links when you’re ready.
-        </p>
-        <div class="pillRow">
-          <div class="pill">Payments: PayPal / Stripe</div>
-          <div class="pill">Message for customs</div>
-          <div class="pill">New drops weekly</div>
-        </div>
+      <div class="panel">
+        <h2>Quick notes</h2>
+        <p style="margin-bottom:10px;">Upload photos into a folder named <strong>images</strong> in your repo.</p>
+        <ul class="list">
+          <li>Then update filenames in the code if needed</li>
+          <li>We’ll turn on PayPal “Buy” buttons next</li>
+          <li>Seasonal section is perfect for Santa hats</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -235,136 +260,189 @@
 
   <!-- SHOP -->
   <section id="shop">
-    <div class="sectionTitle">
+    <div class="sectionHead">
       <h3>Shop</h3>
-      <span>Browse by category</span>
+      <span>Essentials</span>
     </div>
 
     <!-- Wearables -->
-    <div class="sectionTitle" style="margin-top:14px;">
+    <div class="sectionHead" style="margin-top:14px;">
       <h3>Wearables</h3>
-      <span>Beanies, headbands, scarves</span>
+      <span>Cardigans, tops, hats</span>
     </div>
     <div class="grid">
-      <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Cozy Beanie</h4>
-          <p>Soft + warm. Available in different colors.</p>
-          <div class="priceRow">
-            <div class="price">$25</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
-        </div>
-      </div>
 
       <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Twist Headband</h4>
-          <p>Perfect for chilly days and cute outfits.</p>
-          <div class="priceRow">
-            <div class="price">$15</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
+        <div class="imgWrap">
+          <img src="images/cardigan.jpg" alt="Hexagon cardigan"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add cardigan photo</div>';">
         </div>
-      </div>
-
-      <div class="card">
-        <div class="img">Add photo</div>
         <div class="content">
-          <h4>Chunky Scarf</h4>
-          <p>Extra cozy. Great gift idea.</p>
+          <h4>Hexagon Cardigan</h4>
+          <p>Made to order. Custom colors and sizing available.</p>
           <div class="priceRow">
-            <div class="price">$35</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Plushies -->
-    <div class="sectionTitle" style="margin-top:18px;">
-      <h3>Plushies</h3>
-      <span>Amigurumi & cuddle buddies</span>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Mini Bear</h4>
-          <p>Small plushie, big cute energy.</p>
-          <div class="priceRow">
-            <div class="price">$25</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Sleepy Bunny</h4>
-          <p>Soft yarn + sweet details.</p>
-          <div class="priceRow">
-            <div class="price">$30</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Custom Plush</h4>
-          <p>Pick the animal + colors!</p>
-          <div class="priceRow">
-            <div class="price">From $35</div>
+            <div class="price">Starting at $120</div>
             <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
           </div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="imgWrap">
+          <img src="images/beanie.jpg" alt="Crochet beanie hat"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add beanie photo</div>';">
+        </div>
+        <div class="content">
+          <h4>Beanie Hat</h4>
+          <p>Classic fit. Available in multiple colors.</p>
+          <div class="priceRow">
+            <div class="price">$30</div>
+            <button class="buy" disabled>Buy (PayPal link soon)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="imgWrap">
+          <img src="images/croptop.jpg" alt="Crochet crop top"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add crop top photo</div>';">
+        </div>
+        <div class="content">
+          <h4>Crop Top</h4>
+          <p>Made to order — price goes up with size/detail. Custom colors available.</p>
+          <div class="priceRow">
+            <div class="price">$55+</div>
+            <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="imgWrap">
+          <img src="images/scrunchie.jpg" alt="Crochet scrunchie"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add scrunchie photo</div>';">
+        </div>
+        <div class="content">
+          <h4>Scrunchie</h4>
+          <p>Everyday accessory. Perfect add-on item.</p>
+          <div class="priceRow">
+            <div class="price">$10</div>
+            <button class="buy" disabled>Buy (PayPal link soon)</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Bags -->
-    <div class="sectionTitle" style="margin-top:18px;">
+    <div class="sectionHead" style="margin-top:18px;">
       <h3>Bags</h3>
-      <span>Totes, mini bags, pouches</span>
+      <span>Totes</span>
     </div>
     <div class="grid">
       <div class="card">
-        <div class="img">Add photo</div>
+        <div class="imgWrap">
+          <img src="images/tote.jpg" alt="Crochet tote bag"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add tote photo</div>';">
+        </div>
         <div class="content">
-          <h4>Mini Shoulder Bag</h4>
-          <p>Cute + functional. Great for everyday.</p>
+          <h4>Crochet Tote Bag</h4>
+          <p>Sturdy and stylish. Custom colors available.</p>
           <div class="priceRow">
-            <div class="price">$30</div>
-            <button class="buy" disabled>Buy (link soon)</button>
+            <div class="price">$45</div>
+            <button class="buy" disabled>Buy (PayPal link soon)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home -->
+    <div class="sectionHead" style="margin-top:18px;">
+      <h3>Home & Cozy</h3>
+      <span>Pillows and blankets</span>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="imgWrap">
+          <img src="images/pillow.jpg" alt="Crochet pillow cover"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add pillow cover photo</div>';">
+        </div>
+        <div class="content">
+          <h4>Pillow Cover</h4>
+          <p>Cozy texture for couch, bed, or dorm decor.</p>
+          <div class="priceRow">
+            <div class="price">$35</div>
+            <button class="buy" disabled>Buy (PayPal link soon)</button>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="img">Add photo</div>
-        <div class="content">
-          <h4>Market Tote</h4>
-          <p>Sturdy stitch for groceries and errands.</p>
-          <div class="priceRow">
-            <div class="price">$40</div>
-            <button class="buy" disabled>Buy (link soon)</button>
-          </div>
+        <div class="imgWrap">
+          <img src="images/blanket.jpg" alt="Crochet blanket"
+               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add blanket photo</div>';">
         </div>
-      </div>
-
-      <div class="card">
-        <div class="img">Add photo</div>
         <div class="content">
-          <h4>Custom Bag</h4>
-          <p>Choose colors, size, strap style.</p>
+          <h4>Blanket</h4>
+          <p>Made to order. Great gift for cozy seasons.</p>
           <div class="priceRow">
-            <div class="price">From $45</div>
+            <div class="price">Starting at $120</div>
             <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEASONAL -->
+  <section id="seasonal">
+    <div class="sectionHead">
+      <h3>Seasonal</h3>
+      <span>Limited-time items</span>
+    </div>
+
+    <div class="card">
+      <div class="imgWrap">
+        <img src="images/santahat.jpg" alt="Crochet Santa hat"
+             onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add Santa hat photo</div>';">
+      </div>
+      <div class="content">
+        <h4>Santa Hat (Classic + Glitter Options)</h4>
+        <p>Available in adult and kids sizes. Choose color/trim + glitter upgrade.</p>
+
+        <div class="variants">
+          <h5>Adult</h5>
+          <table>
+            <thead>
+              <tr><th>Style</th><th>Price</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Black hat, red trim</td><td><strong>$35</strong></td></tr>
+              <tr><td>Black hat, red trim (glitter)</td><td><strong>$40</strong></td></tr>
+              <tr><td>Red hat, black trim</td><td><strong>$35</strong></td></tr>
+              <tr><td>Red hat, black trim (glitter)</td><td><strong>$40</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="variants">
+          <h5>Kids (same styles, $5 less)</h5>
+          <table>
+            <thead>
+              <tr><th>Style</th><th>Price</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Black hat, red trim</td><td><strong>$30</strong></td></tr>
+              <tr><td>Black hat, red trim (glitter)</td><td><strong>$35</strong></td></tr>
+              <tr><td>Red hat, black trim</td><td><strong>$30</strong></td></tr>
+              <tr><td>Red hat, black trim (glitter)</td><td><strong>$35</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="priceRow" style="margin-top:12px;">
+          <div class="price">Santa hats: $30–$40</div>
+          <a class="btn primary" style="padding:10px 12px; border-radius:12px;" href="#contact">Order / Message</a>
         </div>
       </div>
     </div>
@@ -372,85 +450,70 @@
 
   <!-- CUSTOM -->
   <section id="custom">
-    <div class="sectionTitle">
+    <div class="sectionHead">
       <h3>Custom Orders</h3>
-      <span>Tell me what you want — I’ll make it</span>
+      <span>Colors • sizing • made-to-order</span>
     </div>
-
-    <div class="infoGrid">
-      <div class="infoCard">
-        <h4>How it works</h4>
-        <p>
-          Message me with the item idea, colors, size, and your deadline (if any).
-          I’ll reply with pricing + a timeline.
+    <div class="twoCol">
+      <div class="panel">
+        <h2>How it works</h2>
+        <p>Send what you want (item, colors, size, and deadline if you have one). I’ll reply with pricing and timeline.</p>
+        <div class="chips">
+          <span class="chip">Cardigans</span>
+          <span class="chip">Crop tops</span>
+          <span class="chip">Blankets</span>
+          <span class="chip">Color matching</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Timing</h2>
+        <p>Made-to-order items usually take a few days to a couple weeks depending on the item and schedule.</p>
+        <p style="margin:10px 0 0; color:var(--muted); font-size:14px;">
+          For larger customs, a deposit may be required.
         </p>
       </div>
-      <div class="infoCard">
-        <h4>Good to know</h4>
-        <p>
-          Custom orders usually take a few days to a couple weeks depending on complexity.
-          A deposit may be required for large customs.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="sectionTitle">
-      <h3>About</h3>
-      <span>Meet HookedByKerrah</span>
-    </div>
-
-    <div class="infoCard">
-      <h4>Hi! I’m Kerrah 💗</h4>
-      <p>
-        HookedByKerrah is my crochet studio where I create handmade pieces inspired by cozy vibes and cute designs.
-        Every item is made with care, so each piece is unique — just like you.
-      </p>
     </div>
   </section>
 
   <!-- POLICIES -->
   <section id="policies">
-    <div class="sectionTitle">
+    <div class="sectionHead">
       <h3>Policies</h3>
-      <span>Simple + clear</span>
+      <span>Clear + simple</span>
     </div>
-
-    <div class="infoGrid">
-      <div class="infoCard">
-        <h4>Returns</h4>
-        <p>Because items are handmade, returns are generally not accepted. If something arrives damaged, message me and we’ll fix it.</p>
+    <div class="twoCol">
+      <div class="panel">
+        <h2>All sales are final</h2>
+        <p>
+          Because each item is handmade and made to order, all sales are final.
+          I do not accept returns or exchanges.
+          If there is an issue with your order (wrong item or damage on arrival), please contact me within 48 hours so I can help.
+        </p>
       </div>
-      <div class="infoCard">
-        <h4>Care</h4>
-        <p>Recommended: gentle hand-wash and air dry to keep your crochet looking its best.</p>
+      <div class="panel">
+        <h2>Care</h2>
+        <p>Recommended: gentle hand wash and air dry to keep your crochet looking its best.</p>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="sectionTitle">
+    <div class="sectionHead">
       <h3>Contact</h3>
-      <span>Fastest response: social DM</span>
+      <span>Ordering + questions</span>
     </div>
-
-    <div class="infoGrid">
-      <div class="infoCard">
-        <h4>Message me</h4>
-        <p>
-          Instagram: <strong>@HookedByKerrah</strong><br/>
+    <div class="twoCol">
+      <div class="panel">
+        <h2>Message</h2>
+        <p style="margin:0; color:var(--muted);">
+          Instagram: <strong>@HookedByKerrah</strong><br />
           Email: <strong>youremail@example.com</strong>
         </p>
       </div>
-      <div class="infoCard">
-        <h4>Payment</h4>
-        <p>
-          Once you add PayPal or Stripe links, the “Buy” buttons will go live.
-          I can help you set those up next.
-        </p>
+      <div class="panel">
+        <h2>PayPal checkout</h2>
+        <p>Next, we’ll add PayPal links so customers can pay right from the site.</p>
       </div>
     </div>
   </section>
@@ -459,10 +522,8 @@
 
 <footer>
   <div class="wrap">
-    © 2026 HookedByKerrah • Handmade Crochet • Built with GitHub Pages
+    © 2026 HookedByKerrah • Handmade Crochet
   </div>
 </footer>
-
 </body>
 </html>
-
