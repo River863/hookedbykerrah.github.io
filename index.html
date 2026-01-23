@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- ===== BASIC SITE SETTINGS ===== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HookedByKerrah</title>
+
+  <!-- ===== SITE STYLES (COLORS, LAYOUT, FONTS) ===== -->
   <style>
     :root{
       --bg:#fbfaf8;
       --card:#ffffff;
       --text:#1f1f1f;
       --muted:#6b6b6b;
-      --brand:#2b2b2b;
       --accent:#e07a5f;
       --border: rgba(0,0,0,.10);
       --shadow: 0 12px 30px rgba(0,0,0,.08);
@@ -20,510 +22,170 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: system-ui, Arial, sans-serif;
       background:var(--bg);
       color:var(--text);
-      line-height:1.45;
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:20px;}
-    header{
-      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
-      border-bottom:1px solid var(--border);
-    }
-    .top{
-      display:flex; gap:16px; align-items:flex-start; justify-content:space-between;
-      padding:22px 0 10px;
-      flex-wrap:wrap;
-    }
-    .brand h1{margin:0; font-size:30px; letter-spacing:.2px}
-    .brand p{margin:6px 0 0; color:var(--muted); max-width:58ch}
-    nav{
-      display:flex; gap:10px; flex-wrap:wrap;
-      justify-content:flex-end;
-      font-size:14px;
-    }
-    nav a{
-      padding:10px 12px;
-      border-radius:999px;
-      background:white;
-      border:1px solid var(--border);
-    }
-    nav a:hover{border-color:rgba(0,0,0,.20)}
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-      padding:10px 0 22px;
-    }
-    .panel{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-    }
-    .panel h2{margin:0 0 8px; font-size:18px}
-    .panel p{margin:0 0 12px; color:var(--muted)}
-    .chips{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{
-      font-size:12px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--muted);
-    }
-    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      display:inline-block;
-      padding:12px 14px;
-      border-radius:12px;
-      font-weight:700;
-      border:1px solid var(--border);
-      background:#fff;
-      cursor:pointer;
-    }
-    .btn.primary{
-      background:var(--accent);
-      color:#fff;
-      border-color: transparent;
-    }
-
-    section{padding:18px 0}
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
-      margin:10px 0 12px;
-    }
-    .sectionHead h3{margin:0; font-size:18px}
-    .sectionHead span{color:var(--muted); font-size:14px}
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
+    .wrap{max-width:var(--max); margin:auto; padding:20px;}
+    nav a{margin-left:10px; font-size:14px}
+    img{width:100%; height:100%; object-fit:cover}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px}
     .card{
       background:var(--card);
-      border:1px solid var(--border);
       border-radius:var(--radius);
-      overflow:hidden;
       box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      min-height: 220px;
-    }
-    .imgWrap{
-      width:100%;
-      aspect-ratio: 4 / 3;
-      background:#f1f1f1;
-      border-bottom:1px solid var(--border);
       overflow:hidden;
     }
-    .imgWrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .imgFallback{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-size:14px;
-    }
+    .imgBox{aspect-ratio:4/3; background:#eee}
     .content{padding:14px}
-    .content h4{margin:0 0 6px; font-size:16px}
-    .content p{margin:0 0 10px; color:var(--muted); font-size:14px}
-    .priceRow{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      margin-top:auto;
-    }
-    .price{font-weight:800}
-    .buy{
-      background:var(--brand);
-      color:#fff;
-      padding:10px 12px;
-      border-radius:12px;
-      font-weight:800;
-      border:none;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .buy:disabled{opacity:.55; cursor:not-allowed}
-
-    .twoCol{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-    }
-
-    .list{
-      margin:0; padding-left:18px; color:var(--muted);
-      font-size:14px;
-    }
-    .variants{
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:12px;
-      background:#fff;
-      color:var(--text);
+    .price{font-weight:bold}
+    .btn{
+      display:inline-block;
       margin-top:10px;
+      padding:10px 14px;
+      background:var(--accent);
+      color:white;
+      border-radius:10px;
+      text-decoration:none;
     }
-    .variants h5{margin:0 0 8px; font-size:14px}
-    table{
-      width:100%;
-      border-collapse:collapse;
-      font-size:14px;
-    }
-    th, td{
-      text-align:left;
-      padding:8px 6px;
-      border-bottom:1px solid rgba(0,0,0,.08);
-      vertical-align:top;
-    }
-    th{color:var(--muted); font-weight:700}
-    tr:last-child td{border-bottom:none}
-
-    footer{
-      padding:26px 0;
-      color:var(--muted);
-      font-size:14px;
-      border-top:1px solid var(--border);
-      background:rgba(255,255,255,.5);
-      margin-top:12px;
-    }
-
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns: repeat(2, 1fr);}
-      .twoCol{grid-template-columns:1fr}
-    }
-    @media (max-width: 520px){
-      .grid{grid-template-columns: 1fr;}
-      .brand h1{font-size:26px}
-    }
+    footer{margin-top:40px; color:var(--muted); font-size:14px}
   </style>
 </head>
 
 <body>
-<header>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <h1>HookedByKerrah</h1>
-        <p>Handcrafted crochet pieces designed for comfort, style, and cozy everyday wear.</p>
-      </div>
-      <nav>
-        <a href="#shop">Shop</a>
-        <a href="#seasonal">Seasonal</a>
-        <a href="#custom">Custom Orders</a>
-        <a href="#policies">Policies</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
 
-    <div class="hero">
-      <div class="panel">
-        <h2>Shop by category</h2>
-        <p>Browse essentials and seasonal drops. Add photos + PayPal links when you’re ready.</p>
-        <div class="chips">
-          <span class="chip">Made to order</span>
-          <span class="chip">Handmade</span>
-          <span class="chip">Custom options</span>
-          <span class="chip">Local / Shipping</span>
-        </div>
-        <div class="cta">
-          <a class="btn primary" href="#shop">Browse items</a>
-          <a class="btn" href="#custom">Request a custom</a>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h2>Quick notes</h2>
-        <p style="margin-bottom:10px;">Upload photos into a folder named <strong>images</strong> in your repo.</p>
-        <ul class="list">
-          <li>Then update filenames in the code if needed</li>
-          <li>We’ll turn on PayPal “Buy” buttons next</li>
-          <li>Seasonal section is perfect for Santa hats</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<!-- ===== HEADER / NAVIGATION ===== -->
+<header class="wrap">
+  <h1>HookedByKerrah</h1>
+  <p>Handmade crochet pieces made to order 🧶</p>
+  <nav>
+    <a href="#shop">Shop</a>
+    <a href="#seasonal">Seasonal</a>
+    <a href="#custom">Custom</a>
+    <a href="#policies">Policies</a>
+  </nav>
 </header>
 
+<!-- ===== MAIN CONTENT ===== -->
 <main class="wrap">
 
-  <!-- SHOP -->
-  <section id="shop">
-    <div class="sectionHead">
-      <h3>Shop</h3>
-      <span>Essentials</span>
-    </div>
+<!-- ===== SHOP SECTION ===== -->
+<section id="shop">
+  <h2>Shop</h2>
 
-    <!-- Wearables -->
-    <div class="sectionHead" style="margin-top:14px;">
-      <h3>Wearables</h3>
-      <span>Cardigans, tops, hats</span>
-    </div>
-    <div class="grid">
+  <!-- ===== WEARABLES ===== -->
+  <h3>Wearables</h3>
+  <div class="grid">
 
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/cardigan.jpg" alt="Hexagon cardigan"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add cardigan photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Hexagon Cardigan</h4>
-          <p>Made to order. Custom colors and sizing available.</p>
-          <div class="priceRow">
-            <div class="price">Starting at $120</div>
-            <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/beanie.jpg" alt="Crochet beanie hat"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add beanie photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Beanie Hat</h4>
-          <p>Classic fit. Available in multiple colors.</p>
-          <div class="priceRow">
-            <div class="price">$30</div>
-            <button class="buy" disabled>Buy (PayPal link soon)</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/croptop.jpg" alt="Crochet crop top"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add crop top photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Crop Top</h4>
-          <p>Made to order — price goes up with size/detail. Custom colors available.</p>
-          <div class="priceRow">
-            <div class="price">$55+</div>
-            <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/scrunchie.jpg" alt="Crochet scrunchie"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add scrunchie photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Scrunchie</h4>
-          <p>Everyday accessory. Perfect add-on item.</p>
-          <div class="priceRow">
-            <div class="price">$10</div>
-            <button class="buy" disabled>Buy (PayPal link soon)</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Bags -->
-    <div class="sectionHead" style="margin-top:18px;">
-      <h3>Bags</h3>
-      <span>Totes</span>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/tote.jpg" alt="Crochet tote bag"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add tote photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Crochet Tote Bag</h4>
-          <p>Sturdy and stylish. Custom colors available.</p>
-          <div class="priceRow">
-            <div class="price">$45</div>
-            <button class="buy" disabled>Buy (PayPal link soon)</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Home -->
-    <div class="sectionHead" style="margin-top:18px;">
-      <h3>Home & Cozy</h3>
-      <span>Pillows and blankets</span>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/pillow.jpg" alt="Crochet pillow cover"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add pillow cover photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Pillow Cover</h4>
-          <p>Cozy texture for couch, bed, or dorm decor.</p>
-          <div class="priceRow">
-            <div class="price">$35</div>
-            <button class="buy" disabled>Buy (PayPal link soon)</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="imgWrap">
-          <img src="images/blanket.jpg" alt="Crochet blanket"
-               onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add blanket photo</div>';">
-        </div>
-        <div class="content">
-          <h4>Blanket</h4>
-          <p>Made to order. Great gift for cozy seasons.</p>
-          <div class="priceRow">
-            <div class="price">Starting at $120</div>
-            <a class="btn" style="padding:10px 12px; border-radius:12px;" href="#custom">Request</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEASONAL -->
-  <section id="seasonal">
-    <div class="sectionHead">
-      <h3>Seasonal</h3>
-      <span>Limited-time items</span>
-    </div>
-
+    <!-- HEXAGON CARDIGAN -->
     <div class="card">
-      <div class="imgWrap">
-        <img src="images/santahat.jpg" alt="Crochet Santa hat"
-             onerror="this.remove(); this.parentElement.innerHTML='<div class=&quot;imgFallback&quot;>Add Santa hat photo</div>';">
+      <div class="imgBox">
+        <!-- Add cardigan image later -->
       </div>
       <div class="content">
-        <h4>Santa Hat (Classic + Glitter Options)</h4>
-        <p>Available in adult and kids sizes. Choose color/trim + glitter upgrade.</p>
+        <h4>Hexagon Cardigan</h4>
+        <p>Made to order. Custom colors and sizing available.</p>
+        <p class="price">Starting at $120</p>
+        <!-- This button will link to PayPal later -->
+        <a class="btn" href="#custom">Request Custom</a>
+      </div>
+    </div>
 
-        <div class="variants">
-          <h5>Adult</h5>
-          <table>
-            <thead>
-              <tr><th>Style</th><th>Price</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Black hat, red trim</td><td><strong>$35</strong></td></tr>
-              <tr><td>Black hat, red trim (glitter)</td><td><strong>$40</strong></td></tr>
-              <tr><td>Red hat, black trim</td><td><strong>$35</strong></td></tr>
-              <tr><td>Red hat, black trim (glitter)</td><td><strong>$40</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- BEANIE -->
+    <div class="card">
+      <div class="imgBox">
+        <!-- Add beanie image later -->
+      </div>
+      <div class="content">
+        <h4>Beanie Hat</h4>
+        <p>Classic fit. Multiple colors.</p>
+        <p class="price">$30</p>
+        <!-- PayPal link will go here -->
+        <span class="btn">PayPal soon</span>
+      </div>
+    </div>
 
-        <div class="variants">
-          <h5>Kids (same styles, $5 less)</h5>
-          <table>
-            <thead>
-              <tr><th>Style</th><th>Price</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Black hat, red trim</td><td><strong>$30</strong></td></tr>
-              <tr><td>Black hat, red trim (glitter)</td><td><strong>$35</strong></td></tr>
-              <tr><td>Red hat, black trim</td><td><strong>$30</strong></td></tr>
-              <tr><td>Red hat, black trim (glitter)</td><td><strong>$35</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- CROP TOP -->
+    <div class="card">
+      <div class="imgBox">
+        <!-- Add crop top image later -->
+      </div>
+      <div class="content">
+        <h4>Crop Top</h4>
+        <p>Made to order. Price goes up with size/detail.</p>
+        <p class="price">$55+</p>
+        <a class="btn" href="#custom">Request Custom</a>
+      </div>
+    </div>
 
-        <div class="priceRow" style="margin-top:12px;">
-          <div class="price">Santa hats: $30–$40</div>
-          <a class="btn primary" style="padding:10px 12px; border-radius:12px;" href="#contact">Order / Message</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
-  <!-- CUSTOM -->
-  <section id="custom">
-    <div class="sectionHead">
-      <h3>Custom Orders</h3>
-      <span>Colors • sizing • made-to-order</span>
-    </div>
-    <div class="twoCol">
-      <div class="panel">
-        <h2>How it works</h2>
-        <p>Send what you want (item, colors, size, and deadline if you have one). I’ll reply with pricing and timeline.</p>
-        <div class="chips">
-          <span class="chip">Cardigans</span>
-          <span class="chip">Crop tops</span>
-          <span class="chip">Blankets</span>
-          <span class="chip">Color matching</span>
-        </div>
-      </div>
-      <div class="panel">
-        <h2>Timing</h2>
-        <p>Made-to-order items usually take a few days to a couple weeks depending on the item and schedule.</p>
-        <p style="margin:10px 0 0; color:var(--muted); font-size:14px;">
-          For larger customs, a deposit may be required.
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- ===== BAGS ===== -->
+  <h3>Bags</h3>
+  <div class="grid">
 
-  <!-- POLICIES -->
-  <section id="policies">
-    <div class="sectionHead">
-      <h3>Policies</h3>
-      <span>Clear + simple</span>
-    </div>
-    <div class="twoCol">
-      <div class="panel">
-        <h2>All sales are final</h2>
-        <p>
-          Because each item is handmade and made to order, all sales are final.
-          I do not accept returns or exchanges.
-          If there is an issue with your order (wrong item or damage on arrival), please contact me within 48 hours so I can help.
-        </p>
+    <!-- TOTE BAG -->
+    <div class="card">
+      <div class="imgBox">
+        <!-- REAL IMAGE YOU HAVE -->
+        <img src="images/BlueTote.png" alt="Blue crochet tote bag">
       </div>
-      <div class="panel">
-        <h2>Care</h2>
-        <p>Recommended: gentle hand wash and air dry to keep your crochet looking its best.</p>
+      <div class="content">
+        <h4>Crochet Tote Bag</h4>
+        <p>Sturdy and stylish.</p>
+        <p class="price">$45</p>
+        <!-- PayPal link goes here -->
+        <span class="btn">PayPal soon</span>
       </div>
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="sectionHead">
-      <h3>Contact</h3>
-      <span>Ordering + questions</span>
+  </div>
+</section>
+
+<!-- ===== SEASONAL ITEMS ===== -->
+<section id="seasonal">
+  <h2>Seasonal</h2>
+
+  <!-- SANTA HATS -->
+  <div class="card">
+    <div class="imgBox">
+      <!-- REAL IMAGE YOU HAVE -->
+      <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
     </div>
-    <div class="twoCol">
-      <div class="panel">
-        <h2>Message</h2>
-        <p style="margin:0; color:var(--muted);">
-          Instagram: <strong>@HookedByKerrah</strong><br />
-          Email: <strong>youremail@example.com</strong>
-        </p>
-      </div>
-      <div class="panel">
-        <h2>PayPal checkout</h2>
-        <p>Next, we’ll add PayPal links so customers can pay right from the site.</p>
-      </div>
+    <div class="content">
+      <h4>Santa Hats</h4>
+      <p>Adult & kids sizes. Glitter option available.</p>
+      <p class="price">$30 – $40</p>
+      <a class="btn" href="#custom">Order via message</a>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ===== CUSTOM ORDERS ===== -->
+<section id="custom">
+  <h2>Custom Orders</h2>
+  <p>
+    Message me with the item, colors, size, and deadline.
+    I’ll reply with pricing and timeline.
+  </p>
+</section>
+
+<!-- ===== POLICIES ===== -->
+<section id="policies">
+  <h2>Policies</h2>
+  <p>
+    All items are handmade and made to order.
+    All sales are final — no returns or exchanges.
+    If your item arrives damaged or incorrect, contact me within 48 hours.
+  </p>
+</section>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    © 2026 HookedByKerrah • Handmade Crochet
-  </div>
+<!-- ===== FOOTER ===== -->
+<footer class="wrap">
+  © 2026 HookedByKerrah • Handmade Crochet
 </footer>
+
 </body>
 </html>
