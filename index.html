@@ -13,11 +13,13 @@
   ================================ -->
   <style>
     :root{
-      --bg:#fbfaf8;
+      --bg:#fff3f6;          /* soft blush background */
       --card:#ffffff;
-      --text:#1f1f1f;
-      --muted:#6b6b6b;
-      --accent:#e07a5f;
+      --text:#2a2a2a;
+      --muted:#6f6f6f;
+      --accent:#e6a6b3;      /* main soft pink */
+      --accent-hover:#d98c9a;
+      --tab-bg:#f7d6de;      /* nav tab pink */
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
       --max:1100px;
@@ -38,11 +40,20 @@
       padding:20px;
     }
 
+    /* ---------- NAV TABS ---------- */
     nav a{
-      margin-right:14px;
+      margin-right:10px;
+      padding:8px 14px;
+      background:var(--tab-bg);
+      border-radius:999px;
       text-decoration:none;
       color:var(--text);
       font-weight:500;
+      transition:background .2s;
+    }
+    nav a:hover{
+      background:var(--accent);
+      color:white;
     }
 
     h1,h2,h3,h4{margin-top:0}
@@ -69,7 +80,7 @@
 
     .imgBox{
       aspect-ratio:4/3;
-      background:#eee;
+      background:#f1f1f1;
     }
 
     .placeholder{
@@ -90,15 +101,20 @@
       margin:8px 0;
     }
 
+    /* ---------- BUTTONS ---------- */
     .btn{
       display:inline-block;
       margin-top:10px;
-      padding:10px 14px;
+      padding:10px 16px;
       background:var(--accent);
       color:white;
-      border-radius:10px;
+      border-radius:12px;
       text-decoration:none;
       font-weight:600;
+      transition:background .2s;
+    }
+    .btn:hover{
+      background:var(--accent-hover);
     }
 
     footer{
@@ -136,7 +152,7 @@
 <section id="shop">
   <h2>Shop</h2>
 
-  <!-- ===== WEARABLES ===== -->
+  <!-- WEARABLES -->
   <h3>Wearables</h3>
   <div class="grid">
 
@@ -149,7 +165,6 @@
         <h4>Hexagon Cardigan</h4>
         <p>Made to order. Custom colors and sizing available.</p>
         <p class="price">Starting at $120</p>
-        <!-- PayPal link will go here -->
         <a class="btn" href="#">Buy Now</a>
       </div>
     </div>
@@ -195,11 +210,10 @@
 
   </div>
 
-  <!-- ===== BAGS ===== -->
+  <!-- BAGS -->
   <h3>Bags</h3>
   <div class="grid">
 
-    <!-- TOTE BAG -->
     <div class="card">
       <div class="imgBox">
         <img src="images/BlueTote.png" alt="Blue crochet tote bag">
@@ -213,47 +227,14 @@
     </div>
 
   </div>
-
-  <!-- ===== HOME ===== -->
-  <h3>Home & Cozy</h3>
-  <div class="grid">
-
-    <!-- PILLOW -->
-    <div class="card">
-      <div class="imgBox">
-        <div class="placeholder">Add pillow cover photo</div>
-      </div>
-      <div class="content">
-        <h4>Pillow Cover</h4>
-        <p>Soft texture for home decor.</p>
-        <p class="price">$35</p>
-        <a class="btn" href="#">Buy Now</a>
-      </div>
-    </div>
-
-    <!-- BLANKET -->
-    <div class="card">
-      <div class="imgBox">
-        <div class="placeholder">Add blanket photo</div>
-      </div>
-      <div class="content">
-        <h4>Blanket</h4>
-        <p>Made to order. Cozy and giftable.</p>
-        <p class="price">Starting at $120</p>
-        <a class="btn" href="#">Buy Now</a>
-      </div>
-    </div>
-
-  </div>
 </section>
 
 <!-- ===============================
-     SEASONAL SECTION
+     SEASONAL
 =============================== -->
 <section id="seasonal">
   <h2>Seasonal</h2>
 
-  <!-- SANTA HATS -->
   <div class="card">
     <div class="imgBox">
       <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
@@ -281,9 +262,6 @@
 
 </main>
 
-<!-- ===============================
-     FOOTER
-=============================== -->
 <footer class="wrap">
   © 2026 HookedByKerrah • Handmade Crochet
 </footer>
