@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ===== BASIC SITE SETTINGS ===== -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- ===============================
+       BASIC SITE SETTINGS
+  ================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HookedByKerrah</title>
 
-  <!-- ===== SITE STYLES (COLORS, LAYOUT, FONTS) ===== -->
+  <!-- ===============================
+       SITE STYLES
+  ================================ -->
   <style>
     :root{
       --bg:#fbfaf8;
@@ -14,31 +18,78 @@
       --text:#1f1f1f;
       --muted:#6b6b6b;
       --accent:#e07a5f;
-      --border: rgba(0,0,0,.10);
-      --shadow: 0 12px 30px rgba(0,0,0,.08);
-      --radius: 18px;
-      --max: 1120px;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:18px;
+      --max:1100px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      font-family: system-ui, Arial, sans-serif;
+      font-family:system-ui, Arial, sans-serif;
       background:var(--bg);
       color:var(--text);
     }
-    .wrap{max-width:var(--max); margin:auto; padding:20px;}
-    nav a{margin-left:10px; font-size:14px}
-    img{width:100%; height:100%; object-fit:cover}
-    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px}
+
+    .wrap{
+      max-width:var(--max);
+      margin:auto;
+      padding:20px;
+    }
+
+    nav a{
+      margin-right:14px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:500;
+    }
+
+    h1,h2,h3,h4{margin-top:0}
+
+    img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+    }
+
     .card{
       background:var(--card);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .imgBox{aspect-ratio:4/3; background:#eee}
-    .content{padding:14px}
-    .price{font-weight:bold}
+
+    .imgBox{
+      aspect-ratio:4/3;
+      background:#eee;
+    }
+
+    .placeholder{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100%;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .content{
+      padding:16px;
+    }
+
+    .price{
+      font-weight:bold;
+      margin:8px 0;
+    }
+
     .btn{
       display:inline-block;
       margin-top:10px;
@@ -47,29 +98,41 @@
       color:white;
       border-radius:10px;
       text-decoration:none;
+      font-weight:600;
     }
-    footer{margin-top:40px; color:var(--muted); font-size:14px}
+
+    footer{
+      margin-top:40px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER / NAVIGATION ===== -->
+<!-- ===============================
+     HEADER / NAVIGATION
+=============================== -->
 <header class="wrap">
   <h1>HookedByKerrah</h1>
   <p>Handmade crochet pieces made to order 🧶</p>
   <nav>
     <a href="#shop">Shop</a>
     <a href="#seasonal">Seasonal</a>
-    <a href="#custom">Custom</a>
     <a href="#policies">Policies</a>
   </nav>
 </header>
 
-<!-- ===== MAIN CONTENT ===== -->
+<!-- ===============================
+     MAIN CONTENT
+=============================== -->
 <main class="wrap">
 
-<!-- ===== SHOP SECTION ===== -->
+<!-- ===============================
+     SHOP SECTION
+=============================== -->
 <section id="shop">
   <h2>Shop</h2>
 
@@ -80,41 +143,53 @@
     <!-- HEXAGON CARDIGAN -->
     <div class="card">
       <div class="imgBox">
-        <!-- Add cardigan image later -->
+        <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan">
       </div>
       <div class="content">
         <h4>Hexagon Cardigan</h4>
         <p>Made to order. Custom colors and sizing available.</p>
         <p class="price">Starting at $120</p>
-        <!-- This button will link to PayPal later -->
-        <a class="btn" href="#custom">Request Custom</a>
+        <!-- PayPal link will go here -->
+        <a class="btn" href="#">Buy Now</a>
       </div>
     </div>
 
     <!-- BEANIE -->
     <div class="card">
       <div class="imgBox">
-        <!-- Add beanie image later -->
+        <div class="placeholder">Add beanie photo</div>
       </div>
       <div class="content">
         <h4>Beanie Hat</h4>
-        <p>Classic fit. Multiple colors.</p>
+        <p>Classic fit. Multiple colors available.</p>
         <p class="price">$30</p>
-        <!-- PayPal link will go here -->
-        <span class="btn">PayPal soon</span>
+        <a class="btn" href="#">Buy Now</a>
       </div>
     </div>
 
     <!-- CROP TOP -->
     <div class="card">
       <div class="imgBox">
-        <!-- Add crop top image later -->
+        <div class="placeholder">Add crop top photo</div>
       </div>
       <div class="content">
         <h4>Crop Top</h4>
-        <p>Made to order. Price goes up with size/detail.</p>
+        <p>Made to order. Price goes up with size and detail.</p>
         <p class="price">$55+</p>
-        <a class="btn" href="#custom">Request Custom</a>
+        <a class="btn" href="#">Buy Now</a>
+      </div>
+    </div>
+
+    <!-- SCRUNCHIE -->
+    <div class="card">
+      <div class="imgBox">
+        <div class="placeholder">Add scrunchie photo</div>
+      </div>
+      <div class="content">
+        <h4>Scrunchie</h4>
+        <p>Perfect everyday accessory.</p>
+        <p class="price">$10</p>
+        <a class="btn" href="#">Buy Now</a>
       </div>
     </div>
 
@@ -127,62 +202,88 @@
     <!-- TOTE BAG -->
     <div class="card">
       <div class="imgBox">
-        <!-- REAL IMAGE YOU HAVE -->
         <img src="images/BlueTote.png" alt="Blue crochet tote bag">
       </div>
       <div class="content">
         <h4>Crochet Tote Bag</h4>
         <p>Sturdy and stylish.</p>
         <p class="price">$45</p>
-        <!-- PayPal link goes here -->
-        <span class="btn">PayPal soon</span>
+        <a class="btn" href="#">Buy Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== HOME ===== -->
+  <h3>Home & Cozy</h3>
+  <div class="grid">
+
+    <!-- PILLOW -->
+    <div class="card">
+      <div class="imgBox">
+        <div class="placeholder">Add pillow cover photo</div>
+      </div>
+      <div class="content">
+        <h4>Pillow Cover</h4>
+        <p>Soft texture for home decor.</p>
+        <p class="price">$35</p>
+        <a class="btn" href="#">Buy Now</a>
+      </div>
+    </div>
+
+    <!-- BLANKET -->
+    <div class="card">
+      <div class="imgBox">
+        <div class="placeholder">Add blanket photo</div>
+      </div>
+      <div class="content">
+        <h4>Blanket</h4>
+        <p>Made to order. Cozy and giftable.</p>
+        <p class="price">Starting at $120</p>
+        <a class="btn" href="#">Buy Now</a>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ===== SEASONAL ITEMS ===== -->
+<!-- ===============================
+     SEASONAL SECTION
+=============================== -->
 <section id="seasonal">
   <h2>Seasonal</h2>
 
   <!-- SANTA HATS -->
   <div class="card">
     <div class="imgBox">
-      <!-- REAL IMAGE YOU HAVE -->
       <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
     </div>
     <div class="content">
       <h4>Santa Hats</h4>
       <p>Adult & kids sizes. Glitter option available.</p>
       <p class="price">$30 – $40</p>
-      <a class="btn" href="#custom">Order via message</a>
+      <a class="btn" href="#">Buy Now</a>
     </div>
   </div>
 </section>
 
-<!-- ===== CUSTOM ORDERS ===== -->
-<section id="custom">
-  <h2>Custom Orders</h2>
-  <p>
-    Message me with the item, colors, size, and deadline.
-    I’ll reply with pricing and timeline.
-  </p>
-</section>
-
-<!-- ===== POLICIES ===== -->
+<!-- ===============================
+     POLICIES
+=============================== -->
 <section id="policies">
   <h2>Policies</h2>
   <p>
-    All items are handmade and made to order.
-    All sales are final — no returns or exchanges.
+    All items are handmade and made to order.<br>
+    All sales are final — no returns or exchanges.<br>
     If your item arrives damaged or incorrect, contact me within 48 hours.
   </p>
 </section>
 
 </main>
 
-<!-- ===== FOOTER ===== -->
+<!-- ===============================
+     FOOTER
+=============================== -->
 <footer class="wrap">
   © 2026 HookedByKerrah • Handmade Crochet
 </footer>
