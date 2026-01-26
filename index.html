@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Product • HookedByKerrah</title>
+  <title>HookedByKerrah</title>
 
   <style>
     :root{
@@ -14,261 +14,328 @@
       --muted:#6f6f6f;
       --accent:#e6a6b3;
       --accent-hover:#d98c9a;
+      --tab-bg:#f7d6de;
       --border:rgba(0,0,0,.08);
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
-      --max:980px;
+      --max:1120px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
     body{
       margin:0;
       font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg));
       color:var(--text);
+      overflow-x:hidden;
     }
-    .wrap{max-width:var(--max); margin:0 auto; padding:20px;}
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+
+    /* ✨ Twinkles */
+    .twinkles{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.55;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 28% 72%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
+        radial-gradient(circle at 55% 30%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 22%, rgba(255,255,255,.9) 0 1.4px, transparent 2.8px),
+        radial-gradient(circle at 86% 64%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 88%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
+        radial-gradient(circle at 68% 82%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 92% 38%, rgba(255,255,255,.9) 0 1.3px, transparent 2.6px);
+      animation: twinkle 6s ease-in-out infinite;
+      filter: drop-shadow(0 0 6px rgba(230,166,179,.25));
+    }
+    @keyframes twinkle{
+      0%,100%{ transform: translateY(0); opacity:.35; }
+      50%{ transform: translateY(-6px); opacity:.75; }
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    header{
       background:rgba(255,255,255,.72);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:14px;
+      padding:18px;
     }
-    a.link{
-      color:var(--text);
+
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    h1{margin:0; font-size:30px; line-height:1.1}
+    .sub{margin:6px 0 0; color:var(--muted)}
+
+    nav a{
+      display:inline-block;
+      margin:6px 8px 0 0;
+      padding:9px 14px;
+      background:var(--tab-bg);
+      border:1px solid rgba(230,166,179,.35);
+      border-radius:999px;
       text-decoration:none;
+      color:var(--text);
       font-weight:900;
-      padding:10px 12px;
-      border-radius:12px;
+      font-size:14px;
+      transition:background .2s, transform .2s;
+      white-space:nowrap;
+    }
+    nav a:hover{ background:var(--accent); color:white; transform: translateY(-1px); }
+
+    section{ scroll-margin-top: 20px; }
+
+    .hero{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    .panel{
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .panel h2{ margin:0 0 8px; font-size:18px; }
+    .panel p{ margin:0 0 12px; color:var(--muted); }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
       background:#fff;
       border:1px solid var(--border);
+      color:var(--muted);
     }
-    a.link:hover{ border-color:rgba(230,166,179,.75); }
 
-    .card{
-      margin-top:14px;
+    h2{ margin:22px 0 10px; font-size:22px; }
+
+    .filterBar{
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center; justify-content:space-between;
+      margin:10px 0 14px;
+    }
+    .filters{ display:flex; flex-wrap:wrap; gap:8px; }
+    .filterBtn{
+      appearance:none;
+      border:1px solid var(--border);
       background:#fff;
+      color:var(--text);
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .15s, border-color .15s, background .15s;
+    }
+    .filterBtn:hover{ transform: translateY(-1px); border-color: rgba(230,166,179,.75); }
+    .filterBtn.active{ background:var(--accent); border-color:transparent; color:#fff; }
+    .search{
+      width:260px; max-width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:#fff;
+      outline:none;
+      font-weight:700;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    .card{
+      background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
     }
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:0;
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.10);
     }
-    .imgWrap{
-      background:#111;
-      min-height:320px;
-      cursor:zoom-in;
-    }
-    .imgWrap img{
-      width:100%; height:100%;
-      object-fit:contain;
+    a.cardLink{
       display:block;
-      background:#111;
-    }
-    .info{ padding:16px; }
-    h1{ margin:0 0 6px; font-size:24px; }
-    .muted{ color:var(--muted); margin:0 0 12px; }
-    .price{ font-weight:900; margin:10px 0 14px; }
-
-    label{ display:block; font-weight:900; margin:10px 0 6px; }
-    select, textarea{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:700;
-      background:#fff;
-      outline:none;
-    }
-    textarea{ min-height:90px; resize:vertical; }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .btn{
-      display:inline-block;
-      width:100%;
-      text-align:center;
-      padding:12px 14px;
-      background:var(--accent);
-      color:#fff;
-      border-radius:14px;
+      color:inherit;
       text-decoration:none;
-      font-weight:900;
-      margin-top:14px;
-      border:none;
-      cursor:pointer;
     }
-    .btn:hover{ background:var(--accent-hover); }
-    .small{ font-size:12px; color:var(--muted); margin-top:10px; }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.8);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:50;
-    }
-    .lightbox.open{ display:flex; }
-    .lbCard{
-      width:min(1000px, 100%);
-      background:#fff;
-      border-radius:20px;
-      overflow:hidden;
-      box-shadow:0 24px 70px rgba(0,0,0,.35);
-    }
-    .lbTop{
-      display:flex; justify-content:space-between; align-items:center;
-      padding:12px 14px;
+    .imgBox{
+      aspect-ratio:4/3;
+      background:#f1f1f1;
       border-bottom:1px solid var(--border);
-      font-weight:900;
+      position:relative;
     }
-    .lbClose{
+    .imgBox::after{
+      content:"View details";
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      background:rgba(255,255,255,.92);
       border:1px solid var(--border);
-      background:#fff;
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
       font-weight:900;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
     }
-    .lbImg{
-      width:100%;
-      max-height:80vh;
-      object-fit:contain;
-      background:#111;
-      display:block;
+    .badge{
+      position:absolute; top:10px; left:10px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:900;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
+    }
+    img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .content{ padding:16px; }
+    .content h4{ margin:0 0 6px; font-size:16px; }
+    .content p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
+    .price{ font-weight:900; }
+
+    .box{
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
     }
 
-    @media (max-width: 820px){
+    footer{
+      margin:40px 0 12px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
       .grid{ grid-template-columns: 1fr; }
-      .row{ grid-template-columns: 1fr; }
+      h1{ font-size:26px; }
+      .search{ width:100%; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <a class="link" href="index.html">← Back to Home</a>
-      <div style="font-weight:900;">HookedByKerrah ✨</div>
+  <div class="twinkles"></div>
+
+  <header class="wrap">
+    <div class="top">
+      <div>
+        <h1>HookedByKerrah ✨</h1>
+        <p class="sub">Tap any item to open a product page (image + details + size + color).</p>
+      </div>
+      <nav>
+        <a href="#gallery">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#seasonal">Seasonal</a>
+        <a href="#policies">Policies</a>
+      </nav>
     </div>
 
-    <div class="card">
-      <div class="grid">
-        <div class="imgWrap" id="imgWrap" title="Click to zoom">
-          <img id="prodImg" alt="">
-        </div>
-
-        <div class="info">
-          <h1 id="prodName">Product</h1>
-          <p class="muted" id="prodDesc"></p>
-          <div class="price" id="prodPrice"></div>
-
-          <!-- Options -->
-          <div class="row">
-            <div>
-              <label for="size">Size</label>
-              <select id="size"></select>
-            </div>
-            <div>
-              <label for="color">Color</label>
-              <select id="color"></select>
-            </div>
-          </div>
-
-          <label for="notes">Notes (optional)</label>
-          <textarea id="notes" placeholder="Example: pastel pink + white, or two-tone, or preferred fit..."></textarea>
-
-          <!-- Buy button (PayPal-ready later) -->
-          <button class="btn" id="buyBtn" type="button">Buy (PayPal coming soon)</button>
-
-          <div class="small" id="finePrint">
-            All items are handmade & made to order. All sales final.
-          </div>
+    <div class="hero">
+      <div class="panel">
+        <h2>Now with product pages</h2>
+        <p>Every item opens a new page so customers can choose size and color before buying.</p>
+        <div class="chips">
+          <span class="chip">Sizes</span>
+          <span class="chip">Colors</span>
+          <span class="chip">Notes</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lbCard">
-      <div class="lbTop">
-        <div id="lbTitle">Preview</div>
-        <button class="lbClose" id="lbClose" type="button">Close ✕</button>
+      <div class="panel">
+        <h2>Images in /images</h2>
+        <p class="sub" style="margin-top:0">
+          BlueHexagonCardigan.png • IMG_4125.jpg • IMG_4188.jpg • IMG_4189.jpg • SantaHats.jpeg
+        </p>
       </div>
-      <img class="lbImg" id="lbImg" alt="">
     </div>
-  </div>
+  </header>
+
+  <main class="wrap">
+    <section id="gallery">
+      <h2>Featured Creations</h2>
+      <div class="grid" id="featuredGrid"></div>
+    </section>
+
+    <section id="shop">
+      <h2>Shop</h2>
+      <div class="filterBar">
+        <div class="filters" id="filters"></div>
+        <input class="search" id="search" type="search" placeholder="Search (ex: scrunchies, tote, crop top)" aria-label="Search products">
+      </div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section id="seasonal">
+      <h2>Seasonal</h2>
+      <div class="grid" id="seasonalGrid"></div>
+    </section>
+
+    <section id="policies">
+      <h2>Policies</h2>
+      <div class="box">
+        <p style="margin:0;">
+          <strong>All sales are final.</strong> Items are handmade and made to order, so no returns or exchanges.
+          If your order arrives damaged or incorrect, contact me within <strong>48 hours</strong>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    © 2026 HookedByKerrah • Handmade Crochet ✨
+  </footer>
 
   <script>
-    // Product “database” (edit anytime)
-    const PRODUCTS = {
-      cardigan: {
-        name: "Hexagon Cardigan",
-        img: "images/BlueHexagonCardigan.png",
-        price: "Starting at $120",
-        desc: "Made to order. Custom colors and sizing available.",
-        sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
-        colors: ["Custom (you choose)", "Pink", "Cream", "Black", "Brown", "Blue", "Green", "Purple"],
-        paypalLink: "" // paste later
-      },
-      tote: {
-        name: "Blue Tote Bag",
-        img: "images/IMG_4125.jpg",
-        price: "$45",
-        desc: "Sturdy and stylish.",
-        sizes: ["One size"],
-        colors: ["As pictured", "Custom (you choose)"],
-        paypalLink: ""
-      },
-      croptop: {
-        name: "Drawstring Crop Top",
-        img: "images/IMG_4188.jpg",
-        price: "$55+",
-        desc: "Made to order. Price goes up with size and detail.",
-        sizes: ["XS", "S", "M", "L", "XL"],
-        colors: ["Orange (as pictured)", "Custom (you choose)", "Pink", "Black", "White", "Brown"],
-        paypalLink: ""
-      },
-      scrunchies: {
-        name: "Scrunchies",
-        img: "images/IMG_4189.jpg",
-        price: "$10 each • $27 (3-pack)",
-        desc: "Sold individually or as a 3-pack. Custom color(s) available.",
-        sizes: ["Single", "3-Pack"],
-        colors: ["Custom (you choose)", "Pink", "Black", "White", "Brown", "Blue", "Green", "Purple", "Multicolor"],
-        paypalLink: ""
-      },
-      santahats: {
-        name: "Santa Hats",
-        img: "images/SantaHats.jpeg",
-        price: "$30–$40",
-        desc: "Adult & kids sizes. Glitter option available.",
-        sizes: ["Kids", "Adult"],
-        colors: ["Red w/ white trim", "Black w/ red trim", "Red w/ black trim", "Custom"],
-        paypalLink: ""
-      }
-    };
+    const products = [
+      { id:"cardigan", name:"Hexagon Cardigan", category:"Wearables", img:"images/BlueHexagonCardigan.png", price:"Starting at $120", desc:"Made to order. Custom colors and sizing available." },
+      { id:"tote", name:"Blue Tote Bag", category:"Bags", img:"images/IMG_4125.jpg", price:"$45", desc:"Sturdy and stylish." },
+      { id:"croptop", name:"Drawstring Crop Top", category:"Wearables", img:"images/IMG_4188.jpg", price:"$55+", desc:"Made to order. Price goes up with size and detail." },
+      { id:"scrunchies", name:"Scrunchies", category:"Accessories", img:"images/IMG_4189.jpg", price:"$10 each • $27 (3-pack)", desc:"Sold individually or as a 3-pack. Custom color(s) available." }
+    ];
 
-    function getId(){
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
-    }
+    const seasonal = [
+      { id:"santahats", name:"Santa Hats", category:"Seasonal", img:"images/SantaHats.jpeg", price:"$30–$40", desc:"Adult & kids sizes. Glitter option available." }
+    ];
 
-    function fillSelect(select, options){
-      select.innerHTML = options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join("");
-    }
+    const featuredGrid = document.getElementById("featuredGrid");
+    const productGrid = document.getElementById("productGrid");
+    const seasonalGrid = document.getElementById("seasonalGrid");
+    const filtersEl = document.getElementById("filters");
+    const searchEl = document.getElementById("search");
+
+    const allCategories = ["All", ...Array.from(new Set(products.map(p => p.category)))];
+    let activeCategory = "All";
+    let searchText = "";
 
     function escapeHtml(str){
       return String(str)
@@ -279,75 +346,73 @@
         .replaceAll("'","&#039;");
     }
 
-    // Lightbox
-    const lightbox = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lbImg");
-    const lbTitle = document.getElementById("lbTitle");
-    const lbClose = document.getElementById("lbClose");
-    function openLightbox(src, title){
-      lbImg.src = src;
-      lbImg.alt = title || "Image";
-      lbTitle.textContent = title || "Preview";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
+    function cardHTML(item, badgeText){
+      const badge = badgeText ? `<div class="badge">${escapeHtml(badgeText)}</div>` : "";
+      const link = `product.html?id=${encodeURIComponent(item.id)}`;
+      return `
+        <div class="card">
+          <a class="cardLink" href="${link}">
+            <div class="imgBox">
+              ${badge}
+              <img src="${item.img}" alt="${escapeHtml(item.name)}">
+            </div>
+            <div class="content">
+              <h4>${escapeHtml(item.name)}</h4>
+              <p>${escapeHtml(item.desc)}</p>
+              <div class="price">${escapeHtml(item.price)}</div>
+            </div>
+          </a>
+        </div>
+      `;
     }
-    function closeLightbox(){
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden","true");
-      lbImg.src = "";
-      document.body.style.overflow = "";
+
+    function renderFeatured(){
+      const items = [products[0], products[1], products[2], products[3], seasonal[0]].filter(Boolean);
+      featuredGrid.innerHTML = items.map(it => cardHTML(it, "Featured")).join("");
     }
-    lbClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e)=>{ if(e.target===lightbox) closeLightbox(); });
-    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeLightbox(); });
 
-    // Render
-    const id = getId();
-    const item = id && PRODUCTS[id];
+    function renderFilters(){
+      filtersEl.innerHTML = allCategories.map(cat => `
+        <button class="filterBtn ${cat === activeCategory ? "active" : ""}" data-cat="${escapeHtml(cat)}" type="button">${escapeHtml(cat)}</button>
+      `).join("");
 
-    if (!item){
-      document.getElementById("prodName").textContent = "Product not found";
-      document.getElementById("prodDesc").textContent = "Go back and try again.";
-      document.getElementById("prodPrice").textContent = "";
-    } else {
-      document.title = item.name + " • HookedByKerrah";
-      document.getElementById("prodName").textContent = item.name;
-      document.getElementById("prodDesc").textContent = item.desc;
-      document.getElementById("prodPrice").textContent = item.price;
-
-      const img = document.getElementById("prodImg");
-      img.src = item.img;
-      img.alt = item.name;
-
-      fillSelect(document.getElementById("size"), item.sizes);
-      fillSelect(document.getElementById("color"), item.colors);
-
-      // Click image to zoom
-      document.getElementById("imgWrap").addEventListener("click", () => {
-        openLightbox(item.img, item.name);
-      });
-
-      // Buy button (PayPal later)
-      document.getElementById("buyBtn").addEventListener("click", () => {
-        const size = document.getElementById("size").value;
-        const color = document.getElementById("color").value;
-        const notes = document.getElementById("notes").value.trim();
-
-        if (item.paypalLink){
-          // If you later paste a PayPal link here, you can redirect:
-          // window.open(item.paypalLink, "_blank");
-          window.open(item.paypalLink, "_blank", "noopener");
-          return;
-        }
-
-        // For now: show a summary so customers know what they selected
-        let msg = `You selected:\\n\\n${item.name}\\nSize: ${size}\\nColor: ${color}`;
-        if (notes) msg += `\\nNotes: ${notes}`;
-        msg += `\\n\\nPayPal checkout link coming soon.`;
-        alert(msg);
+      filtersEl.querySelectorAll(".filterBtn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.getAttribute("data-cat");
+          renderFilters();
+          renderProducts();
+        });
       });
     }
+
+    function renderProducts(){
+      const q = (searchText || "").trim().toLowerCase();
+      const filtered = products.filter(p => {
+        const matchCat = (activeCategory === "All") || (p.category === activeCategory);
+        const matchSearch = !q || (
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+        );
+        return matchCat && matchSearch;
+      });
+
+      productGrid.innerHTML = filtered.map(it => cardHTML(it, it.category)).join("");
+    }
+
+    function renderSeasonal(){
+      seasonalGrid.innerHTML = seasonal.map(it => cardHTML(it, "Seasonal")).join("");
+    }
+
+    searchEl.addEventListener("input", (e) => {
+      searchText = e.target.value || "";
+      renderProducts();
+    });
+
+    renderFeatured();
+    renderFilters();
+    renderProducts();
+    renderSeasonal();
   </script>
 </body>
 </html>
