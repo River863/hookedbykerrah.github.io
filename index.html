@@ -1,86 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ===============================
-       BASIC SITE SETTINGS
-  ================================ -->
+  <!-- ==================================================
+       HookedByKerrah — Simple shop site (GitHub Pages)
+       Tips:
+       - Put your photos in /images
+       - Filenames used below:
+         Blue tote: images/IMG_4125.jpg
+         Orange drawstring crop top: images/IMG_4188.jpg
+         Scrunchies assortment: images/IMG_4189.jpg
+       - Replace the PayPal links when you’re ready
+  =================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HookedByKerrah</title>
 
-  <!-- ===============================
-       SITE STYLES
-  ================================ -->
   <style>
     :root{
-      --bg:#fff3f6;          /* soft blush background */
+      /* Soft pink boutique palette (not bright) */
+      --bg:#fff3f6;
+      --bg2:#fff8fb;
       --card:#ffffff;
       --text:#2a2a2a;
       --muted:#6f6f6f;
-      --accent:#e6a6b3;      /* main soft pink */
+      --accent:#e6a6b3;
       --accent-hover:#d98c9a;
-      --tab-bg:#f7d6de;      /* nav tab pink */
+      --tab-bg:#f7d6de;
+      --border:rgba(0,0,0,.08);
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
-      --max:1100px;
+      --max:1120px;
     }
 
     *{box-sizing:border-box}
 
     body{
       margin:0;
-      font-family:system-ui, Arial, sans-serif;
-      background:var(--bg);
+      font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg));
       color:var(--text);
+      overflow-x:hidden;
+    }
+
+    /* ===============================
+       Sparkle/Twinkle (subtle)
+       - Pure CSS, no images needed
+       - You can disable by deleting .twinkles + @keyframes
+    ================================ */
+    .twinkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.55;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 28% 72%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
+        radial-gradient(circle at 55% 30%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 22%, rgba(255,255,255,.9) 0 1.4px, transparent 2.8px),
+        radial-gradient(circle at 86% 64%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 88%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
+        radial-gradient(circle at 68% 82%, rgba(255,255,255,.95) 0 1px, transparent 2px),
+        radial-gradient(circle at 92% 38%, rgba(255,255,255,.9) 0 1.3px, transparent 2.6px);
+      animation: twinkle 5.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 6px rgba(230,166,179,.25));
+    }
+    @keyframes twinkle{
+      0%,100%{ transform: translateY(0); opacity:.35; }
+      50%{ transform: translateY(-6px); opacity:.7; }
     }
 
     .wrap{
       max-width:var(--max);
-      margin:auto;
+      margin:0 auto;
       padding:20px;
+      position:relative;
+      z-index:1; /* above twinkles */
     }
 
-    /* ---------- NAV TABS ---------- */
+    /* ===============================
+       Header + Nav Tabs
+    ================================ */
+    header{
+      padding-top:10px;
+    }
+    .topbar{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      background: rgba(255,255,255,.65);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px 16px 14px;
+    }
+    .brand h1{
+      margin:0;
+      font-size:30px;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .brand p{
+      margin:6px 0 0;
+      color:var(--muted);
+      max-width:62ch;
+    }
+
     nav a{
-      margin-right:10px;
-      padding:8px 14px;
+      display:inline-block;
+      margin:6px 8px 0 0;
+      padding:9px 14px;
       background:var(--tab-bg);
+      border:1px solid rgba(230,166,179,.35);
       border-radius:999px;
       text-decoration:none;
       color:var(--text);
-      font-weight:500;
-      transition:background .2s;
+      font-weight:600;
+      font-size:14px;
+      transition:background .2s, transform .2s;
+      white-space:nowrap;
     }
     nav a:hover{
       background:var(--accent);
       color:white;
+      transform: translateY(-1px);
     }
 
-    h1,h2,h3,h4{margin-top:0}
-
-    img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+    /* ===============================
+       Hero
+    ================================ */
+    .hero{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
     }
+    .panel{
+      background: rgba(255,255,255,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .panel h2{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+    .panel p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+
+    /* ===============================
+       Shop Cards
+    ================================ */
+    h2,h3{ margin: 18px 0 10px; }
+    h2{ font-size:22px; }
+    h3{ font-size:18px; color:#2f2f2f; }
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:18px;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
     }
 
     .card{
       background:var(--card);
+      border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.10);
     }
 
     .imgBox{
       aspect-ratio:4/3;
       background:#f1f1f1;
+      border-bottom:1px solid var(--border);
+    }
+    img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
 
     .placeholder{
@@ -90,181 +211,237 @@
       height:100%;
       color:var(--muted);
       font-size:14px;
+      padding:14px;
+      text-align:center;
     }
 
     .content{
       padding:16px;
     }
-
+    .content h4{
+      margin:0 0 6px;
+      font-size:16px;
+    }
+    .content p{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .priceRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:12px;
+    }
     .price{
-      font-weight:bold;
-      margin:8px 0;
+      font-weight:800;
+      letter-spacing:.2px;
     }
 
-    /* ---------- BUTTONS ---------- */
     .btn{
       display:inline-block;
-      margin-top:10px;
-      padding:10px 16px;
+      padding:10px 14px;
       background:var(--accent);
       color:white;
       border-radius:12px;
       text-decoration:none;
-      font-weight:600;
-      transition:background .2s;
+      font-weight:700;
+      transition:background .2s, transform .2s;
+      white-space:nowrap;
     }
     .btn:hover{
       background:var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    .btn.secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    .btn.secondary:hover{
+      background:#fff;
+      border-color: rgba(230,166,179,.65);
+      transform: translateY(-1px);
+    }
+
+    /* ===============================
+       Policies
+    ================================ */
+    .policyBox{
+      background: rgba(255,255,255,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
     }
 
     footer{
-      margin-top:40px;
+      margin:40px 0 12px;
       color:var(--muted);
       font-size:14px;
       text-align:center;
+    }
+
+    /* ===============================
+       Responsive
+    ================================ */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .grid{ grid-template-columns: 1fr; }
+      .brand h1{ font-size:26px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Sparkles layer -->
+  <div class="twinkles"></div>
 
-<!-- ===============================
-     HEADER / NAVIGATION
-=============================== -->
-<header class="wrap">
-  <h1>HookedByKerrah</h1>
-  <p>Handmade crochet pieces made to order 🧶</p>
-  <nav>
-    <a href="#shop">Shop</a>
-    <a href="#seasonal">Seasonal</a>
-    <a href="#policies">Policies</a>
-  </nav>
-</header>
-
-<!-- ===============================
-     MAIN CONTENT
-=============================== -->
-<main class="wrap">
-
-<!-- ===============================
-     SHOP SECTION
-=============================== -->
-<section id="shop">
-  <h2>Shop</h2>
-
-  <!-- WEARABLES -->
-  <h3>Wearables</h3>
-  <div class="grid">
-
-    <!-- HEXAGON CARDIGAN -->
-    <div class="card">
-      <div class="imgBox">
-        <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan">
+  <!-- ===============================
+       HEADER / NAV
+  ================================ -->
+  <header class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>HookedByKerrah ✨</h1>
+        <p>Handmade crochet pieces made to order. Soft, cozy, and carefully crafted.</p>
       </div>
-      <div class="content">
-        <h4>Hexagon Cardigan</h4>
-        <p>Made to order. Custom colors and sizing available.</p>
-        <p class="price">Starting at $120</p>
-        <a class="btn" href="#">Buy Now</a>
-      </div>
+      <nav>
+        <a href="#shop">Shop</a>
+        <a href="#seasonal">Seasonal</a>
+        <a href="#custom">Custom</a>
+        <a href="#policies">Policies</a>
+      </nav>
     </div>
 
-    <!-- BEANIE -->
-    <div class="card">
-      <div class="imgBox">
-        <div class="placeholder">Add beanie photo</div>
+    <!-- ===============================
+         HERO PANELS
+    ================================ -->
+    <div class="hero">
+      <div class="panel">
+        <h2>Simple shop • Boutique feel</h2>
+        <p>Browse the items below. When you’re ready, we’ll connect PayPal links to each “Buy Now” button.</p>
+        <div class="chips">
+          <span class="chip">Made to order</span>
+          <span class="chip">Handmade</span>
+          <span class="chip">Soft pink theme</span>
+          <span class="chip">PayPal checkout</span>
+        </div>
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="#shop">Shop now</a>
+          <a class="btn secondary" href="#custom">Custom scrunchies</a>
+        </div>
       </div>
-      <div class="content">
-        <h4>Beanie Hat</h4>
-        <p>Classic fit. Multiple colors available.</p>
-        <p class="price">$30</p>
-        <a class="btn" href="#">Buy Now</a>
-      </div>
-    </div>
 
-    <!-- CROP TOP -->
-    <div class="card">
-      <div class="imgBox">
-        <div class="placeholder">Add crop top photo</div>
-      </div>
-      <div class="content">
-        <h4>Crop Top</h4>
-        <p>Made to order. Price goes up with size and detail.</p>
-        <p class="price">$55+</p>
-        <a class="btn" href="#">Buy Now</a>
-      </div>
-    </div>
-
-    <!-- SCRUNCHIE -->
-    <div class="card">
-      <div class="imgBox">
-        <div class="placeholder">Add scrunchie photo</div>
-      </div>
-      <div class="content">
-        <h4>Scrunchie</h4>
-        <p>Perfect everyday accessory.</p>
-        <p class="price">$10</p>
-        <a class="btn" href="#">Buy Now</a>
+      <div class="panel">
+        <h2>Quick note</h2>
+        <p>Add more photos anytime by uploading to your <strong>images</strong> folder and updating the filename in the code.</p>
+        <div class="chips">
+          <span class="chip">images/IMG_4125.jpg</span>
+          <span class="chip">images/IMG_4188.jpg</span>
+          <span class="chip">images/IMG_4189.jpg</span>
+        </div>
       </div>
     </div>
+  </header>
 
-  </div>
+  <!-- ===============================
+       MAIN CONTENT
+  ================================ -->
+  <main class="wrap">
 
-  <!-- BAGS -->
-  <h3>Bags</h3>
-  <div class="grid">
+    <!-- ===============================
+         SHOP
+    ================================ -->
+    <section id="shop">
+      <h2>Shop</h2>
 
-    <div class="card">
-      <div class="imgBox">
-        <img src="images/IMG_4125.jpg" alt="Blue crochet tote bag">
+      <!-- ========== WEARABLES ========== -->
+      <h3>Wearables</h3>
+      <div class="grid">
+
+        <!-- HEXAGON CARDIGAN -->
+        <div class="card">
+          <div class="imgBox">
+            <!-- Replace filename if your cardigan image name changes -->
+            <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan">
+          </div>
+          <div class="content">
+            <h4>Hexagon Cardigan</h4>
+            <p>Made to order. Custom colors and sizing available.</p>
+            <div class="priceRow">
+              <div class="price">Starting at $120</div>
+              <!-- Replace # with your PayPal link -->
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEANIE -->
+        <div class="card">
+          <div class="imgBox">
+            <div class="placeholder">Add beanie photo (upload to /images and update the filename)</div>
+          </div>
+          <div class="content">
+            <h4>Beanie Hat</h4>
+            <p>Classic fit. Multiple colors available.</p>
+            <div class="priceRow">
+              <div class="price">$30</div>
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CROP TOP (ORANGE DRAWSTRING) -->
+        <div class="card">
+          <div class="imgBox">
+            <!-- Your uploaded crop top image -->
+            <img src="images/IMG_4188.jpg" alt="Orange drawstring crochet crop top">
+          </div>
+          <div class="content">
+            <h4>Drawstring Crop Top</h4>
+            <p>Made to order. Price goes up with size and detail.</p>
+            <div class="priceRow">
+              <div class="price">$55+</div>
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="content">
-        <h4>Crochet Tote Bag</h4>
-        <p>Sturdy and stylish.</p>
-        <p class="price">$45</p>
-        <a class="btn" href="#">Buy Now</a>
+
+      <!-- ========== ACCESSORIES ========== -->
+      <h3>Accessories</h3>
+      <div class="grid">
+
+        <!-- SCRUNCHIES (SINGLE OR 3-PACK) -->
+        <div class="card">
+          <div class="imgBox">
+            <img src="images/IMG_4189.jpg" alt="Assorted crochet scrunchies">
+          </div>
+          <div class="content">
+            <h4>Scrunchies</h4>
+            <p>Sold individually or as a 3-pack. Custom color(s) available.</p>
+            <div class="priceRow">
+              <div class="price">$10 each • $27 (3-pack)</div>
+              <!-- Replace # with your PayPal link (you can make a separate link for single + 3-pack) -->
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+            <div style="margin-top:10px;">
+              <a class="btn secondary" href="#custom">Custom Scrunchies</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
 
-  </div>
-</section>
+      <!-- ========== BAGS (BACK ON THE SITE) ========== -->
+      <h3>Bags</h3>
+      <div class="grid">
 
-<!-- ===============================
-     SEASONAL
-=============================== -->
-<section id="seasonal">
-  <h2>Seasonal</h2>
-
-  <div class="card">
-    <div class="imgBox">
-      <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
-    </div>
-    <div class="content">
-      <h4>Santa Hats</h4>
-      <p>Adult & kids sizes. Glitter option available.</p>
-      <p class="price">$30 – $40</p>
-      <a class="btn" href="#">Buy Now</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===============================
-     POLICIES
-=============================== -->
-<section id="policies">
-  <h2>Policies</h2>
-  <p>
-    All items are handmade and made to order.<br>
-    All sales are final — no returns or exchanges.<br>
-    If your item arrives damaged or incorrect, contact me within 48 hours.
-  </p>
-</section>
-
-</main>
-
-<footer class="wrap">
-  © 2026 HookedByKerrah • Handmade Crochet
-</footer>
-
-</body>
-</html>
+        <!-- BLUE TOTE -->
+        <div class="card">
