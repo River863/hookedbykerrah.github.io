@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ==================================================
-       HookedByKerrah — Simple shop site (GitHub Pages)
-       Tips:
-       - Put your photos in /images
-       - Filenames used below:
-         Blue tote: images/IMG_4125.jpg
-         Orange drawstring crop top: images/IMG_4188.jpg
-         Scrunchies assortment: images/IMG_4189.jpg
-       - Replace the PayPal links when you’re ready
-  =================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HookedByKerrah</title>
 
   <style>
     :root{
-      /* Soft pink boutique palette (not bright) */
       --bg:#fff3f6;
       --bg2:#fff8fb;
       --card:#ffffff;
@@ -34,6 +23,8 @@
 
     *{box-sizing:border-box}
 
+    html{ scroll-behavior:smooth; }
+
     body{
       margin:0;
       font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -42,14 +33,9 @@
       overflow-x:hidden;
     }
 
-    /* ===============================
-       Sparkle/Twinkle (subtle)
-       - Pure CSS, no images needed
-       - You can disable by deleting .twinkles + @keyframes
-    ================================ */
+    /* Twinkles */
     .twinkles{
-      position:fixed;
-      inset:0;
+      position:fixed; inset:0;
       pointer-events:none;
       z-index:0;
       opacity:.55;
@@ -75,12 +61,9 @@
       margin:0 auto;
       padding:20px;
       position:relative;
-      z-index:1; /* above twinkles */
+      z-index:1;
     }
 
-    /* ===============================
-       Header + Nav Tabs
-    ================================ */
     header{
       padding-top:10px;
     }
@@ -94,20 +77,12 @@
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:16px 16px 14px;
+      padding:16px;
     }
-    .brand h1{
-      margin:0;
-      font-size:30px;
-      letter-spacing:.2px;
-      line-height:1.1;
-    }
-    .brand p{
-      margin:6px 0 0;
-      color:var(--muted);
-      max-width:62ch;
-    }
+    .brand h1{ margin:0; font-size:30px; line-height:1.1; }
+    .brand p{ margin:6px 0 0; color:var(--muted); max-width:62ch; }
 
+    /* Nav tabs */
     nav a{
       display:inline-block;
       margin:6px 8px 0 0;
@@ -117,20 +92,13 @@
       border-radius:999px;
       text-decoration:none;
       color:var(--text);
-      font-weight:600;
+      font-weight:700;
       font-size:14px;
       transition:background .2s, transform .2s;
       white-space:nowrap;
     }
-    nav a:hover{
-      background:var(--accent);
-      color:white;
-      transform: translateY(-1px);
-    }
+    nav a:hover{ background:var(--accent); color:white; transform: translateY(-1px); }
 
-    /* ===============================
-       Hero
-    ================================ */
     .hero{
       margin-top:14px;
       display:grid;
@@ -144,19 +112,9 @@
       box-shadow:var(--shadow);
       padding:16px;
     }
-    .panel h2{
-      margin:0 0 8px;
-      font-size:18px;
-    }
-    .panel p{
-      margin:0 0 12px;
-      color:var(--muted);
-    }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
+    .panel h2{ margin:0 0 8px; font-size:18px; }
+    .panel p{ margin:0 0 12px; color:var(--muted); }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
     .chip{
       font-size:12px;
       padding:7px 10px;
@@ -166,19 +124,17 @@
       color:var(--muted);
     }
 
-    /* ===============================
-       Shop Cards
-    ================================ */
-    h2,h3{ margin: 18px 0 10px; }
-    h2{ font-size:22px; }
-    h3{ font-size:18px; color:#2f2f2f; }
+    /* IMPORTANT: makes anchor jumps land nicely below the header area */
+    section{ scroll-margin-top: 20px; }
+
+    h2{ margin:22px 0 10px; font-size:22px; }
+    h3{ margin:18px 0 10px; font-size:18px; }
 
     .grid{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       gap:16px;
     }
-
     .card{
       background:var(--card);
       border:1px solid var(--border);
@@ -191,11 +147,13 @@
       transform: translateY(-3px);
       box-shadow: 0 18px 40px rgba(0,0,0,.10);
     }
-
     .imgBox{
       aspect-ratio:4/3;
       background:#f1f1f1;
       border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     img{
       width:100%;
@@ -203,30 +161,15 @@
       object-fit:cover;
       display:block;
     }
-
     .placeholder{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100%;
       color:var(--muted);
       font-size:14px;
       padding:14px;
       text-align:center;
     }
-
-    .content{
-      padding:16px;
-    }
-    .content h4{
-      margin:0 0 6px;
-      font-size:16px;
-    }
-    .content p{
-      margin:0 0 10px;
-      color:var(--muted);
-      font-size:14px;
-    }
+    .content{ padding:16px; }
+    .content h4{ margin:0 0 6px; font-size:16px; }
+    .content p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
     .priceRow{
       display:flex;
       align-items:center;
@@ -234,11 +177,7 @@
       gap:10px;
       margin-top:12px;
     }
-    .price{
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-
+    .price{ font-weight:800; }
     .btn{
       display:inline-block;
       padding:10px 14px;
@@ -246,28 +185,17 @@
       color:white;
       border-radius:12px;
       text-decoration:none;
-      font-weight:700;
+      font-weight:800;
       transition:background .2s, transform .2s;
       white-space:nowrap;
     }
-    .btn:hover{
-      background:var(--accent-hover);
-      transform: translateY(-1px);
-    }
+    .btn:hover{ background:var(--accent-hover); transform: translateY(-1px); }
     .btn.secondary{
       background:#fff;
       color:var(--text);
       border:1px solid var(--border);
     }
-    .btn.secondary:hover{
-      background:#fff;
-      border-color: rgba(230,166,179,.65);
-      transform: translateY(-1px);
-    }
 
-    /* ===============================
-       Policies
-    ================================ */
     .policyBox{
       background: rgba(255,255,255,.72);
       border:1px solid var(--border);
@@ -283,27 +211,20 @@
       text-align:center;
     }
 
-    /* ===============================
-       Responsive
-    ================================ */
     @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .hero{ grid-template-columns:1fr; }
+      .grid{ grid-template-columns:repeat(2, 1fr); }
     }
     @media (max-width: 560px){
-      .grid{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns:1fr; }
       .brand h1{ font-size:26px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Sparkles layer -->
   <div class="twinkles"></div>
 
-  <!-- ===============================
-       HEADER / NAV
-  ================================ -->
   <header class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -318,74 +239,59 @@
       </nav>
     </div>
 
-    <!-- ===============================
-         HERO PANELS
-    ================================ -->
     <div class="hero">
       <div class="panel">
-        <h2>Simple shop • Boutique feel</h2>
-        <p>Browse the items below. When you’re ready, we’ll connect PayPal links to each “Buy Now” button.</p>
+        <h2>Shop the latest</h2>
+        <p>We’ll connect PayPal links to each “Buy Now” when you’re ready.</p>
         <div class="chips">
           <span class="chip">Made to order</span>
           <span class="chip">Handmade</span>
           <span class="chip">Soft pink theme</span>
-          <span class="chip">PayPal checkout</span>
+          <span class="chip">Twinkle effect ✨</span>
         </div>
         <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
           <a class="btn" href="#shop">Shop now</a>
           <a class="btn secondary" href="#custom">Custom scrunchies</a>
         </div>
       </div>
-
       <div class="panel">
-        <h2>Quick note</h2>
-        <p>Add more photos anytime by uploading to your <strong>images</strong> folder and updating the filename in the code.</p>
+        <h2>Your uploaded photos</h2>
+        <p>These should show if they are inside the <strong>images</strong> folder.</p>
         <div class="chips">
-          <span class="chip">images/IMG_4125.jpg</span>
-          <span class="chip">images/IMG_4188.jpg</span>
-          <span class="chip">images/IMG_4189.jpg</span>
+          <span class="chip">IMG_4125.jpg (tote)</span>
+          <span class="chip">IMG_4188.jpg (crop top)</span>
+          <span class="chip">IMG_4189.jpg (scrunchies)</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ===============================
-       MAIN CONTENT
-  ================================ -->
   <main class="wrap">
 
-    <!-- ===============================
-         SHOP
-    ================================ -->
+    <!-- ===================== SHOP ===================== -->
     <section id="shop">
       <h2>Shop</h2>
 
-      <!-- ========== WEARABLES ========== -->
       <h3>Wearables</h3>
       <div class="grid">
 
-        <!-- HEXAGON CARDIGAN -->
         <div class="card">
           <div class="imgBox">
-            <!-- Replace filename if your cardigan image name changes -->
-            <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan">
+            <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan"
+                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Cardigan image not found. Check filename in /images.</div>';">
           </div>
           <div class="content">
             <h4>Hexagon Cardigan</h4>
             <p>Made to order. Custom colors and sizing available.</p>
             <div class="priceRow">
               <div class="price">Starting at $120</div>
-              <!-- Replace # with your PayPal link -->
               <a class="btn" href="#">Buy Now</a>
             </div>
           </div>
         </div>
 
-        <!-- BEANIE -->
         <div class="card">
-          <div class="imgBox">
-            <div class="placeholder">Add beanie photo (upload to /images and update the filename)</div>
-          </div>
+          <div class="imgBox"><div class="placeholder">Add beanie photo</div></div>
           <div class="content">
             <h4>Beanie Hat</h4>
             <p>Classic fit. Multiple colors available.</p>
@@ -396,11 +302,10 @@
           </div>
         </div>
 
-        <!-- CROP TOP (ORANGE DRAWSTRING) -->
         <div class="card">
           <div class="imgBox">
-            <!-- Your uploaded crop top image -->
-            <img src="images/IMG_4188.jpg" alt="Orange drawstring crochet crop top">
+            <img src="images/IMG_4188.jpg" alt="Orange drawstring crochet crop top"
+                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Crop top image not found. Check filename in /images.</div>';">
           </div>
           <div class="content">
             <h4>Drawstring Crop Top</h4>
@@ -414,21 +319,19 @@
 
       </div>
 
-      <!-- ========== ACCESSORIES ========== -->
       <h3>Accessories</h3>
       <div class="grid">
 
-        <!-- SCRUNCHIES (SINGLE OR 3-PACK) -->
         <div class="card">
           <div class="imgBox">
-            <img src="images/IMG_4189.jpg" alt="Assorted crochet scrunchies">
+            <img src="images/IMG_4189.jpg" alt="Assorted crochet scrunchies"
+                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Scrunchies image not found. Check filename in /images.</div>';">
           </div>
           <div class="content">
             <h4>Scrunchies</h4>
             <p>Sold individually or as a 3-pack. Custom color(s) available.</p>
             <div class="priceRow">
               <div class="price">$10 each • $27 (3-pack)</div>
-              <!-- Replace # with your PayPal link (you can make a separate link for single + 3-pack) -->
               <a class="btn" href="#">Buy Now</a>
             </div>
             <div style="margin-top:10px;">
@@ -439,9 +342,79 @@
 
       </div>
 
-      <!-- ========== BAGS (BACK ON THE SITE) ========== -->
       <h3>Bags</h3>
       <div class="grid">
 
-        <!-- BLUE TOTE -->
         <div class="card">
+          <div class="imgBox">
+            <!-- IMPORTANT: If your direct URL works, this should load. -->
+            <img src="images/IMG_4125.jpg?v=2" alt="Blue crochet tote bag"
+                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Tote image not loading. Confirm it is in /images as IMG_4125.jpg.</div>';">
+          </div>
+          <div class="content">
+            <h4>Blue Tote Bag</h4>
+            <p>Sturdy and stylish.</p>
+            <div class="priceRow">
+              <div class="price">$45</div>
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================== SEASONAL =================== -->
+    <section id="seasonal">
+      <h2>Seasonal</h2>
+
+      <div class="grid">
+        <div class="card">
+          <div class="imgBox">
+            <img src="images/SantaHats.jpeg" alt="Crochet Santa hats"
+                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Santa hats image not found. Check filename in /images.</div>';">
+          </div>
+          <div class="content">
+            <h4>Santa Hats</h4>
+            <p>Adult & kids sizes. Glitter option available.</p>
+            <div class="priceRow">
+              <div class="price">$30 – $40</div>
+              <a class="btn" href="#">Buy Now</a>
+            </div>
+            <p style="margin-top:10px; font-size:13px; color:var(--muted);">
+              Adult: $35 / Glitter $40 • Kids: $30 / Glitter $35
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CUSTOM ==================== -->
+    <section id="custom">
+      <h2>Custom Orders</h2>
+      <div class="policyBox">
+        <p style="margin:0; color:var(--muted);">
+          Custom scrunchies: choose 1–3 colors and select single or 3-pack.
+          (When we add PayPal, we can make a custom checkout link.)
+        </p>
+      </div>
+    </section>
+
+    <!-- =================== POLICIES =================== -->
+    <section id="policies">
+      <h2>Policies</h2>
+      <div class="policyBox">
+        <p style="margin:0;">
+          <strong>All sales are final.</strong> Items are handmade and made to order, so no returns or exchanges.
+          If your order arrives damaged or incorrect, contact me within <strong>48 hours</strong>.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    © 2026 HookedByKerrah • Handmade Crochet ✨
+  </footer>
+</body>
+</html>
