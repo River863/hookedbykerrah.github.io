@@ -19,45 +19,53 @@
       --radius:18px;
       --max:980px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:system-ui, Arial, sans-serif;
       background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg));
       color:var(--text);
     }
+
     .wrap{max-width:var(--max); margin:0 auto; padding:20px;}
+
     .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      background:rgba(255,255,255,.72);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      background:#fff;
       border:1px solid var(--border);
       border-radius:var(--radius);
-      box-shadow:var(--shadow);
       padding:14px;
+      box-shadow:var(--shadow);
     }
-    a.link{
-      color:var(--text);
+
+    a.back{
       text-decoration:none;
       font-weight:900;
-      padding:10px 12px;
-      border-radius:12px;
-      background:#fff;
+      color:var(--text);
       border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:12px;
     }
-    a.link:hover{ border-color:rgba(230,166,179,.75); }
 
     .card{
-      margin-top:14px;
+      margin-top:16px;
       background:#fff;
-      border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
+      border:1px solid var(--border);
       overflow:hidden;
     }
+
     .grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:1fr 1fr;
     }
+
     .imgWrap{
       background:#111;
       min-height:320px;
@@ -66,289 +74,254 @@
       align-items:center;
       justify-content:center;
     }
+
     .imgWrap img{
       width:100%;
       height:100%;
       object-fit:contain;
-      display:block;
       background:#111;
     }
 
-    .info{ padding:16px; }
-    h1{ margin:0 0 6px; font-size:24px; }
-    .muted{ color:var(--muted); margin:0 0 12px; }
-    .price{ font-weight:900; margin:10px 0 14px; }
+    .info{padding:16px;}
 
-    label{ display:block; font-weight:900; margin:10px 0 6px; }
+    h1{margin:0 0 6px; font-size:24px;}
+
+    .desc{color:var(--muted); margin-bottom:10px;}
+
+    .price{
+      font-weight:950;
+      font-size:18px;
+      margin-bottom:6px;
+    }
+
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    label{
+      display:block;
+      font-weight:900;
+      margin:10px 0 6px;
+    }
+
     select, textarea{
       width:100%;
-      border:1px solid var(--border);
+      padding:10px;
       border-radius:12px;
-      padding:10px 12px;
+      border:1px solid var(--border);
       font-weight:700;
-      background:#fff;
-      outline:none;
     }
-    textarea{ min-height:90px; resize:vertical; }
+
+    textarea{min-height:80px;}
 
     .row{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:1fr 1fr;
       gap:10px;
     }
 
     .btn{
       width:100%;
-      text-align:center;
-      padding:12px 14px;
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:none;
+      font-weight:950;
+      cursor:pointer;
       background:var(--accent);
       color:#fff;
-      border-radius:14px;
-      font-weight:900;
-      margin-top:14px;
-      border:none;
-      cursor:pointer;
     }
-    .btn:hover{ background:var(--accent-hover); }
+    .btn:hover{background:var(--accent-hover);}
 
-    .small{ font-size:12px; color:var(--muted); margin-top:10px; }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.8);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:50;
-    }
-    .lightbox.open{ display:flex; }
-    .lbCard{
-      width:min(1000px, 100%);
-      background:#fff;
-      border-radius:20px;
-      overflow:hidden;
-      box-shadow:0 24px 70px rgba(0,0,0,.35);
-    }
-    .lbTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:12px 14px;
-      border-bottom:1px solid var(--border);
-      font-weight:900;
-    }
-    .lbClose{
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:900;
-    }
-    .lbImg{
-      width:100%;
-      max-height:80vh;
-      object-fit:contain;
+    .btn.black{
       background:#111;
-      display:block;
+    }
+    .btn.black:hover{background:#000;}
+
+    .noteBox{
+      margin-top:12px;
+      padding:12px;
+      border:1px dashed rgba(0,0,0,.15);
+      border-radius:14px;
+      background:#fff7fa;
+      font-size:12px;
+      color:var(--muted);
     }
 
-    @media (max-width: 820px){
-      .grid{ grid-template-columns: 1fr; }
-      .row{ grid-template-columns: 1fr; }
+    @media(max-width:820px){
+      .grid{grid-template-columns:1fr;}
+      .row{grid-template-columns:1fr;}
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <a class="link" href="index.html">← Back to Home</a>
-      <div style="font-weight:900;">HookedByKerrah ✨</div>
-    </div>
+<div class="wrap">
 
-    <div class="card">
-      <div class="grid">
-        <div class="imgWrap" id="imgWrap" title="Click to zoom">
-          <img id="prodImg" alt="">
+  <div class="topbar">
+    <a class="back" href="index.html">← Back to Home</a>
+    <strong>HookedByKerrah ✨</strong>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div class="imgWrap">
+        <img id="prodImg" alt="">
+      </div>
+
+      <div class="info">
+        <h1 id="prodName"></h1>
+        <p class="desc" id="prodDesc"></p>
+
+        <div class="price" id="prodPrice"></div>
+        <div class="hint" id="priceHint"></div>
+
+        <div class="row">
+          <div>
+            <label>Size</label>
+            <select id="size"></select>
+          </div>
+          <div>
+            <label>Color</label>
+            <select id="color"></select>
+          </div>
         </div>
 
-        <div class="info">
-          <h1 id="prodName">Product</h1>
-          <p class="muted" id="prodDesc"></p>
-          <div class="price" id="prodPrice"></div>
+        <label id="addonLabel" style="display:none;">Extra option</label>
+        <select id="addon" style="display:none;"></select>
 
-          <div class="row">
-            <div>
-              <label for="size">Size</label>
-              <select id="size"></select>
-            </div>
-            <div>
-              <label for="color">Color</label>
-              <select id="color"></select>
-            </div>
-          </div>
+        <label>Notes (optional)</label>
+        <textarea id="notes" placeholder="Color requests, fit notes, glitter yes/no, etc."></textarea>
 
-          <label for="notes">Notes (optional)</label>
-          <textarea id="notes" placeholder="Example: pastel pink + white, two-tone, preferred fit..."></textarea>
+        <!-- PAYPAL BUTTON -->
+        <button class="btn" id="paypalBtn">
+          Click here to buy via PayPal
+        </button>
 
-          <button class="btn" id="buyBtn" type="button">Buy (PayPal coming soon)</button>
+        <!-- APPLE PAY BUTTON -->
+        <button class="btn black" id="appleBtn">
+          Apple Pay coming soon
+        </button>
 
-          <div class="small">
-            All items are handmade & made to order. All sales final.
-          </div>
+        <div class="noteBox">
+          🔔 <strong>REMINDER:</strong><br>
+          Replace <code>PAYPAL_LINK_GOES_HERE</code> in this file with your real PayPal invoice links before launching.
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lbCard">
-      <div class="lbTop">
-        <div id="lbTitle">Preview</div>
-        <button class="lbClose" id="lbClose" type="button">Close ✕</button>
-      </div>
-      <img class="lbImg" id="lbImg" alt="">
-    </div>
-  </div>
+<script>
+/* ===========================
+   ⚠️ PAYPAL PLACEHOLDER
+   Replace this later
+=========================== */
+const PAYPAL_PLACEHOLDER = "PAYPAL_LINK_GOES_HERE";
 
-  <script>
-    // Product data (edit anytime)
-    const PRODUCTS = {
-      cardigan: {
-        name: "Hexagon Cardigan",
-        img: "images/BlueHexagonCardigan.png",
-        price: "Starting at $120",
-        desc: "Made to order. Custom colors and sizing available.",
-        sizes: ["XS","S","M","L","XL","2XL","3XL"],
-        colors: ["Custom (you choose)","Pink","Cream","Black","Brown","Blue","Green","Purple"],
-        paypalLink: ""
-      },
-      tote: {
-        name: "Blue Tote Bag",
-        img: "images/IMG_4125.jpg",
-        price: "$45",
-        desc: "Sturdy and stylish.",
-        sizes: ["One size"],
-        colors: ["As pictured","Custom (you choose)"],
-        paypalLink: ""
-      },
-      croptop: {
-        name: "Drawstring Crop Top",
-        img: "images/IMG_4188.jpg",
-        price: "$55+",
-        desc: "Made to order. Price goes up with size and detail.",
-        sizes: ["XS","S","M","L","XL"],
-        colors: ["Orange (as pictured)","Custom (you choose)","Pink","Black","White","Brown"],
-        paypalLink: ""
-      },
-      scrunchies: {
-        name: "Scrunchies",
-        img: "images/IMG_4189.jpg",
-        price: "$10 each • $27 (3-pack)",
-        desc: "Sold individually or as a 3-pack. Custom color(s) available.",
-        sizes: ["Single","3-Pack"],
-        colors: ["Custom (you choose)","Pink","Black","White","Brown","Blue","Green","Purple","Multicolor"],
-        paypalLink: ""
-      },
-      santahats: {
-        name: "Santa Hats",
-        img: "images/SantaHats.jpeg",
-        price: "$30–$40",
-        desc: "Adult & kids sizes. Glitter option available.",
-        sizes: ["Kids","Adult"],
-        colors: ["Red w/ white trim","Black w/ red trim","Red w/ black trim","Custom"],
-        paypalLink: "https://urldefense.com/v3/__https://www.paypal.com/invoice/m/details/INV2-T6TV-2THG-WQMR-6KYD__;!!P7nkOOY!oMCPSOUUxXbE10Twxxn0r_F0LeR1QFYUCEjunD5Hlg4bJyO2sqWVZikpGh8JU8HxpxhQRcWJM290vynP3ouD3GDy9Vx_wg$"
-      }
+/* ===========================
+   PRODUCTS + AUTO PRICING
+=========================== */
+const PRODUCTS = {
+  santahats:{
+    name:"Santa Hats",
+    img:"images/SantaHats.jpeg",
+    desc:"Adult & kids sizes. Glitter option available.",
+    sizes:["Kids","Adult"],
+    colors:["Black/Red","Red/Black","Custom"],
+    addonLabel:"Glitter",
+    addonOptions:["No glitter","Glitter"],
+    pricing:(s)=>{
+      let price = s.size==="Adult" ? 35 : 30;
+      if(s.addon==="Glitter") price+=5;
+      return {price, link:PAYPAL_PLACEHOLDER, hint:"Glitter adds $5."};
+    }
+  },
+  scrunchies:{
+    name:"Scrunchies",
+    img:"images/IMG_4189.jpg",
+    desc:"Sold individually or as a 3-pack. Custom colors available.",
+    sizes:["Single","3-Pack"],
+    colors:["Custom","Pink","Black","White","Multicolor"],
+    pricing:(s)=>{
+      let price = s.size==="3-Pack" ? 27 : 10;
+      return {price, link:PAYPAL_PLACEHOLDER, hint:"3-pack saves $3."};
+    }
+  },
+  croptop:{
+    name:"Drawstring Crop Top",
+    img:"images/IMG_4188.jpg",
+    desc:"Made to order. Price varies by size & detail.",
+    sizes:["XS","S","M","L","XL"],
+    colors:["Orange","Custom","Pink","Black","White"],
+    addonLabel:"Detail",
+    addonOptions:["Standard","Extra detail"],
+    pricing:(s)=>{
+      let price = ["L","XL"].includes(s.size) ? 60 : 55;
+      if(s.addon==="Extra detail") price+=5;
+      return {price, link:PAYPAL_PLACEHOLDER, hint:"Extra detail adds $5."};
+    }
+  }
+};
+
+/* ===========================
+   RENDER
+=========================== */
+const id = new URLSearchParams(location.search).get("id");
+const item = PRODUCTS[id];
+
+const sizeSel = document.getElementById("size");
+const colorSel = document.getElementById("color");
+const addonSel = document.getElementById("addon");
+const addonLabel = document.getElementById("addonLabel");
+const priceEl = document.getElementById("prodPrice");
+const hintEl = document.getElementById("priceHint");
+
+if(item){
+  document.getElementById("prodName").textContent=item.name;
+  document.getElementById("prodDesc").textContent=item.desc;
+  document.getElementById("prodImg").src=item.img;
+
+  sizeSel.innerHTML=item.sizes.map(v=>`<option>${v}</option>`).join("");
+  colorSel.innerHTML=item.colors.map(v=>`<option>${v}</option>`).join("");
+
+  if(item.addonOptions){
+    addonLabel.style.display="block";
+    addonLabel.textContent=item.addonLabel;
+    addonSel.style.display="block";
+    addonSel.innerHTML=item.addonOptions.map(v=>`<option>${v}</option>`).join("");
+  }
+
+  function update(){
+    const sel={
+      size:sizeSel.value,
+      color:colorSel.value,
+      addon:addonSel.value
     };
+    const out=item.pricing(sel);
+    priceEl.textContent=`$${out.price}`;
+    hintEl.textContent=out.hint;
+  }
 
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
+  sizeSel.onchange=colorSel.onchange=addonSel.onchange=update;
+  update();
+}
 
-    function getId(){
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
-    }
+document.getElementById("paypalBtn").onclick=()=>{
+  alert(
+    "PayPal link not active yet.\n\n" +
+    "Before launch:\n" +
+    "• Replace PAYPAL_LINK_GOES_HERE\n" +
+    "• Paste your real PayPal invoice link\n\n" +
+    "Everything else is ready 💕"
+  );
+};
 
-    function fillSelect(select, options){
-      select.innerHTML = options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join("");
-    }
-
-    // Lightbox
-    const lightbox = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lbImg");
-    const lbTitle = document.getElementById("lbTitle");
-    const lbClose = document.getElementById("lbClose");
-    function openLightbox(src, title){
-      lbImg.src = src;
-      lbImg.alt = title || "Image";
-      lbTitle.textContent = title || "Preview";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeLightbox(){
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden","true");
-      lbImg.src = "";
-      document.body.style.overflow = "";
-    }
-    lbClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e)=>{ if(e.target===lightbox) closeLightbox(); });
-    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeLightbox(); });
-
-    // Render product
-    const id = getId();
-    const item = id && PRODUCTS[id];
-
-    if (!item){
-      document.getElementById("prodName").textContent = "Product not found";
-      document.getElementById("prodDesc").textContent = "Go back and tap an item from the home page.";
-      document.getElementById("prodPrice").textContent = "";
-      document.getElementById("buyBtn").style.display = "none";
-    } else {
-      document.title = item.name + " • HookedByKerrah";
-      document.getElementById("prodName").textContent = item.name;
-      document.getElementById("prodDesc").textContent = item.desc;
-      document.getElementById("prodPrice").textContent = item.price;
-
-      const img = document.getElementById("prodImg");
-      img.src = item.img;
-      img.alt = item.name;
-
-      fillSelect(document.getElementById("size"), item.sizes);
-      fillSelect(document.getElementById("color"), item.colors);
-
-      document.getElementById("imgWrap").addEventListener("click", () => {
-        openLightbox(item.img, item.name);
-      });
-
-      document.getElementById("buyBtn").addEventListener("click", () => {
-        const size = document.getElementById("size").value;
-        const color = document.getElementById("color").value;
-        const notes = document.getElementById("notes").value.trim();
-
-        if (item.paypalLink){
-          window.open(item.paypalLink, "_blank", "noopener");
-          return;
-        }
-
-        let msg = `You selected:\n\n${item.name}\nSize: ${size}\nColor: ${color}`;
-        if (notes) msg += `\nNotes: ${notes}`;
-        msg += `\n\nPayPal checkout link coming soon.`;
-        alert(msg);
-      });
-    }
-  </script>
+document.getElementById("appleBtn").onclick=()=>{
+  alert("Apple Pay will be enabled after your custom domain is connected 🍎");
+};
+</script>
 </body>
 </html>
