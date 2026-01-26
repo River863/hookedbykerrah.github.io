@@ -1,420 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HookedByKerrah</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HookedByKerrah</title>
 
-  <style>
-    :root{
-      --bg:#fff3f6;
-      --bg2:#fff8fb;
-      --card:#ffffff;
-      --text:#2a2a2a;
-      --muted:#6f6f6f;
-      --accent:#e6a6b3;
-      --accent-hover:#d98c9a;
-      --tab-bg:#f7d6de;
-      --border:rgba(0,0,0,.08);
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:18px;
-      --max:1120px;
-    }
+<style>
+:root{
+  --bg:#fff3f6;
+  --bg2:#fff8fb;
+  --card:#ffffff;
+  --text:#2a2a2a;
+  --muted:#6f6f6f;
+  --accent:#e6a6b3;
+  --accent-hover:#d98c9a;
+  --tab-bg:#f7d6de;
+  --border:rgba(0,0,0,.08);
+  --shadow:0 12px 30px rgba(0,0,0,.08);
+  --radius:18px;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-    *{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui, Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg));
+  color:var(--text);
+}
 
-    html{ scroll-behavior:smooth; }
+/* ✨ sparkles */
+.twinkles{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.55;
+  background:
+    radial-gradient(circle at 15% 20%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 30%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 65%, #fff 0 1px, transparent 2px);
+  animation: twinkle 6s ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.3}
+  50%{opacity:.7}
+}
 
-    body{
-      margin:0;
-      font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg));
-      color:var(--text);
-      overflow-x:hidden;
-    }
+.wrap{
+  max-width:var(--max);
+  margin:auto;
+  padding:20px;
+  position:relative;
+  z-index:1;
+}
 
-    /* Twinkles */
-    .twinkles{
-      position:fixed; inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:.55;
-      background:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,.95) 0 1px, transparent 2px),
-        radial-gradient(circle at 28% 72%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
-        radial-gradient(circle at 55% 30%, rgba(255,255,255,.95) 0 1px, transparent 2px),
-        radial-gradient(circle at 78% 22%, rgba(255,255,255,.9) 0 1.4px, transparent 2.8px),
-        radial-gradient(circle at 86% 64%, rgba(255,255,255,.95) 0 1px, transparent 2px),
-        radial-gradient(circle at 40% 88%, rgba(255,255,255,.9) 0 1.2px, transparent 2.4px),
-        radial-gradient(circle at 68% 82%, rgba(255,255,255,.95) 0 1px, transparent 2px),
-        radial-gradient(circle at 92% 38%, rgba(255,255,255,.9) 0 1.3px, transparent 2.6px);
-      animation: twinkle 5.5s ease-in-out infinite;
-      filter: drop-shadow(0 0 6px rgba(230,166,179,.25));
-    }
-    @keyframes twinkle{
-      0%,100%{ transform: translateY(0); opacity:.35; }
-      50%{ transform: translateY(-6px); opacity:.7; }
-    }
+header{
+  background:rgba(255,255,255,.7);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+}
 
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:20px;
-      position:relative;
-      z-index:1;
-    }
+nav a{
+  margin-right:8px;
+  padding:8px 14px;
+  background:var(--tab-bg);
+  border-radius:999px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+}
+nav a:hover{
+  background:var(--accent);
+  color:white;
+}
 
-    header{
-      padding-top:10px;
-    }
-    .topbar{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      background: rgba(255,255,255,.65);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-    }
-    .brand h1{ margin:0; font-size:30px; line-height:1.1; }
-    .brand p{ margin:6px 0 0; color:var(--muted); max-width:62ch; }
+h2,h3{margin:20px 0 10px}
 
-    /* Nav tabs */
-    nav a{
-      display:inline-block;
-      margin:6px 8px 0 0;
-      padding:9px 14px;
-      background:var(--tab-bg);
-      border:1px solid rgba(230,166,179,.35);
-      border-radius:999px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
-      font-size:14px;
-      transition:background .2s, transform .2s;
-      white-space:nowrap;
-    }
-    nav a:hover{ background:var(--accent); color:white; transform: translateY(-1px); }
+/* grid + cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.imgBox{
+  aspect-ratio:4/3;
+  background:#eee;
+}
+img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.content{padding:14px}
+.price{font-weight:800}
 
-    .hero{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-    .panel{
-      background: rgba(255,255,255,.72);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-    }
-    .panel h2{ margin:0 0 8px; font-size:18px; }
-    .panel p{ margin:0 0 12px; color:var(--muted); }
-    .chips{ display:flex; flex-wrap:wrap; gap:8px; }
-    .chip{
-      font-size:12px;
-      padding:7px 10px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid var(--border);
-      color:var(--muted);
-    }
+.btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:10px 14px;
+  background:var(--accent);
+  color:white;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+.btn:hover{background:var(--accent-hover)}
 
-    /* IMPORTANT: makes anchor jumps land nicely below the header area */
-    section{ scroll-margin-top: 20px; }
-
-    h2{ margin:22px 0 10px; font-size:22px; }
-    h3{ margin:18px 0 10px; font-size:18px; }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:16px;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 18px 40px rgba(0,0,0,.10);
-    }
-    .imgBox{
-      aspect-ratio:4/3;
-      background:#f1f1f1;
-      border-bottom:1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .placeholder{
-      color:var(--muted);
-      font-size:14px;
-      padding:14px;
-      text-align:center;
-    }
-    .content{ padding:16px; }
-    .content h4{ margin:0 0 6px; font-size:16px; }
-    .content p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
-    .priceRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:12px;
-    }
-    .price{ font-weight:800; }
-    .btn{
-      display:inline-block;
-      padding:10px 14px;
-      background:var(--accent);
-      color:white;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:800;
-      transition:background .2s, transform .2s;
-      white-space:nowrap;
-    }
-    .btn:hover{ background:var(--accent-hover); transform: translateY(-1px); }
-    .btn.secondary{
-      background:#fff;
-      color:var(--text);
-      border:1px solid var(--border);
-    }
-
-    .policyBox{
-      background: rgba(255,255,255,.72);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-    }
-
-    footer{
-      margin:40px 0 12px;
-      color:var(--muted);
-      font-size:14px;
-      text-align:center;
-    }
-
-    @media (max-width: 980px){
-      .hero{ grid-template-columns:1fr; }
-      .grid{ grid-template-columns:repeat(2, 1fr); }
-    }
-    @media (max-width: 560px){
-      .grid{ grid-template-columns:1fr; }
-      .brand h1{ font-size:26px; }
-    }
-  </style>
+footer{
+  margin:40px 0 10px;
+  text-align:center;
+  color:var(--muted);
+}
+</style>
 </head>
 
 <body>
-  <div class="twinkles"></div>
+<div class="twinkles"></div>
 
-  <header class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <h1>HookedByKerrah ✨</h1>
-        <p>Handmade crochet pieces made to order. Soft, cozy, and carefully crafted.</p>
-      </div>
-      <nav>
-        <a href="#shop">Shop</a>
-        <a href="#seasonal">Seasonal</a>
-        <a href="#custom">Custom</a>
-        <a href="#policies">Policies</a>
-      </nav>
+<header class="wrap">
+  <h1>HookedByKerrah ✨</h1>
+  <p>Handmade crochet pieces made to order</p>
+  <nav>
+    <a href="#gallery">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#seasonal">Seasonal</a>
+    <a href="#policies">Policies</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<!-- ⭐ FEATURED GALLERY (ALL IMAGES VISIBLE) -->
+<section id="gallery">
+  <h2>Featured Creations</h2>
+  <div class="grid">
+
+    <div class="card">
+      <div class="imgBox"><img src="images/BlueHexagonCardigan.png"></div>
+      <div class="content"><strong>Hexagon Cardigan</strong></div>
     </div>
 
-    <div class="hero">
-      <div class="panel">
-        <h2>Shop the latest</h2>
-        <p>We’ll connect PayPal links to each “Buy Now” when you’re ready.</p>
-        <div class="chips">
-          <span class="chip">Made to order</span>
-          <span class="chip">Handmade</span>
-          <span class="chip">Soft pink theme</span>
-          <span class="chip">Twinkle effect ✨</span>
-        </div>
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn" href="#shop">Shop now</a>
-          <a class="btn secondary" href="#custom">Custom scrunchies</a>
-        </div>
-      </div>
-      <div class="panel">
-        <h2>Your uploaded photos</h2>
-        <p>These should show if they are inside the <strong>images</strong> folder.</p>
-        <div class="chips">
-          <span class="chip">IMG_4125.jpg (tote)</span>
-          <span class="chip">IMG_4188.jpg (crop top)</span>
-          <span class="chip">IMG_4189.jpg (scrunchies)</span>
-        </div>
-      </div>
+    <div class="card">
+      <div class="imgBox"><img src="images/IMG_4125.jpg"></div>
+      <div class="content"><strong>Blue Tote Bag</strong></div>
     </div>
-  </header>
 
-  <main class="wrap">
+    <div class="card">
+      <div class="imgBox"><img src="images/IMG_4188.jpg"></div>
+      <div class="content"><strong>Drawstring Crop Top</strong></div>
+    </div>
 
-    <!-- ===================== SHOP ===================== -->
-    <section id="shop">
-      <h2>Shop</h2>
+    <div class="card">
+      <div class="imgBox"><img src="images/IMG_4189.jpg"></div>
+      <div class="content"><strong>Scrunchies</strong></div>
+    </div>
 
-      <h3>Wearables</h3>
-      <div class="grid">
+    <div class="card">
+      <div class="imgBox"><img src="images/SantaHats.jpeg"></div>
+      <div class="content"><strong>Santa Hats</strong></div>
+    </div>
 
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan"
-                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Cardigan image not found. Check filename in /images.</div>';">
-          </div>
-          <div class="content">
-            <h4>Hexagon Cardigan</h4>
-            <p>Made to order. Custom colors and sizing available.</p>
-            <div class="priceRow">
-              <div class="price">Starting at $120</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-          </div>
-        </div>
+  </div>
+</section>
 
-        <div class="card">
-          <div class="imgBox"><div class="placeholder">Add beanie photo</div></div>
-          <div class="content">
-            <h4>Beanie Hat</h4>
-            <p>Classic fit. Multiple colors available.</p>
-            <div class="priceRow">
-              <div class="price">$30</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-          </div>
-        </div>
+<!-- 🛍 SHOP -->
+<section id="shop">
+  <h2>Shop</h2>
+  <p>Scroll down to shop by category ⬇️</p>
+</section>
 
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/IMG_4188.jpg" alt="Orange drawstring crochet crop top"
-                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Crop top image not found. Check filename in /images.</div>';">
-          </div>
-          <div class="content">
-            <h4>Drawstring Crop Top</h4>
-            <p>Made to order. Price goes up with size and detail.</p>
-            <div class="priceRow">
-              <div class="price">$55+</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-          </div>
-        </div>
+<!-- 🎄 SEASONAL -->
+<section id="seasonal">
+  <h2>Seasonal</h2>
+  <p>Limited holiday items available</p>
+</section>
 
-      </div>
+<!-- 📜 POLICIES -->
+<section id="policies">
+  <h2>Policies</h2>
+  <p>
+    All items are handmade and made to order.<br>
+    All sales are final. No returns or exchanges.<br>
+    Contact within 48 hours for issues.
+  </p>
+</section>
 
-      <h3>Accessories</h3>
-      <div class="grid">
+</main>
 
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/IMG_4189.jpg" alt="Assorted crochet scrunchies"
-                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Scrunchies image not found. Check filename in /images.</div>';">
-          </div>
-          <div class="content">
-            <h4>Scrunchies</h4>
-            <p>Sold individually or as a 3-pack. Custom color(s) available.</p>
-            <div class="priceRow">
-              <div class="price">$10 each • $27 (3-pack)</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-            <div style="margin-top:10px;">
-              <a class="btn secondary" href="#custom">Custom Scrunchies</a>
-            </div>
-          </div>
-        </div>
+<footer class="wrap">
+  © 2026 HookedByKerrah • Handmade Crochet ✨
+</footer>
 
-      </div>
-
-      <h3>Bags</h3>
-      <div class="grid">
-
-        <div class="card">
-          <div class="imgBox">
-            <!-- IMPORTANT: If your direct URL works, this should load. -->
-            <img src="images/IMG_4125.jpg?v=2" alt="Blue crochet tote bag"
-                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Tote image not loading. Confirm it is in /images as IMG_4125.jpg.</div>';">
-          </div>
-          <div class="content">
-            <h4>Blue Tote Bag</h4>
-            <p>Sturdy and stylish.</p>
-            <div class="priceRow">
-              <div class="price">$45</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =================== SEASONAL =================== -->
-    <section id="seasonal">
-      <h2>Seasonal</h2>
-
-      <div class="grid">
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/SantaHats.jpeg" alt="Crochet Santa hats"
-                 onerror="this.outerHTML='<div class=&quot;placeholder&quot;>Santa hats image not found. Check filename in /images.</div>';">
-          </div>
-          <div class="content">
-            <h4>Santa Hats</h4>
-            <p>Adult & kids sizes. Glitter option available.</p>
-            <div class="priceRow">
-              <div class="price">$30 – $40</div>
-              <a class="btn" href="#">Buy Now</a>
-            </div>
-            <p style="margin-top:10px; font-size:13px; color:var(--muted);">
-              Adult: $35 / Glitter $40 • Kids: $30 / Glitter $35
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== CUSTOM ==================== -->
-    <section id="custom">
-      <h2>Custom Orders</h2>
-      <div class="policyBox">
-        <p style="margin:0; color:var(--muted);">
-          Custom scrunchies: choose 1–3 colors and select single or 3-pack.
-          (When we add PayPal, we can make a custom checkout link.)
-        </p>
-      </div>
-    </section>
-
-    <!-- =================== POLICIES =================== -->
-    <section id="policies">
-      <h2>Policies</h2>
-      <div class="policyBox">
-        <p style="margin:0;">
-          <strong>All sales are final.</strong> Items are handmade and made to order, so no returns or exchanges.
-          If your order arrives damaged or incorrect, contact me within <strong>48 hours</strong>.
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="wrap">
-    © 2026 HookedByKerrah • Handmade Crochet ✨
-  </footer>
 </body>
 </html>
