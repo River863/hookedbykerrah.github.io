@@ -20,6 +20,7 @@
       --radius:18px;
       --max:1120px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
 
@@ -31,7 +32,7 @@
       overflow-x:hidden;
     }
 
-    /* ✨ Twinkles (subtle) */
+    /* ✨ Twinkles */
     .twinkles{
       position:fixed; inset:0;
       pointer-events:none;
@@ -90,7 +91,7 @@
       border-radius:999px;
       text-decoration:none;
       color:var(--text);
-      font-weight:700;
+      font-weight:800;
       font-size:14px;
       transition:background .2s, transform .2s;
       white-space:nowrap;
@@ -149,7 +150,7 @@
       color:var(--text);
       padding:9px 12px;
       border-radius:999px;
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
       cursor:pointer;
       transition: transform .15s, border-color .15s, background .15s;
@@ -168,7 +169,7 @@
       border:1px solid var(--border);
       background:#fff;
       outline:none;
-      font-weight:600;
+      font-weight:700;
     }
 
     /* Product grid */
@@ -191,23 +192,41 @@
       transform: translateY(-3px);
       box-shadow: 0 18px 40px rgba(0,0,0,.10);
     }
+
     .imgBox{
       aspect-ratio:4/3;
       background:#f1f1f1;
       border-bottom:1px solid var(--border);
       position:relative;
-      cursor:zoom-in;
+      cursor:pointer;
     }
+    /* ✅ Makes it obvious you can click */
+    .imgBox::after{
+      content:"Tap to zoom";
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
+    }
+
     img{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
     }
+
     .badge{
       position:absolute;
       top:10px; left:10px;
-      background:rgba(255,255,255,.9);
+      background:rgba(255,255,255,.92);
       border:1px solid var(--border);
       border-radius:999px;
       padding:6px 10px;
@@ -216,9 +235,11 @@
       color:var(--muted);
       backdrop-filter: blur(6px);
     }
+
     .content{ padding:16px; flex:1; }
     .content h4{ margin:0 0 6px; font-size:16px; }
     .content p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
+
     .priceRow{
       display:flex;
       align-items:center;
@@ -227,6 +248,7 @@
       margin-top:12px;
     }
     .price{ font-weight:900; }
+
     .btn{
       display:inline-block;
       padding:10px 14px;
@@ -237,8 +259,11 @@
       font-weight:900;
       transition:background .2s, transform .2s;
       white-space:nowrap;
+      cursor:pointer;
+      border:none;
     }
     .btn:hover{ background:var(--accent-hover); transform: translateY(-1px); }
+
     .btn.secondary{
       background:#fff;
       color:var(--text);
@@ -247,7 +272,9 @@
     .btn.secondary:hover{
       border-color: rgba(230,166,179,.75);
       background:#fff;
+      transform: translateY(-1px);
     }
+
     .note{
       margin-top:10px;
       font-size:12px;
@@ -266,6 +293,7 @@
       padding:18px;
     }
     .lightbox.open{ display:flex; }
+
     .lbCard{
       width:min(980px, 100%);
       background:#fff;
@@ -351,18 +379,19 @@
 
     <div class="hero">
       <div class="panel">
-        <h2>🛒 PayPal checkout</h2>
-        <p>Your “Buy Now” buttons are ready. When you create PayPal payment links, paste them into the code where you see <strong>PAYPAL_LINK_HERE</strong>.</p>
+        <h2>🖼 Tap any photo to zoom</h2>
+        <p>Use the category filters to browse fast. PayPal buttons will work once you paste your PayPal payment links.</p>
         <div class="chips">
-          <span class="chip">Click an image = lightbox</span>
-          <span class="chip">Filter by category</span>
-          <span class="chip">Search items</span>
+          <span class="chip">Lightbox</span>
+          <span class="chip">Filters</span>
+          <span class="chip">Search</span>
+          <span class="chip">PayPal-ready</span>
         </div>
       </div>
       <div class="panel">
-        <h2>🖼 Your current photos</h2>
+        <h2>Your photos</h2>
         <p class="sub" style="margin-top:0">
-          Blue tote: <strong>IMG_4125.jpg</strong> • Crop top: <strong>IMG_4188.jpg</strong> • Scrunchies: <strong>IMG_4189.jpg</strong> • Santa hats: <strong>SantaHats.jpeg</strong> • Cardigan: <strong>BlueHexagonCardigan.png</strong>
+          Cardigan: <strong>BlueHexagonCardigan.png</strong> • Tote: <strong>IMG_4125.jpg</strong> • Crop top: <strong>IMG_4188.jpg</strong> • Scrunchies: <strong>IMG_4189.jpg</strong> • Santa hats: <strong>SantaHats.jpeg</strong>
         </p>
       </div>
     </div>
@@ -392,7 +421,7 @@
       <div class="grid" id="productGrid"></div>
 
       <p class="note">
-        Tip: If a button says “Add PayPal link”, you just need to paste your PayPal payment link for that item in the products list in this file.
+        PayPal setup: Replace <strong>PAYPAL_LINK_HERE</strong> in the products list (inside this file) with your PayPal payment link for each item.
       </p>
     </section>
 
@@ -411,7 +440,8 @@
       <h2>Custom Orders</h2>
       <div class="box">
         <p style="margin:0; color:var(--muted);">
-          Custom options are available (especially for scrunchies). When we add PayPal, we can create a custom checkout link too.
+          Custom scrunchies: choose 1–3 colors and select single or 3-pack.
+          We can also add a PayPal custom checkout link.
         </p>
       </div>
     </section>
@@ -436,7 +466,7 @@
   </footer>
 
   <!-- =======================
-       LIGHTBOX (click image to open)
+       LIGHTBOX (tap image to open)
   ======================== -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lbCard" role="dialog" aria-modal="true" aria-label="Image preview">
@@ -451,12 +481,11 @@
   <script>
     /*
       ==========================
-      EDIT HERE: Products + PayPal Links
+      PRODUCTS + PAYPAL LINKS (EDIT HERE)
       ==========================
-      For PayPal buttons:
-      - Create a PayPal "payment link" for each item (or one per option).
-      - Paste the link in paypalLink.
-      - If paypalLink is blank, the button shows "Add PayPal link".
+      Replace PAYPAL_LINK_HERE with your PayPal payment link for each item.
+      If you leave it as PAYPAL_LINK_HERE, the Buy button will still be clickable
+      and will show a message (so nothing feels "dead").
     */
 
     const products = [
@@ -512,7 +541,7 @@
     ];
 
     // ==========================
-    // Lightbox logic
+    // LIGHTBOX
     // ==========================
     const lightbox = document.getElementById("lightbox");
     const lbImg = document.getElementById("lbImg");
@@ -534,46 +563,23 @@
       document.body.style.overflow = "";
     }
     lbClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLightbox();
-    });
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
 
     // ==========================
-    // Render helpers
+    // BUTTONS (PayPal-ready + clickable now)
     // ==========================
-    function buyButtonHTML(paypalLink){
+    function buyButtonHTML(paypalLink, itemName){
       const hasLink = paypalLink && paypalLink !== "PAYPAL_LINK_HERE";
       if (hasLink){
         return `<a class="btn" href="${paypalLink}" target="_blank" rel="noopener">Buy with PayPal</a>`;
       }
-      return `<a class="btn secondary" href="#policies" title="Add your PayPal link in the code">Add PayPal link</a>`;
+      return `<button class="btn secondary" type="button" data-soon="1" data-item="${escapeHtml(itemName)}">Buy (PayPal soon)</button>`;
     }
 
-    function cardHTML(item, badgeText){
-      const badge = badgeText ? `<div class="badge">${badgeText}</div>` : "";
-      const note = item.note ? `<div class="note">${item.note}</div>` : "";
-      return `
-        <div class="card">
-          <div class="imgBox" data-lightbox-src="${item.img}" data-lightbox-title="${escapeHtml(item.name)}">
-            ${badge}
-            <img src="${item.img}" alt="${escapeHtml(item.name)}">
-          </div>
-          <div class="content">
-            <h4>${escapeHtml(item.name)}</h4>
-            <p>${escapeHtml(item.desc)}</p>
-            <div class="priceRow">
-              <div class="price">${escapeHtml(item.price)}</div>
-              ${buyButtonHTML(item.paypalLink)}
-            </div>
-            ${note}
-          </div>
-        </div>
-      `;
-    }
-
+    // ==========================
+    // CARD TEMPLATE
+    // ==========================
     function escapeHtml(str){
       return String(str)
         .replaceAll("&","&amp;")
@@ -583,8 +589,30 @@
         .replaceAll("'","&#039;");
     }
 
+    function cardHTML(item, badgeText){
+      const badge = badgeText ? `<div class="badge">${escapeHtml(badgeText)}</div>` : "";
+      const note = item.note ? `<div class="note">${escapeHtml(item.note)}</div>` : "";
+      return `
+        <div class="card">
+          <div class="imgBox" data-lightbox-src="${item.img}" data-lightbox-title="${escapeHtml(item.name)}" role="button" tabindex="0" aria-label="Open image: ${escapeHtml(item.name)}">
+            ${badge}
+            <img src="${item.img}" alt="${escapeHtml(item.name)}">
+          </div>
+          <div class="content">
+            <h4>${escapeHtml(item.name)}</h4>
+            <p>${escapeHtml(item.desc)}</p>
+            <div class="priceRow">
+              <div class="price">${escapeHtml(item.price)}</div>
+              ${buyButtonHTML(item.paypalLink, item.name)}
+            </div>
+            ${note}
+          </div>
+        </div>
+      `;
+    }
+
     // ==========================
-    // Featured gallery = all images (shop + seasonal)
+    // RENDER FEATURED (all images)
     // ==========================
     const featuredGrid = document.getElementById("featuredGrid");
     function renderFeatured(){
@@ -596,12 +624,11 @@
         seasonal[0]
       ].filter(Boolean);
 
-      featuredGrid.innerHTML = items.map((it) => cardHTML(it, "Featured")).join("");
-      wireLightboxClicks(featuredGrid);
+      featuredGrid.innerHTML = items.map(it => cardHTML(it, "Featured")).join("");
     }
 
     // ==========================
-    // Filters + search
+    // FILTERS + SEARCH
     // ==========================
     const productGrid = document.getElementById("productGrid");
     const seasonalGrid = document.getElementById("seasonalGrid");
@@ -615,7 +642,7 @@
     function renderFilters(){
       filtersEl.innerHTML = allCategories.map(cat => `
         <button class="filterBtn ${cat === activeCategory ? "active" : ""}" data-cat="${cat}" type="button">
-          ${cat}
+          ${escapeHtml(cat)}
         </button>
       `).join("");
 
@@ -629,43 +656,65 @@
     }
 
     function renderProducts(){
+      const q = (searchText || "").trim().toLowerCase();
       const filtered = products.filter(p => {
         const matchCat = (activeCategory === "All") || (p.category === activeCategory);
-        const q = searchText.trim().toLowerCase();
-        const matchSearch = !q || (p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+        const matchSearch = !q || (
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+        );
         return matchCat && matchSearch;
       });
 
       productGrid.innerHTML = filtered.map(it => cardHTML(it, it.category)).join("");
-      wireLightboxClicks(productGrid);
     }
 
     function renderSeasonal(){
       seasonalGrid.innerHTML = seasonal.map(it => cardHTML(it, "Seasonal")).join("");
-      wireLightboxClicks(seasonalGrid);
     }
 
-    function wireLightboxClicks(container){
-      container.querySelectorAll(".imgBox").forEach(box => {
-        box.addEventListener("click", () => {
+    // ==========================
+    // WIRE INTERACTIONS (lightbox + buttons)
+    // ==========================
+    function wireInteractions(){
+      // Lightbox open on image area click
+      document.querySelectorAll(".imgBox").forEach(box => {
+        const open = () => {
           const src = box.getAttribute("data-lightbox-src");
           const title = box.getAttribute("data-lightbox-title");
           if (src) openLightbox(src, title);
+        };
+        box.addEventListener("click", open);
+        box.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+        });
+      });
+
+      // Buy soon buttons (so they're clickable even before PayPal links)
+      document.querySelectorAll("button[data-soon='1']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = btn.getAttribute("data-item") || "this item";
+          alert(`PayPal checkout for ${item} is coming soon. For now, you can tap photos to zoom and browse categories!`);
         });
       });
     }
 
-    // Search input
+    // Search
     searchEl.addEventListener("input", (e) => {
       searchText = e.target.value || "";
       renderProducts();
+      wireInteractions();
     });
 
-    // Initial render
+    // ==========================
+    // INIT
+    // ==========================
     renderFeatured();
     renderFilters();
     renderProducts();
     renderSeasonal();
+    wireInteractions();
   </script>
 </body>
 </html>
