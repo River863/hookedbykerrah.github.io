@@ -50,6 +50,12 @@
         <div class="info">
           <h1 id="prodName">Product</h1>
           <p class="desc" id="prodDesc"></p>
+
+          <div id="detailsBox" style="display:none;margin:10px 0 14px;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.8);">
+            <strong style="display:block;margin-bottom:6px">Product Details</strong>
+            <ul id="prodBullets" style="margin:0;padding-left:18px;color:#6f6f6f;font-weight:650;line-height:1.5"></ul>
+          </div>
+
           <div class="price" id="prodPrice"></div>
           <div class="hint" id="priceHint"></div>
 
@@ -153,10 +159,11 @@
           </div>
 
           <button class="btn" id="paypalBtn">Click here to buy via PayPal</button>
-          <button class="btn black" id="appleBtn">Apple Pay coming soon</button>
+          <button class="btn black" id="appleBtn">Apple Pay (Coming Soon)</button>
 
           <div class="noteBox" id="finalNote">
-            All items are handmade & made to order. All sales final.
+            All items are handmade & made to order. All sales final. <br>
+            For custom orders or questions, <a href="mailto:PASTE_EMAIL_HERE">email me</a>.
           </div>
         </div>
       </div>
@@ -202,9 +209,6 @@ const PAYPAL_LINKS = {
   "scrunch_diy:single_acrylic": "PAYPAL_SCRUNCH_DIY_SINGLE_ACRYLIC",
   "scrunch_diy:single_cotton": "PAYPAL_SCRUNCH_DIY_SINGLE_COTTON",
   "scrunch_diy:single_plush": "PAYPAL_SCRUNCH_DIY_SINGLE_PLUSH",
-  "scrunch_diy:3_acrylic": "PAYPAL_SCRUNCH_DIY_3_ACRYLIC",
-  "scrunch_diy:3_cotton": "PAYPAL_SCRUNCH_DIY_3_COTTON",
-  "scrunch_diy:3_plush": "PAYPAL_SCRUNCH_DIY_3_PLUSH",
 
   "scrunch_pre:single_acrylic": "PAYPAL_SCRUNCH_PRE_SINGLE_ACRYLIC",
   "scrunch_pre:single_cotton": "PAYPAL_SCRUNCH_PRE_SINGLE_COTTON",
@@ -222,12 +226,18 @@ const COLORS_NO_BLACK = ["Pink","Red","Green","Blue","White","Orange","Yellow","
 const COLORS_WITH_WHITE_COMBOS = COLORS_NO_BLACK.filter(c => c !== "White").map(c => `${c}/White`);
 function uniq(arr){ return [...new Set(arr)]; }
 
-/* PRODUCTS */
+/* PRODUCTS (with bullets) */
 const PRODUCTS = {
   santahats: {
     name:"Santa Hats",
     img:"images/SantaHats.jpeg",
     desc:"Kids hats start at $30 and adult hats start at $35. Glitter available (+$5).",
+    bullets:[
+      "Kids start at $30 • Adults start at $35",
+      "Choose hat + trim color",
+      "Optional glitter (+$5)",
+      "Handmade to order"
+    ],
     showSize: true,
     showMaterial: false,
     sizes:["Kids","Adult"],
@@ -260,6 +270,12 @@ const PRODUCTS = {
     name:"Blue Tote Bag",
     img:"images/IMG_4125.jpg",
     desc:"Sturdy and stylish everyday tote. Choose a color.",
+    bullets:[
+      "Roomy everyday tote",
+      "Choose a colorway",
+      "Handmade crochet construction",
+      "Fixed price: $45"
+    ],
     showSize: false,
     showMaterial: false,
     sizes:["One size"],
@@ -278,11 +294,16 @@ const PRODUCTS = {
     name:"Hexagon Cardigan",
     img:"images/BlueHexagonCardigan.png",
     desc:"Made-to-order. Choose your size range, length, and color vibe.",
+    bullets:[
+      "Made to order",
+      "Choose size range + length",
+      "Color vibe options available",
+      "Length affects price"
+    ],
     showSize: true,
     showMaterial: false,
     sizes:["S–M","M–L","L–XL"],
     materials:["Acrylic"],
-
     colorOptions: uniq([
       "Black With Red Trim (Pictured)",
       "Pink/White/Red (Valentines Vibes)",
@@ -301,26 +322,20 @@ const PRODUCTS = {
     },
     pricing: sel => {
       const sizeKey = sel.size || "S–M";
-
-      // keep your original base prices (acrylic tier only since material removed)
       let base = 120;
       if(sizeKey==="S–M") base = 120;
       if(sizeKey==="M–L") base = 135;
       if(sizeKey==="L–XL") base = 150;
-
       const length = sel.addon || "crop";
       let add = 0;
       if(length==="butt") add = 15;
       if(length==="mid") add = 30;
       if(length==="duster") add = 50;
-
       const price = base + add;
-
       const sizeSlug =
         sizeKey==="S–M" ? "sm_med" :
         sizeKey==="M–L" ? "med_lg" :
         "lg_xl";
-
       const key = `cardigan:${sizeSlug}_${length}`;
       return {price, key, hint:"Choose size range and length."};
     }
@@ -330,6 +345,12 @@ const PRODUCTS = {
     name:"Ribbed Lace Drawstring Crop Top (Custom Fit)",
     img:"images/IMG_4188.jpg",
     desc:"Made to order, custom fit. Measurements are required and determine final pricing.",
+    bullets:[
+      "Custom fit (measurements required)",
+      "Base price $95",
+      "Price adjusts if measurements exceed baselines",
+      "Handmade to order"
+    ],
     showSize: false,
     showMaterial: false,
     sizes:["Custom fit"],
@@ -337,14 +358,11 @@ const PRODUCTS = {
     pricing: sel => {
       let price = 95;
       let hint = "Base $95. Price adjusts if measurements exceed baselines.";
-
       const m = sel.measurements || {bust:0, shoulder:0, length:0};
       const bustBase = 34, shoulderBase = 36, lengthBase = 10;
-
       const bustAdd = Math.max(0, (m.bust || 0) - bustBase) * 1.0;
       const shoulderAdd = Math.max(0, (m.shoulder || 0) - shoulderBase) * 0.5;
       const lengthAdd = Math.max(0, (m.length || 0) - lengthBase) * 1.0;
-
       const add = Math.ceil(bustAdd + shoulderAdd + lengthAdd);
       if(add > 0){
         price += add;
@@ -358,36 +376,28 @@ const PRODUCTS = {
   scrunchies_diy: {
     name:"Scrunchies (Design Your Own)",
     img:"images/IMG_4189.jpg",
-    desc:"Choose size, material, colors (1 or 2), and optional trim. Two colors add +$3.",
-    showSize: true,
+    desc:"Sold individually. Choose material, color style (1 or 2 colors), and optional trim. Two colors add +$3.",
+    bullets:[
+      "Sold individually",
+      "Choose material + 1 or 2 colors",
+      "Second color adds +$3",
+      "Optional trim (+$0.25 / +$0.50 glitter)"
+    ],
+    showSize: false,   // single-only
     showMaterial: true,
-    sizes:["Single","3-Pack","3-Valentine"],
+    sizes:["Single"],
     materials:["Acrylic","Cotton","Plush"],
     pricing: sel => {
       const mat = sel.material || "Acrylic";
-
-      let price = mat==="Acrylic" ? 10 : mat==="Cotton" ? 12 : 12;
+      let price = mat==="Acrylic" ? 10 : 12;
       let key = `scrunch_diy:single_${mat.toLowerCase()}`;
-      let hint = "Single scrunchie";
-
-      if(sel.size==="3-Pack") {
-        price = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33;
-        key = `scrunch_diy:3_${mat.toLowerCase()}`;
-        hint = "3-pack pricing";
-      } else if(sel.size==="3-Valentine") {
-        price = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36;
-        key = `scrunch_diy:3_${mat.toLowerCase()}`;
-        hint = "Valentine 3-pack special";
-      }
-
+      let hint = "Sold individually";
       if(sel.colorStyle === "two") { price += 3; hint += " • Two colors +$3"; }
-
       const t = (sel.trim || "No trim").toLowerCase();
       let trimFee = 0;
       if(t !== "no trim"){ trimFee = t.startsWith("glitter") ? 0.50 : 0.25; }
       price += trimFee;
       if(trimFee) hint += ` • Trim +$${trimFee.toFixed(2)}`;
-
       return {price, key, hint};
     }
   },
@@ -395,45 +405,44 @@ const PRODUCTS = {
   scrunchies_premade: {
     name:"Premade Scrunchies",
     img:"images/IMG_4189.jpg",
-    desc:"Sold individually or in packs. Optional trim available.",
+    desc:"Premade scrunchies ready to ship. Sold individually or in packs. Optional trim available.",
+    bullets:[
+      "Singles + packs available",
+      "Choose material",
+      "Optional trim (+$0.25 / +$0.50)"
+    ],
     showSize: true,
     showMaterial: true,
     sizes:["Single","3-Pack","3-Valentine"],
     materials:["Acrylic","Cotton","Plush"],
     pricing: sel => {
       const mat = sel.material || "Acrylic";
-
-      let price = mat==="Acrylic" ? 10 : mat==="Cotton" ? 12 : 12;
+      let price = mat==="Acrylic" ? 10 : 12;
       let key = `scrunch_pre:single_${mat.toLowerCase()}`;
       let hint = "Single scrunchie";
-
-      if(sel.size==="3-Pack") {
-        price = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33;
-        key = `scrunch_pre:3_${mat.toLowerCase()}`;
-        hint = "3-pack pricing";
-      } else if(sel.size==="3-Valentine") {
-        price = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36;
-        key = `scrunch_pre:3_${mat.toLowerCase()}`;
-        hint = "Valentine 3-pack special";
-      }
-
+      if(sel.size==="3-Pack") { price = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33; key = `scrunch_pre:3_${mat.toLowerCase()}`; hint = "3-pack pricing"; }
+      else if(sel.size==="3-Valentine") { price = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36; key = `scrunch_pre:3_${mat.toLowerCase()}`; hint = "Valentine 3-pack special"; }
       const t = (sel.trim || "No trim").toLowerCase();
       let trimFee = 0;
       if(t !== "no trim"){ trimFee = t.startsWith("glitter") ? 0.50 : 0.25; }
       price += trimFee;
       if(trimFee) hint += ` • Trim +$${trimFee.toFixed(2)}`;
-
       return {price, key, hint};
     }
   },
 
-  // keep old link working
-  scrunchies: null,
+  scrunchies: null, // legacy link
 
   pillow: {
     name:"Pillow Covers (Cover Only)",
     img:"images/BlueHexagonCardigan.png",
     desc:"Cover only (insert not included). Choose size, material, and extras.",
+    bullets:[
+      "Cover only (insert not included)",
+      "Standard sizes + custom sizing option",
+      "Plush has yarn upcharge by size tier",
+      "Add flowers (+$4) and tassels (+$2)"
+    ],
     showSize: true,
     showMaterial: true,
     sizes:[
@@ -449,7 +458,6 @@ const PRODUCTS = {
     pricing: sel => {
       const sizeKey = sel.size || "18x18 (Throw)";
       const isCustom = sizeKey.startsWith("Custom");
-
       const acrylicBase = {
         "16x16 (Small throw)": 35,
         "18x18 (Throw)": 40,
@@ -467,12 +475,10 @@ const PRODUCTS = {
         "24x24 (Oversized)": 15,
         "12x20 (Lumbar)": 6
       };
-
       let base = 40;
       if(!isCustom){
         if(sel.material === "Cotton") base = cottonBase[sizeKey] ?? 50;
         else base = acrylicBase[sizeKey] ?? 40;
-
         if(sel.material === "Plush"){
           base = (acrylicBase[sizeKey] ?? 40) + (plushUpcharge[sizeKey] ?? 6);
         }
@@ -480,18 +486,14 @@ const PRODUCTS = {
         const w = Number(sel.pillowW || 0);
         const h = Number(sel.pillowH || 0);
         const area = w * h;
-
         let acrylic = Math.max(40, Math.ceil(area * 0.14));
         let cotton = acrylic + 10;
         let plush = acrylic + (3 * Math.max(1, Math.ceil(area / 300)));
-
         base = sel.material === "Cotton" ? cotton : sel.material === "Plush" ? plush : acrylic;
       }
-
       let extras = 0;
       if(sel.flowers) extras += 4;
       if(sel.tassels) extras += 2;
-
       const price = base + extras;
       const key = isCustom ? "pillow:custom" : "pillow:standard";
       return {price, key, hint:"Cover only. Plush includes yarn upcharge. Extras priced below."};
@@ -510,6 +512,8 @@ const prodDesc = document.getElementById("prodDesc");
 const prodImg = document.getElementById("prodImg");
 const prodPrice = document.getElementById("prodPrice");
 const priceHint = document.getElementById("priceHint");
+const detailsBox = document.getElementById("detailsBox");
+const prodBullets = document.getElementById("prodBullets");
 
 const sizeWrap = document.getElementById("sizeWrap");
 const materialWrap = document.getElementById("materialWrap");
@@ -597,6 +601,14 @@ if(!item){
   prodDesc.textContent = item.desc;
   prodImg.src = item.img;
   prodImg.alt = item.name;
+
+  // bullets / details
+  if(item.bullets && item.bullets.length){
+    detailsBox.style.display = "block";
+    prodBullets.innerHTML = item.bullets.map(b => `<li>${b}</li>`).join("");
+  } else {
+    detailsBox.style.display = "none";
+  }
 
   // Show/hide Size & Material wrappers per product
   sizeWrap.style.display = (item.showSize === false) ? "none" : "block";
