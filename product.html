@@ -1,318 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ===============================
-       BASIC SITE SETTINGS
-  ================================ -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HookedByKerrah</title>
-
-  <!-- ===============================
-       SITE STYLES
-  ================================ -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product • HookedByKerrah</title>
   <style>
     :root{
-      --bg:#fff3f6;          /* soft blush background */
-      --card:#ffffff;
-      --text:#2a2a2a;
-      --muted:#6f6f6f;
-      --accent:#e6a6b3;      /* main soft pink */
-      --accent-hover:#d98c9a;
-      --tab-bg:#f7d6de;      /* nav tab pink */
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:18px;
-      --max:1100px;
+      --bg:#fff3f6; --bg2:#fff8fb; --card:#fff; --text:#2a2a2a;
+      --muted:#6f6f6f; --accent:#e6a6b3; --accent-hover:#d98c9a;
+      --border:rgba(0,0,0,.08); --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:18px; --max:980px;
     }
-
     *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .wrap{
-      max-width:var(--max);
-      margin:auto;
-      padding:20px;
-    }
-
-    /* ---------- NAV TABS ---------- */
-    nav{
-      margin-top:10px;
-    }
-    nav a{
-      display:inline-block;
-      margin:6px 10px 0 0;
-      padding:8px 14px;
-      background:var(--tab-bg);
-      border-radius:999px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:650;
-      transition:background .2s, color .2s;
-    }
-    nav a:hover{
-      background:var(--accent);
-      color:white;
-    }
-
-    h1,h2,h3,h4{margin-top:0}
-
-    .muted{color:var(--muted)}
-
-    .hero{
-      margin-top:14px;
-      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow:var(--shadow);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:18px;
-    }
-
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);
-    }
-
-    .imgBox{
-      aspect-ratio:4/3;
-      background:#f1f1f1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-
-    img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .placeholder{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100%;
-      color:var(--muted);
-      font-size:14px;
-      padding:10px;
-      text-align:center;
-    }
-
-    .content{padding:16px}
-
-    .pill{
-      display:inline-block;
-      font-size:12px;
-      font-weight:800;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(230,166,179,.25);
-      color:#6a2f3a;
-      margin-bottom:10px;
-    }
-
-    .price{
-      font-weight:900;
-      margin:10px 0 0;
-    }
-
-    /* ---------- BUTTONS ---------- */
-    .btn{
-      display:inline-block;
-      margin-top:12px;
-      padding:10px 16px;
-      background:var(--accent);
-      color:white;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:800;
-      transition:background .2s;
-    }
-    .btn:hover{background:var(--accent-hover)}
-
-    .section{
-      margin-top:26px;
-    }
-
-    footer{
-      margin-top:40px;
-      color:var(--muted);
-      font-size:14px;
-      text-align:center;
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 20% 0%,var(--bg2),var(--bg));color:var(--text)}
+    .wrap{max-width:var(--max);margin:0 auto;padding:20px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px;background:rgba(255,255,255,.9);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
+    a.back{font-weight:900;color:var(--text);text-decoration:none;padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .card{margin-top:16px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
+    .grid{display:grid;grid-template-columns:1fr 1fr}
+    .imgWrap{background:#111;min-height:320px;display:flex;align-items:center;justify-content:center;cursor:zoom-in}
+    .imgWrap img{width:100%;height:100%;object-fit:contain;background:#111;display:block}
+    .info{padding:16px}
+    h1{margin:0 0 6px;font-size:24px}
+    .desc{color:var(--muted);margin-bottom:10px}
+    .price{font-weight:950;font-size:18px;margin-bottom:6px}
+    .hint{font-size:12px;color:var(--muted);margin-bottom:10px}
+    label{display:block;font-weight:900;margin:10px 0 6px}
+    select,textarea{width:100%;padding:10px;border-radius:12px;border:1px solid var(--border);font-weight:700}
+    textarea{min-height:80px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btn{width:100%;margin-top:12px;padding:12px;border-radius:14px;border:none;font-weight:950;cursor:pointer;background:var(--accent);color:#fff}
+    .btn.black{background:#111}
+    .noteBox{margin-top:12px;font-size:13px;color:var(--muted)}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
-  <!-- ===============================
-       HEADER / NAVIGATION
-  ================================ -->
-  <header class="wrap">
-    <h1>HookedByKerrah</h1>
-    <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
-
-    <nav>
-      <a href="#featured">Featured</a>
-      <a href="#shop">Shop</a>
-      <a href="#return-policy">Return Policy</a>
-    </nav>
-
-    <!-- Small hero blurb -->
-    <div class="hero">
-      <strong>How ordering works:</strong>
-      <span class="muted">Choose an item → pick options → checkout with PayPal.</span>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="index.html">← Back to Home</a>
+      <strong>HookedByKerrah ✨</strong>
     </div>
-  </header>
 
-  <!-- ===============================
-       MAIN CONTENT
-  ================================ -->
-  <main class="wrap">
-
-    <!-- ===============================
-         FEATURED (ONLY SANTA HAT)
-    ================================ -->
-    <section id="featured" class="section">
-      <h2>Featured Right Now</h2>
+    <div class="card">
       <div class="grid">
+        <div class="imgWrap" id="imgWrap"><img id="prodImg" alt=""></div>
+        <div class="info">
+          <h1 id="prodName">Product</h1>
+          <p class="desc" id="prodDesc"></p>
+          <div class="price" id="prodPrice"></div>
+          <div class="hint" id="priceHint"></div>
 
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
+          <!-- Options -->
+          <div class="row">
+            <div>
+              <label for="size">Size</label>
+              <select id="size"></select>
+            </div>
+            <div>
+              <label for="material">Material</label>
+              <select id="material"></select>
+            </div>
           </div>
-          <div class="content">
-            <div class="pill">Limited seasonal</div>
-            <h4>Santa Hats</h4>
-            <p class="muted">Kids & adult sizes. Glitter option available.</p>
-            <p class="price">$30–$40</p>
-            <a class="btn" href="product.html?id=santahats">View details</a>
+
+          <!-- Scrunchies color selectors / trim (only shown for scrunchies) -->
+          <div id="scrunchOptions" style="display:none;margin-top:10px">
+            <label>Main color (pick 2 colors)</label>
+            <select id="color1"></select>
+            <label style="margin-top:8px">Trim color (optional)</label>
+            <select id="trim"></select>
+            <div class="hint" style="margin-top:6px">Trim adds $0.25 (regular) or $0.50 (glitter).</div>
+          </div>
+
+          <!-- Measurement area for crop top (placeholder; images and steps can be added later) -->
+          <div id="measurementArea" style="display:none;margin-top:10px">
+            <label>Measurements</label>
+            <p class="hint">Enter measurements to calculate final price. Images for each step can be added later.</p>
+
+            <!-- placeholders for measurement steps -->
+            <div style="margin-top:6px">
+              <label>Bust (in inches)</label>
+              <input id="mBust" type="number" min="0" placeholder="e.g. 34">
+            </div>
+            <div style="margin-top:6px">
+              <label>Over-shoulder circumference (neckline/shoulder fit)</label>
+              <input id="mShoulder" type="number" min="0" placeholder="e.g. 36">
+            </div>
+            <div style="margin-top:6px">
+              <label>Top length (from cleavage/top edge to belly button, in inches)</label>
+              <input id="mLength" type="number" min="0" placeholder="e.g. 10">
+            </div>
+            <div class="hint" style="margin-top:8px">As you enter measurements the price will update — you can replace these rules later.</div>
+          </div>
+
+          <label>Notes (optional)</label>
+          <textarea id="notes" placeholder="Color requests, fit notes, glitter yes/no, etc."></textarea>
+
+          <button class="btn" id="paypalBtn">Click here to buy via PayPal</button>
+          <button class="btn black" id="appleBtn">Apple Pay coming soon</button>
+
+          <div class="noteBox" id="finalNote">
+            All items are handmade & made to order. All sales final.
           </div>
         </div>
-
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ===============================
-         SHOP (simple categories)
-    ================================ -->
-    <section id="shop" class="section">
-      <h2>Shop</h2>
+  <!-- Lightbox (simple) -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);align-items:center;justify-content:center;z-index:60;">
+    <div style="width:min(1000px,98%);background:#fff;border-radius:16px;overflow:hidden;">
+      <div style="padding:10px;text-align:right;"><button id="lbClose" style="padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer">Close ✕</button></div>
+      <img id="lbImg" src="" style="width:100%;height:auto;display:block;background:#111" alt="">
+    </div>
+  </div>
 
-      <!-- WEARABLES -->
-      <h3>Wearables</h3>
-      <div class="grid">
+<script>
+/* =========================
+   PayPal links placeholders
+   Replace each "PAYPAL_..." value with the real payment link from PayPal.
+   Keys correspond to price tiers used by the pricing logic below.
+   Example value formats:
+     https://www.paypal.com/pay/XXXXXXXX
+     https://www.paypal.com/invoice/p/#XXXXXXXX
+========================= */
+const PAYPAL_LINKS = {
+  "santa:adult_regular": "PAYPAL_SANTA_ADULT_REGULAR",
+  "santa:adult_glitter": "PAYPAL_SANTA_ADULT_GLITTER",
+  "santa:kids_regular": "PAYPAL_SANTA_KIDS_REGULAR",
+  "santa:kids_glitter": "PAYPAL_SANTA_KIDS_GLITTER",
+  "scrunch:single_acrylic": "PAYPAL_SCRUNCH_SINGLE_ACRYLIC",
+  "scrunch:single_cotton": "PAYPAL_SCRUNCH_SINGLE_COTTON",
+  "scrunch:single_plush": "PAYPAL_SCRUNCH_SINGLE_PLUSH",
+  "scrunch:3_acrylic": "PAYPAL_SCRUNCH_3_ACRYLIC",
+  "scrunch:3_cotton": "PAYPAL_SCRUNCH_3_COTTON",
+  "scrunch:3_plush": "PAYPAL_SCRUNCH_3_PLUSH",
+  "scrunch:mix_2reg_1plush": "PAYPAL_SCRUNCH_MIX_2REG_1PLUSH",
+  "pillow:acrylic": "PAYPAL_PILLOW_ACRYLIC",
+  "pillow:cotton": "PAYPAL_PILLOW_COTTON",
+  "pillow:plush": "PAYPAL_PILLOW_PLUSH",
+  "tote:default": "PAYPAL_TOTE_DEFAULT",
+  "cardigan:sm_med_crop": "PAYPAL_CARDIGAN_SM_MED_CROP",
+  "cardigan:sm_med_butt": "PAYPAL_CARDIGAN_SM_MED_BUTT",
+  "cardigan:sm_med_mid": "PAYPAL_CARDIGAN_SM_MED_MID",
+  "cardigan:sm_med_duster": "PAYPAL_CARDIGAN_SM_MED_DUSTER",
+  "cardigan:med_lg_crop": "PAYPAL_CARDIGAN_MED_LG_CROP",
+  "cardigan:med_lg_butt": "PAYPAL_CARDIGAN_MED_LG_BUTT",
+  "cardigan:med_lg_mid": "PAYPAL_CARDIGAN_MED_LG_MID",
+  "cardigan:med_lg_duster": "PAYPAL_CARDIGAN_MED_LG_DUSTER",
+  "cardigan:lg_xl_crop": "PAYPAL_CARDIGAN_LG_XL_CROP",
+  "cardigan:lg_xl_butt": "PAYPAL_CARDIGAN_LG_XL_BUTT",
+  "cardigan:lg_xl_mid": "PAYPAL_CARDIGAN_LG_XL_MID",
+  "cardigan:lg_xl_duster": "PAYPAL_CARDIGAN_LG_XL_DUSTER",
+  "croptop:limited_fixed": "PAYPAL_CROPTOP_LIMITED"
+};
 
-        <!-- CARDIGAN -->
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/BlueHexagonCardigan.png" alt="Blue hexagon crochet cardigan">
-          </div>
-          <div class="content">
-            <h4>Hexagon Cardigan</h4>
-            <p class="muted">Acrylic or cotton. Size ranges + length options.</p>
-            <p class="price">Starting at $120</p>
-            <a class="btn" href="product.html?id=cardigan">View details</a>
-          </div>
-        </div>
+/* =========================
+   Product definitions + pricing rules
+   Keep keys in PRODUCTS matching product.html?id=...
+========================= */
+const PRODUCTS = {
+  santahats: {
+    name:"Santa Hats",
+    img:"images/SantaHats.jpeg",
+    desc:"Adult & kids sizes. Glitter option available.",
+    sizes:["Kids","Adult"],
+    materials:["Standard"], // no material selector
+    addonLabel:"Glitter",
+    addonOptions:["No glitter","Glitter"],
+    pricing: sel => {
+      const isAdult = sel.size==="Adult";
+      const isGlitter = sel.addon==="Glitter";
+      let price = isAdult ? 35 : 30;
+      if (isGlitter) price += 5;
+      const key = (isAdult ? "santa:adult_" : "santa:kids_") + (isGlitter ? "glitter" : "regular");
+      return {price, key, hint: isGlitter ? "Glitter adds $5." : ""};
+    }
+  },
 
-        <!-- RIBBED CROP TOP -->
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/IMG_4188.jpg" alt="Orange drawstring crochet crop top">
-          </div>
-          <div class="content">
-            <div class="pill">Available now</div>
-            <h4>Ribbed Lace Drawstring Crop Top</h4>
-            <p class="muted">
-              Complex build + made to fit. You’ll enter measurements on the product page.
-            </p>
-            <p class="price">Starting at $95</p>
-            <a class="btn" href="product.html?id=croptop">View details</a>
-          </div>
-        </div>
+  scrunchies: {
+    name:"Scrunchies",
+    img:"images/IMG_4189.jpg",
+    desc:"Sold single or as a 3-pack. Choose material and colors.",
+    sizes:["Single","3-Pack","3-Valentine"],
+    materials:["Acrylic","Cotton","Plush"],
+    pricing: sel => {
+      // base prices (you approved)
+      const mat = sel.material || "Acrylic";
+      let baseSingle = mat==="Acrylic" ? 10 : mat==="Cotton" ? 12 : 12; // Plush +$2 => 12
+      if(mat==="Plush") baseSingle = 12;
+      if(sel.size==="Single") {
+        return {price: baseSingle, key:`scrunch:single_${mat.toLowerCase()}`, hint:"Single scrunchie"};
+      } else if(sel.size==="3-Pack") {
+        // 3-pack pricing: Acrylic 27, Cotton 32, Plush 33
+        const p = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33;
+        return {price:p, key:`scrunch:3_${mat.toLowerCase()}`, hint:"3-pack pricing"};
+      } else { // valentine pack uses 3-pack pricing (you can change)
+        const p = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36;
+        return {price:p, key:`scrunch:3_${mat.toLowerCase()}`, hint:"Valentine 3-pack special"};
+      }
+    }
+  },
 
-      </div>
+  croptop: {
+    name:"Ribbed Lace Drawstring Crop Top (Limited)",
+    img:"images/IMG_4188.jpg",
+    desc:"Limited ribbed lace drawstring crop top. One-of-a-kind drops — fits S–M best and adjustable.",
+    sizes:["Adjustable (fits S–M)"], // one-size/adjustable
+    materials:["As pictured"], // description will state material
+    pricing: sel => {
+      // fixed limited-price $95 (you chose $95)
+      return {price:95, key:"croptop:limited_fixed", hint:"Limited item — one price."};
+    }
+  },
 
-      <!-- ACCESSORIES -->
-      <h3 style="margin-top:18px;">Accessories</h3>
-      <div class="grid">
+  pillow: {
+    name:"Pillow Cover (cover only)",
+    img:"images/BlueHexagonCardigan.png", // replace later
+    desc:"Cozy pillow covers — cover only. Choose material and color.",
+    sizes:["Standard"],
+    materials:["Acrylic","Cotton","Plush"],
+    pricing: sel => {
+      const mat = sel.material || "Acrylic";
+      const price = mat==="Acrylic" ? 35 : mat==="Cotton" ? 45 : 55;
+      const key = mat==="Acrylic" ? "pillow:acrylic" : mat==="Cotton" ? "pillow:cotton" : "pillow:plush";
+      return {price, key, hint:"Cover only (insert not included)."};
+    }
+  },
 
-        <!-- SCRUNCHIES -->
-        <div class="card">
-          <div class="imgBox">
-            <img src="images/IMG_4189.jpg" alt="Assortment of crochet scrunchies">
-          </div>
-          <div class="content">
-            <h4>Scrunchies</h4>
-            <p class="muted">
-              Regular or plush packs. Choose main + trim colors. Trim adds a small upcharge.
-            </p>
-            <p class="price">From $10</p>
-            <a class="btn" href="product.html?id=scrunchies">View details</a>
-          </div>
-        </div>
+  tote: {
+    name:"Crochet Tote Bag",
+    img:"images/IMG_4125.jpg",
+    desc:"Sturdy and stylish tote bag.",
+    sizes:["One size"],
+    materials:["As pictured"],
+    pricing: sel => ({price:45, key:"tote:default", hint:"Fixed price."})
+  },
 
-      </div>
+  cardigan: {
+    name:"Hexagon Cardigan",
+    img:"images/BlueHexagonCardigan.png",
+    desc:"Made-to-order hexagon cardigan — pick material, size range and length.",
+    sizes:["S–M","M–L","L–XL"],
+    materials:["Acrylic","Cotton"],
+    pricing: sel => {
+      const sizeKey = sel.size || "S–M";
+      const mat = sel.material || "Acrylic";
+      // base by size & material
+      let base = 120; // sm default acrylic
+      if(sizeKey==="S–M") base = mat==="Acrylic" ? 120 : 140;
+      if(sizeKey==="M–L") base = mat==="Acrylic" ? 135 : 155;
+      if(sizeKey==="L–XL") base = mat==="Acrylic" ? 150 : 170;
+      // length add-on via addon field (crop/butt/mid/duster) represented by addonSel
+      const length = sel.addon || "crop";
+      let add = 0;
+      if(length==="butt") add = 15;
+      if(length==="mid") add = 30;
+      if(length==="duster") add = 50;
+      const price = base + add;
+      const key = `cardigan:${sizeKey.toLowerCase().replace(/\s/g,"_")}_${length}`;
+      return {price, key, hint:"Choose size range and length."};
+    }
+  }
+};
 
-      <!-- HOME -->
-      <h3 style="margin-top:18px;">Home</h3>
-      <div class="grid">
+/* -------------------------
+   UI wiring
+------------------------- */
+const id = new URLSearchParams(window.location.search).get("id");
+const item = id ? PRODUCTS[id] : null;
 
-        <!-- PILLOW COVERS -->
-        <div class="card">
-          <div class="imgBox">
-            <div class="placeholder">Add pillow cover photo</div>
-          </div>
-          <div class="content">
-            <h4>Pillow Covers (Cover Only)</h4>
-            <p class="muted">Acrylic, cotton, or plush. Pick your colors.</p>
-            <p class="price">$35–$55</p>
-            <a class="btn" href="product.html?id=pillow">View details</a>
-          </div>
-        </div>
+const prodName = document.getElementById("prodName");
+const prodDesc = document.getElementById("prodDesc");
+const prodImg = document.getElementById("prodImg");
+const prodPrice = document.getElementById("prodPrice");
+const priceHint = document.getElementById("priceHint");
+const sizeSel = document.getElementById("size");
+const materialSel = document.getElementById("material");
+const addonSel = document.getElementById("addon"); // reused for lengths where needed
+const notesEl = document.getElementById("notes");
+const paypalBtn = document.getElementById("paypalBtn");
+const appleBtn = document.getElementById("appleBtn");
+const scrunchOptions = document.getElementById("scrunchOptions");
+const color1 = document.getElementById("color1");
+const trim = document.getElementById("trim");
+const measurementArea = document.getElementById("measurementArea");
+const mBust = document.getElementById("mBust");
+const mShoulder = document.getElementById("mShoulder");
+const mLength = document.getElementById("mLength");
 
-      </div>
-    </section>
+/* helpers */
+function money(n){return `$${Number(n).toFixed(0)}`;}
+function fill(select, arr){ select.innerHTML = arr.map(a=>`<option>${a}</option>`).join(""); }
 
-    <!-- ===============================
-         RETURN POLICY
-    ================================ -->
-    <section id="return-policy" class="section">
-      <h2>Return Policy</h2>
-      <p class="muted">
-        All items are handmade and made to order, so <strong>all sales are final</strong> (no returns or exchanges).
-        If your item arrives <strong>damaged</strong> or <strong>incorrect</strong>, please contact me within
-        <strong>48 hours</strong> so I can make it right.
-      </p>
+/* render */
+if(!item){
+  prodName.textContent = "Product not found";
+  prodDesc.textContent = "Go back and choose an item from the home page.";
+  prodPrice.textContent = "";
+  paypalBtn.disabled = true;
+} else {
+  document.title = `${item.name} • HookedByKerrah`;
+  prodName.textContent = item.name;
+  prodDesc.textContent = item.desc;
+  prodImg.src = item.img;
+  prodImg.alt = item.name;
 
-      <p class="muted">
-        <strong>Instagram:</strong>
-        <a href="PASTE_INSTAGRAM_LINK_HERE" target="_blank" rel="noopener">PASTE_INSTAGRAM_HANDLE_HERE</a><br>
-        <strong>Email:</strong>
-        <a href="mailto:PASTE_EMAIL_HERE">PASTE_EMAIL_HERE</a>
-      </p>
-    </section>
+  fill(sizeSel, item.sizes || ["One size"]);
+  fill(materialSel, item.materials || ["As pictured"]);
 
-  </main>
+  // show scrunch-only options
+  if(id==="scrunchies"){
+    scrunchOptions.style.display = "block";
+    fill(color1, ["Multicolor","Pink","Red","Green","Blue","White","Orange","Yellow"]);
+    fill(trim, ["No trim","Pink","Red","Green","Blue","White","Orange","Yellow","Black","Glitter (red)","Glitter (white)","Glitter (silver)","Glitter (pink)"]);
+  } else {
+    scrunchOptions.style.display = "none";
+  }
 
-  <footer class="wrap">
-    © 2026 HookedByKerrah • Handmade Crochet
-  </footer>
+  // show measurement area only for croptop
+  if(id==="croptop"){
+    measurementArea.style.display = "block";
+  } else {
+    measurementArea.style.display = "none";
+  }
+
+  function update(){
+    const sel = {
+      size: sizeSel.value,
+      material: materialSel.value,
+      addon: (addonSel && addonSel.style.display!=="none") ? addonSel.value : null
+    };
+    // include measurement fields for croptop if present
+    if(id==="croptop"){
+      sel.measurements = {
+        bust: Number(mBust.value||0),
+        shoulder: Number(mShoulder.value||0),
+        length: Number(mLength.value||0)
+      };
+    }
+    const out = item.pricing(sel);
+    prodPrice.textContent = money(out.price);
+    priceHint.textContent = out.hint || "";
+  }
+
+  sizeSel.addEventListener("change", update);
+  materialSel.addEventListener("change", update);
+  if(addonSel) addonSel.addEventListener("change", update);
+  mBust.addEventListener("input", update);
+  mShoulder.addEventListener("input", update);
+  mLength.addEventListener("input", update);
+
+  update();
+}
+
+/* lightbox */
+const imgWrap = document.getElementById("imgWrap");
+const lightbox = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+const lbClose = document.getElementById("lbClose");
+if(imgWrap) imgWrap.addEventListener("click", ()=> {
+  lbImg.src = (item && item.img) ? item.img : "";
+  lightbox.style.display = "flex";
+});
+if(lbClose) lbClose.addEventListener("click", ()=> { lightbox.style.display = "none"; lbImg.src = ""; });
+if(lightbox) lightbox.addEventListener("click", (e)=> { if(e.target===lightbox){ lightbox.style.display="none"; lbImg.src=""; } });
+
+/* payment button behavior */
+paypalBtn.addEventListener("click", ()=>{
+  if(!item){ alert("No product selected."); return; }
+  // derive current key using pricing function again to ensure match
+  const sel = { size: sizeSel.value, material: materialSel.value, addon: (addonSel && addonSel.style.display!=="none") ? addonSel.value : null };
+  if(id==="croptop"){
+    sel.measurements = { bust:Number(mBust.value||0), shoulder:Number(mShoulder.value||0), length:Number(mLength.value||0) };
+  }
+  const out = item.pricing(sel);
+  const payKey = out.key;
+  const payLink = PAYPAL_LINKS[payKey];
+
+  if(!payLink || payLink.startsWith("PAYPAL_")){
+    alert(
+      "PayPal link for this option isn't set yet.\n\n" +
+      `Product: ${item.name}\nPrice tier key: ${payKey}\n\n` +
+      "Open product.html and replace PAYPAL_LINKS[\"" + payKey + "\"] with your real PayPal payment link."
+    );
+    return;
+  }
+
+  // For scrunchies we might need to add trim fee handling — for now, trim is informational and you can charge a small add-on separately if needed.
+  window.open(payLink, "_blank", "noopener");
+});
+
+appleBtn.addEventListener("click", ()=> {
+  alert("Apple Pay coming soon after domain is connected 🍎");
+});
+</script>
 </body>
 </html>
