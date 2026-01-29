@@ -5,232 +5,325 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HookedByKerrah</title>
 
-  <!-- =========================
-       Basic SEO + Social
-       (safe to keep simple for launch)
-  ========================== -->
-  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and home pieces." />
-  <meta property="og:title" content="HookedByKerrah" />
-  <meta property="og:description" content="Handmade crochet pieces made to order 🧶✨" />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and home decor." />
 
   <style>
     :root{
-      --bg:#fff3f6; --card:#ffffff; --text:#2a2a2a; --muted:#6f6f6f;
-      --accent:#e6a6b3; --accent-hover:#d98c9a; --tab-bg:#f7d6de;
-      --shadow:0 12px 30px rgba(0,0,0,.08); --radius:18px; --max:1100px;
+      --bg:#fff3f6;
+      --card:#ffffff;
+      --text:#2a2a2a;
+      --muted:#6f6f6f;
+      --accent:#e6a6b3;
+      --accent-hover:#d98c9a;
+      --tab-bg:#f7d6de;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:18px;
+      --max:1100px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text)
+    }
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
     header{margin-bottom:10px}
     h1{margin:0}
     .muted{color:var(--muted)}
+
     nav{margin-top:10px}
-    nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
+    nav a{
+      display:inline-block;
+      margin:6px 10px 0 0;
+      padding:8px 14px;
+      background:var(--tab-bg);
+      border-radius:999px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:650;
+      transition:background .2s
+    }
     nav a:hover{background:var(--accent);color:#fff}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+      margin-top:18px
+    }
 
-    /* Whole card clickable */
+    /* Make entire card clickable */
     .cardLink{display:block;text-decoration:none;color:inherit}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
-    .imgBox{aspect-ratio:4/3;background:#f1f1f1;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    img{width:100%;height:100%;object-fit:cover;display:block}
-    .content{padding:16px}
-    .pill{display:inline-block;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(230,166,179,.25);color:#6a2f3a;margin-bottom:10px}
-    .price{font-weight:900;margin:10px 0 0}
-    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:var(--accent);color:white;border-radius:12px;text-decoration:none;font-weight:800}
-    .btn:hover{background:var(--accent-hover)}
-    footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
 
-    /* Instagram link styling */
-    a.igLink{color:var(--accent-hover);font-weight:900;text-decoration:none}
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.06)
+    }
+
+    .imgBox{
+      aspect-ratio:4/3;
+      background:#f1f1f1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden
+    }
+
+    img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block
+    }
+
+    .content{padding:16px}
+
+    .pill{
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(230,166,179,.25);
+      color:#6a2f3a;
+      margin-bottom:10px
+    }
+
+    .price{font-weight:900;margin:10px 0 0}
+
+    .btn{
+      display:inline-block;
+      margin-top:12px;
+      padding:10px 16px;
+      background:var(--accent);
+      color:white;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:800
+    }
+    .btn:hover{background:var(--accent-hover)}
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      margin-top:40px;
+      font-size:14px
+    }
+
+    a.igLink{
+      color:var(--accent-hover);
+      font-weight:900;
+      text-decoration:none
+    }
     a.igLink:hover{text-decoration:underline}
 
-    @media(max-width:620px){nav a{padding:6px 10px}}
+    @media(max-width:620px){
+      nav a{padding:6px 10px}
+    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <h1>HookedByKerrah</h1>
-      <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
+<div class="wrap">
 
-      <!-- Simple nav -->
-      <nav>
-        <a href="#featured">Featured</a>
-        <a href="#shop">Shop</a>
-        <a href="#policies">Policies</a>
-      </nav>
-    </header>
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header>
+    <h1>HookedByKerrah</h1>
+    <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
 
-    <main>
-      <!-- =========================
-           FEATURED
-      ========================== -->
-      <section id="featured">
-        <h2>Featured Right Now</h2>
-        <div class="grid">
+    <nav>
+      <a href="#featured">Featured</a>
+      <a href="#shop">Shop</a>
+      <a href="#policies">Policies</a>
+    </nav>
+  </header>
 
-          <!-- Santa Hats -->
-          <!-- IMPORTANT: id=santahats must match PRODUCTS.santahats in product.html -->
-          <a class="cardLink" href="product.html?id=santahats">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Santa Hats -->
-                <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
-              </div>
-              <div class="content">
-                <div class="pill">Seasonal favorite</div>
-                <h3>Santa Hats</h3>
-                <p class="muted">Pick size, color combo, and optional glitter.</p>
-                <p class="price">$30–$40</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
+  <main>
 
-          <!-- Tote -->
-          <a class="cardLink" href="product.html?id=tote">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Tote -->
-                <img src="images/IMG_4125.jpg" alt="Crochet tote bag">
-              </div>
-              <div class="content">
-                <div class="pill">Featured</div>
-                <h3>Tote Bag</h3>
-                <p class="muted">A statement tote — choose your colorway.</p>
-                <p class="price">$45</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
+    <!-- =========================
+         FEATURED
+    ========================== -->
+    <section id="featured">
+      <h2>Featured Right Now</h2>
 
-        </div>
-      </section>
+      <div class="grid">
 
-      <!-- =========================
-           SHOP
-      ========================== -->
-      <section id="shop">
-        <h2 style="margin-top:22px">Shop</h2>
+        <!-- Santa Hats -->
+        <a class="cardLink" href="product.html?id=santahats">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Santa Hats -->
+              <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
+            </div>
+            <div class="content">
+              <div class="pill">Seasonal favorite</div>
+              <h3>Santa Hats</h3>
+              <p class="muted">Pick size, color combo, and optional glitter.</p>
+              <p class="price">$30–$40</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
 
-        <h3>Wearables</h3>
-        <div class="grid">
-          <!-- Cardigan -->
-          <a class="cardLink" href="product.html?id=cardigan">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Cardigan -->
-                <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
-              </div>
-              <div class="content">
-                <h3>Hexagon Cardigan</h3>
-                <p class="muted">Choose size range, length, and color vibe.</p>
-                <p class="price">Starting at $120</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
+        <!-- Tote Bag -->
+        <a class="cardLink" href="product.html?id=tote">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Tote Bag -->
+              <img src="images/IMG_4125.jpg" alt="Crochet tote bag">
+            </div>
+            <div class="content">
+              <div class="pill">Featured</div>
+              <h3>Tote Bag</h3>
+              <p class="muted">A statement tote — choose your colorway.</p>
+              <p class="price">$45</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
 
-          <!-- Crop top -->
-          <a class="cardLink" href="product.html?id=croptop">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Crop Top -->
-                <img src="images/IMG_4188.jpg" alt="Ribbed lace drawstring crop top">
-              </div>
-              <div class="content">
-                <div class="pill">Custom fit</div>
-                <h3>Ribbed Lace Drawstring Crop Top</h3>
-                <p class="muted">Enter measurements for live pricing.</p>
-                <p class="price">Starting at $95</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
-        </div>
+      </div>
+    </section>
 
-        <h3 style="margin-top:18px">Accessories</h3>
-        <div class="grid">
+    <!-- =========================
+         SHOP
+    ========================== -->
+    <section id="shop">
+      <h2 style="margin-top:22px">Shop</h2>
 
-          <!-- DIY (custom) scrunchie -->
-          <a class="cardLink" href="product.html?id=scrunchies_diy">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): DIY Scrunchie -->
-                <img src="images/IMG_4189.jpg" alt="Custom scrunchie">
-              </div>
-              <div class="content">
-                <div class="pill">Design your own</div>
-                <h3>Custom Scrunchie</h3>
-                <p class="muted">Pick colors + trim (price updates live).</p>
-                <p class="price">From $10</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
+      <h3>Wearables</h3>
+      <div class="grid">
 
-          <!-- Premade scrunchies -->
-          <a class="cardLink" href="product.html?id=scrunchies">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Premade Scrunchies -->
-                <img src="images/IMG_4189.jpg" alt="Premade scrunchies">
-              </div>
-              <div class="content">
-                <h3>Premade Scrunchies</h3>
-                <p class="muted">Singles or packs. Optional trim available.</p>
-                <p class="price">From $10</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
+        <!-- Cardigan -->
+        <a class="cardLink" href="product.html?id=cardigan">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Cardigan -->
+              <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
+            </div>
+            <div class="content">
+              <h3>Hexagon Cardigan</h3>
+              <p class="muted">Choose size range, length, and color vibe.</p>
+              <p class="price">Starting at $120</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
 
-        </div>
+        <!-- Crop Top -->
+        <a class="cardLink" href="product.html?id=croptop">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Crop Top -->
+              <img src="images/IMG_4188.jpg" alt="Ribbed lace drawstring crop top">
+            </div>
+            <div class="content">
+              <div class="pill">Custom fit</div>
+              <h3>Ribbed Lace Drawstring Crop Top</h3>
+              <p class="muted">Enter measurements for live pricing.</p>
+              <p class="price">Starting at $95</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
 
-        <h3 style="margin-top:18px">Home</h3>
-        <div class="grid">
-          <a class="cardLink" href="product.html?id=pillow">
-            <article class="card">
-              <div class="imgBox">
-                <!-- IMAGE (index card): Pillow cover (replace later) -->
-                <div style="padding:18px;text-align:center;color:var(--muted)">Add pillow cover photo</div>
-              </div>
-              <div class="content">
-                <h3>Pillow Covers (Cover Only)</h3>
-                <p class="muted">Standard sizes + custom sizing. Add flowers or tassels.</p>
-                <p class="price">From $35</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
-              </div>
-            </article>
-          </a>
-        </div>
-      </section>
+      </div>
 
       <!-- =========================
-           POLICIES + CONTACT
+           ACCESSORIES
       ========================== -->
-      <section id="policies" style="margin-top:28px">
-        <h2>Policies</h2>
-        <p class="muted">
-          All items are handmade and made to order, so <strong>all sales are final</strong> (no returns or exchanges).
-          If your item arrives <strong>damaged</strong> or <strong>incorrect</strong>, please contact me within <strong>48 hours</strong>.
-        </p>
+      <h3 style="margin-top:18px">Accessories</h3>
+      <div class="grid">
 
-        <p class="muted">
-          Questions or custom requests? DM me on Instagram:
-          <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
-        </p>
-      </section>
-    </main>
+        <!-- Custom Scrunchie -->
+        <a class="cardLink" href="product.html?id=scrunchies_diy">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Custom Scrunchie -->
+              <img src="images/IMG_4189.jpg" alt="Custom scrunchie">
+            </div>
+            <div class="content">
+              <div class="pill">Design your own</div>
+              <h3>Custom Scrunchie</h3>
+              <p class="muted">Pick colors and trim — price updates live.</p>
+              <p class="price">From $10</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
 
-    <footer>
-      © 2026 HookedByKerrah • Handmade Crochet
-    </footer>
-  </div>
+        <!-- ✅ PREMADE SCRUNCHIES (THIS IS THE ONE YOU WANT) -->
+        <a class="cardLink" href="product.html?id=scrunchies">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Premade Scrunchies -->
+              <img src="images/9indscrunchiesreg.jpg" alt="Premade scrunchies">
+            </div>
+            <div class="content">
+              <h3>Premade Scrunchies</h3>
+              <p class="muted">Singles or packs. Optional trim available.</p>
+              <p class="price">From $10</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
+
+      </div>
+
+      <!-- =========================
+           HOME
+      ========================== -->
+      <h3 style="margin-top:18px">Home</h3>
+      <div class="grid">
+
+        <a class="cardLink" href="product.html?id=pillow">
+          <article class="card">
+            <div class="imgBox">
+              <!-- IMAGE (home card): Pillow (replace later) -->
+              <div style="padding:18px;text-align:center;color:var(--muted)">
+                Add pillow cover photo
+              </div>
+            </div>
+            <div class="content">
+              <h3>Pillow Covers (Cover Only)</h3>
+              <p class="muted">Standard sizes + custom sizing. Add flowers or tassels.</p>
+              <p class="price">From $35</p>
+              <span class="btn">View details</span>
+            </div>
+          </article>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         POLICIES
+    ========================== -->
+    <section id="policies" style="margin-top:28px">
+      <h2>Policies</h2>
+      <p class="muted">
+        All items are handmade and made to order. All sales are final.
+      </p>
+      <p class="muted">
+        Questions or custom requests? DM me on Instagram:
+        <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">
+          @HookedByKerrah
+        </a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 HookedByKerrah • Handmade Crochet
+  </footer>
+
+</div>
 </body>
 </html>
