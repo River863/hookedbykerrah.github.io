@@ -19,7 +19,6 @@
     nav{margin-top:10px}
     nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
     nav a:hover{background:var(--accent);color:#fff}
-    .hero{margin-top:14px;background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
     .cardLink{display:block;text-decoration:none;color:inherit}
     .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
@@ -44,12 +43,14 @@
         <a href="#shop">Shop</a>
         <a href="#return-policy">Return Policy</a>
       </nav>
-      <!-- NOTE: you asked previously to remove "How ordering works" from top;
-           if you want it removed delete this .hero block -->
-      <div class="hero" id="orderingHow">
+      <!-- NOTE: You asked earlier to move 'How ordering works' to the bottom.
+           If you want it back at top remove the comment surrounding the block below. -->
+      <!--
+      <div class="hero">
         <strong>How ordering works:</strong>
         <span class="muted">Choose an item → pick options → checkout with PayPal.</span>
       </div>
+      -->
     </header>
 
     <main>
@@ -62,13 +63,13 @@
           <a class="cardLink" href="product.html?id=santahats">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
+                <!-- Replace image file here -->
                 <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
               </div>
               <div class="content">
                 <div class="pill">Limited seasonal</div>
                 <h3>Santa Hats</h3>
-                <p class="muted">Kids & adult sizes. Glitter option available.</p>
+                <p class="muted">Kids and adult Santa hats — cozy, glitter-ready, and perfect for festive photos. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">$30–$40</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -79,13 +80,13 @@
           <a class="cardLink" href="product.html?id=tote">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
+                <!-- Replace image file here -->
                 <img src="images/IMG_4125.jpg" alt="Blue crochet tote bag">
               </div>
               <div class="content">
                 <div class="pill">Featured</div>
                 <h3>Blue Tote Bag</h3>
-                <p class="muted">Sturdy and stylish everyday tote.</p>
+                <p class="muted">Golden metallic circle with black t-shirt yarn body, bamboo handles and gold hardware — an elevated everyday tote for autumn. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">$45</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -104,11 +105,12 @@
           <a class="cardLink" href="product.html?id=cardigan">
             <article class="card">
               <div class="imgBox">
+                <!-- Replace image file here -->
                 <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
               </div>
               <div class="content">
                 <h3>Hexagon Cardigan</h3>
-                <p class="muted">Made-to-order — choose size range, length & color vibe.</p>
+                <p class="muted">A made-to-order statement cardigan knit from chunky yarn — luxe trims and flattering hexagon panels. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">Starting at $120</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -118,12 +120,13 @@
           <a class="cardLink" href="product.html?id=croptop">
             <article class="card">
               <div class="imgBox">
+                <!-- Replace image file here -->
                 <img src="images/IMG_4188.jpg" alt="Ribbed crop top">
               </div>
               <div class="content">
-                <div class="pill">Available now</div>
+                <div class="pill">Made to order</div>
                 <h3>Ribbed Lace Drawstring Crop Top</h3>
-                <p class="muted">Custom-fit — enter measurements on product page.</p>
+                <p class="muted">Delicate ribbed lace, adjustable drawstring, and a custom fit. Measurements required. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">Starting at $95</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -137,28 +140,29 @@
           <a class="cardLink" href="product.html?id=scrunchies">
             <article class="card">
               <div class="imgBox">
+                <!-- Replace image file here -->
                 <img src="images/IMG_4189.jpg" alt="Scrunchies assortment">
               </div>
               <div class="content">
                 <h3>Premade Scrunchies</h3>
-                <p class="muted">Singles & packs. Optional trims available.</p>
+                <p class="muted">Handmade scrunchies in single or pack options — soft and durable for everyday wear. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">From $10</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
 
-          <!-- NEW: Design Your Own scrunchie (individual) -->
+          <!-- Design your own scrunchie -->
           <a class="cardLink" href="product.html?id=scrunchies_diy">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE for DIY scrunchie -->
+                <!-- Replace image file here (DIY scrunchie hero) -->
                 <img src="images/ScrunchiesDIY.jpg" alt="Design your own scrunchie">
               </div>
               <div class="content">
-                <div class="pill">Design your own</div>
+                <div class="pill">Customize</div>
                 <h3>Scrunchies — Build Your Own (Individual)</h3>
-                <p class="muted">Pick material, 1 or 2 colors, and optional trim. Price updates live.</p>
+                <p class="muted">Choose yarn, pick one or two colors, add trim or glitter — build a scrunchie that’s truly yours. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">From $10</p>
                 <div style="margin-top:8px"><span class="btn">Customize</span></div>
               </div>
@@ -175,7 +179,7 @@
               </div>
               <div class="content">
                 <h3>Pillow Covers (Cover Only)</h3>
-                <p class="muted">Choose size & material — add flowers or tassels.</p>
+                <p class="muted">Cozy front-panel designs with optional corner flowers or tassels — choose material and size. Product is available now and will be shipped within 7 business days from now.</p>
                 <p class="price">$35–$55</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -184,9 +188,9 @@
         </div>
       </section>
 
-      <!-- RETURN POLICY -->
+      <!-- RETURN POLICY & CUSTOM ORDERS -->
       <section id="return-policy" style="margin-top:28px">
-        <h2>Return Policy</h2>
+        <h2>Return Policy & Custom Orders</h2>
         <p class="muted">
           All items are handmade and made to order, so <strong>all sales are final</strong> (no returns or exchanges).
           If your item arrives <strong>damaged</strong> or <strong>incorrect</strong>, please contact me within <strong>48 hours</strong>.
@@ -195,7 +199,7 @@
           <strong>Instagram:</strong> <a href="PASTE_INSTAGRAM_LINK_HERE" target="_blank" rel="noopener">PASTE_INSTAGRAM_HANDLE_HERE</a><br>
           <strong>Email:</strong> <a href="mailto:PASTE_EMAIL_HERE">PASTE_EMAIL_HERE</a>
         </p>
-        <p class="muted"><strong>Custom orders:</strong> Email me for custom orders.</p>
+        <p class="muted"><strong>Custom orders:</strong> Email me for custom orders — I accept small batch and one-off commissions. Product will be shipped within 7 business days once the order is confirmed.</p>
       </section>
     </main>
 
