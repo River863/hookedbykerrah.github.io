@@ -4,180 +4,61 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HookedByKerrah</title>
-
-  <!-- =========================================================
-       STYLES (CSS)
-       Tip: Most edits you’ll make are:
-        - colors in :root
-        - spacing in .wrap / .grid
-        - card look in .card / .btn
-  ========================================================== -->
   <style>
     :root{
-      /* -------- Theme colors (easy to tweak) -------- */
-      --bg:#fff3f6;
-      --card:#ffffff;
-      --text:#2a2a2a;
-      --muted:#6f6f6f;
-
-      --accent:#e6a6b3;
-      --accent-hover:#d98c9a;
-      --tab-bg:#f7d6de;
-
-      /* -------- Layout + effects -------- */
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:18px;
-      --max:1100px;
+      --bg:#fff3f6; --card:#ffffff; --text:#2a2a2a; --muted:#6f6f6f;
+      --accent:#e6a6b3; --accent-hover:#d98c9a; --tab-bg:#f7d6de;
+      --shadow:0 12px 30px rgba(0,0,0,.08); --radius:18px; --max:1100px;
     }
-
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    /* Page container */
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
-
     header{margin-bottom:10px}
     h1{margin:0}
     .muted{color:var(--muted)}
-
-    /* Top navigation pills */
     nav{margin-top:10px}
-    nav a{
-      display:inline-block;
-      margin:6px 10px 0 0;
-      padding:8px 14px;
-      background:var(--tab-bg);
-      border-radius:999px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:650;
-      transition:background .2s;
-    }
+    nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
     nav a:hover{background:var(--accent);color:#fff}
-
-    /* Small intro box */
-    .hero{
-      margin-top:14px;
-      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow:var(--shadow);
-    }
-
-    /* Product grids */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:18px;
-      margin-top:18px;
-    }
-
-    /* Make the whole card clickable by wrapping it in <a> */
+    .hero{margin-top:14px;background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
     .cardLink{display:block;text-decoration:none;color:inherit}
-
-    /* Product card */
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.06);
-    }
-
-    /* Image box keeps consistent card height */
-    .imgBox{
-      aspect-ratio:4/3;
-      background:#f1f1f1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+    .imgBox{aspect-ratio:4/3;background:#f1f1f1;display:flex;align-items:center;justify-content:center;overflow:hidden}
     img{width:100%;height:100%;object-fit:cover;display:block}
-
     .content{padding:16px}
-
-    /* Small label tag */
-    .pill{
-      display:inline-block;
-      font-size:12px;
-      font-weight:800;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(230,166,179,.25);
-      color:#6a2f3a;
-      margin-bottom:10px;
-    }
-
+    .pill{display:inline-block;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(230,166,179,.25);color:#6a2f3a;margin-bottom:10px}
     .price{font-weight:900;margin:10px 0 0}
-
-    /* “View details” button look (it’s a span but looks like a button) */
-    .btn{
-      display:inline-block;
-      margin-top:12px;
-      padding:10px 16px;
-      background:var(--accent);
-      color:white;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:800;
-    }
+    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:var(--accent);color:white;border-radius:12px;text-decoration:none;font-weight:800}
     .btn:hover{background:var(--accent-hover)}
-
     footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
     @media(max-width:620px){nav a{padding:6px 10px}}
   </style>
 </head>
-
 <body>
   <div class="wrap">
-
-    <!-- =========================================================
-         HEADER SECTION
-         - site title
-         - tagline
-         - nav links
-         - hero box (you asked to remove earlier; keep if you want)
-    ========================================================== -->
     <header>
       <h1>HookedByKerrah</h1>
       <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
-
-      <!-- Jump links to sections on this page -->
       <nav>
         <a href="#featured">Featured</a>
         <a href="#shop">Shop</a>
         <a href="#return-policy">Return Policy</a>
       </nav>
-
-      <!-- NOTE: If you want this removed, delete this entire .hero div -->
-      <div class="hero">
+      <!-- NOTE: you asked previously to remove "How ordering works" from top;
+           if you want it removed delete this .hero block -->
+      <div class="hero" id="orderingHow">
         <strong>How ordering works:</strong>
         <span class="muted">Choose an item → pick options → checkout with PayPal.</span>
       </div>
     </header>
 
     <main>
-
-      <!-- =========================================================
-           FEATURED SECTION
-           Each product card links to:
-           product.html?id=YOUR_ID
-           The id must exist in PRODUCTS object in product.html
-      ========================================================== -->
+      <!-- FEATURED -->
       <section id="featured">
         <h2>Featured Right Now</h2>
-
         <div class="grid">
 
           <!-- Santa Hats -->
-          <!-- IMPORTANT: This link must match PRODUCTS.santahats in product.html -->
           <a class="cardLink" href="product.html?id=santahats">
             <article class="card">
               <div class="imgBox">
@@ -214,143 +95,113 @@
         </div>
       </section>
 
-      <!-- =========================================================
-           SHOP SECTION
-           Add more products by copying a card and changing:
-            - href id=
-            - image
-            - name/description/price preview
-      ========================================================== -->
+      <!-- SHOP -->
       <section id="shop">
         <h2 style="margin-top:22px">Shop</h2>
 
         <h3>Wearables</h3>
         <div class="grid">
-
-          <!-- Hexagon Cardigan -->
           <a class="cardLink" href="product.html?id=cardigan">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
                 <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
               </div>
               <div class="content">
                 <h3>Hexagon Cardigan</h3>
-                <p class="muted">Acrylic or cotton. Size ranges + length options.</p>
+                <p class="muted">Made-to-order — choose size range, length & color vibe.</p>
                 <p class="price">Starting at $120</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
 
-          <!-- Crop Top -->
           <a class="cardLink" href="product.html?id=croptop">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
                 <img src="images/IMG_4188.jpg" alt="Ribbed crop top">
               </div>
               <div class="content">
                 <div class="pill">Available now</div>
                 <h3>Ribbed Lace Drawstring Crop Top</h3>
-                <p class="muted">Complex build — you’ll enter measurements on the product page.</p>
+                <p class="muted">Custom-fit — enter measurements on product page.</p>
                 <p class="price">Starting at $95</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
-
         </div>
 
         <h3 style="margin-top:18px">Accessories</h3>
         <div class="grid">
-
-          <!-- Scrunchies (Premade link by default) -->
+          <!-- Premade scrunchies -->
           <a class="cardLink" href="product.html?id=scrunchies">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
                 <img src="images/IMG_4189.jpg" alt="Scrunchies assortment">
               </div>
               <div class="content">
-                <h3>Scrunchies</h3>
-                <p class="muted">Sold individually or in packs. Optional trim upcharge.</p>
+                <h3>Premade Scrunchies</h3>
+                <p class="muted">Singles & packs. Optional trims available.</p>
                 <p class="price">From $10</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
 
-          <!-- OPTIONAL: Design Your Own Scrunchies (separate listing) -->
-          <!-- Uncomment this block if you want a separate card on index -->
-          <!--
+          <!-- NEW: Design Your Own scrunchie (individual) -->
           <a class="cardLink" href="product.html?id=scrunchies_diy">
             <article class="card">
               <div class="imgBox">
+                <!-- CHANGE IMAGE HERE for DIY scrunchie -->
                 <img src="images/ScrunchiesDIY.jpg" alt="Design your own scrunchie">
               </div>
               <div class="content">
                 <div class="pill">Design your own</div>
-                <h3>Scrunchies (Design Your Own)</h3>
-                <p class="muted">Pick material + 1–2 colors + optional trim.</p>
+                <h3>Scrunchies — Build Your Own (Individual)</h3>
+                <p class="muted">Pick material, 1 or 2 colors, and optional trim. Price updates live.</p>
                 <p class="price">From $10</p>
-                <div style="margin-top:8px"><span class="btn">View details</span></div>
+                <div style="margin-top:8px"><span class="btn">Customize</span></div>
               </div>
             </article>
           </a>
-          -->
-
         </div>
 
         <h3 style="margin-top:18px">Home</h3>
         <div class="grid">
-
-          <!-- Pillow Covers -->
           <a class="cardLink" href="product.html?id=pillow">
             <article class="card">
               <div class="imgBox">
-                <!-- CHANGE IMAGE HERE -->
                 <div style="padding:18px;text-align:center;color:var(--muted)">Add pillow cover photo</div>
               </div>
               <div class="content">
                 <h3>Pillow Covers (Cover Only)</h3>
-                <p class="muted">Choose size + material, add flowers/tassels.</p>
-                <p class="price">$35–$55+</p>
+                <p class="muted">Choose size & material — add flowers or tassels.</p>
+                <p class="price">$35–$55</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
-
         </div>
       </section>
 
-      <!-- =========================================================
-           RETURN POLICY / CONTACT SECTION
-           Replace placeholders with your real info.
-      ========================================================== -->
+      <!-- RETURN POLICY -->
       <section id="return-policy" style="margin-top:28px">
         <h2>Return Policy</h2>
         <p class="muted">
           All items are handmade and made to order, so <strong>all sales are final</strong> (no returns or exchanges).
           If your item arrives <strong>damaged</strong> or <strong>incorrect</strong>, please contact me within <strong>48 hours</strong>.
         </p>
-
-        <!-- CONTACT LINKS -->
         <p class="muted">
-          <strong>Instagram:</strong>
-          <a href="PASTE_INSTAGRAM_LINK_HERE" target="_blank" rel="noopener">PASTE_INSTAGRAM_HANDLE_HERE</a><br>
-          <strong>Email:</strong>
-          <a href="mailto:PASTE_EMAIL_HERE">PASTE_EMAIL_HERE</a>
+          <strong>Instagram:</strong> <a href="PASTE_INSTAGRAM_LINK_HERE" target="_blank" rel="noopener">PASTE_INSTAGRAM_HANDLE_HERE</a><br>
+          <strong>Email:</strong> <a href="mailto:PASTE_EMAIL_HERE">PASTE_EMAIL_HERE</a>
         </p>
-
-        <!-- Optional custom order note -->
-        <p class="muted">
-          <strong>Custom orders:</strong> Email me with what you want, colors, and your timeline.
-        </p>
+        <p class="muted"><strong>Custom orders:</strong> Email me for custom orders.</p>
       </section>
     </main>
 
-    <footer>© 2026 HookedByKerrah • Handmade Crochet</footer>
+    <footer>
+      © 2026 HookedByKerrah • Handmade Crochet
+    </footer>
   </div>
 </body>
 </html>
