@@ -6,15 +6,13 @@
   <title>HookedByKerrah</title>
 
   <!-- =========================
-       BASIC SEO + SOCIAL META
-       (You can update later)
+       Basic SEO + Social
+       (safe to keep simple for launch)
   ========================== -->
-  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and more." />
+  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and home pieces." />
   <meta property="og:title" content="HookedByKerrah" />
   <meta property="og:description" content="Handmade crochet pieces made to order 🧶✨" />
   <meta property="og:type" content="website" />
-  <!-- Optional later: set a real absolute image url -->
-  <!-- <meta property="og:image" content="https://YOURDOMAIN.com/images/preview.jpg" /> -->
 
   <style>
     :root{
@@ -31,7 +29,10 @@
     nav{margin-top:10px}
     nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
     nav a:hover{background:var(--accent);color:#fff}
+
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
+
+    /* Whole card clickable */
     .cardLink{display:block;text-decoration:none;color:inherit}
     .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
     .imgBox{aspect-ratio:4/3;background:#f1f1f1;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -42,6 +43,11 @@
     .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:var(--accent);color:white;border-radius:12px;text-decoration:none;font-weight:800}
     .btn:hover{background:var(--accent-hover)}
     footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
+
+    /* Instagram link styling */
+    a.igLink{color:var(--accent-hover);font-weight:900;text-decoration:none}
+    a.igLink:hover{text-decoration:underline}
+
     @media(max-width:620px){nav a{padding:6px 10px}}
   </style>
 </head>
@@ -52,7 +58,7 @@
       <h1>HookedByKerrah</h1>
       <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
 
-      <!-- Simple navigation -->
+      <!-- Simple nav -->
       <nav>
         <a href="#featured">Featured</a>
         <a href="#shop">Shop</a>
@@ -62,63 +68,63 @@
 
     <main>
       <!-- =========================
-           FEATURED SECTION
+           FEATURED
       ========================== -->
       <section id="featured">
         <h2>Featured Right Now</h2>
-
         <div class="grid">
+
           <!-- Santa Hats -->
-          <!-- NOTE: The id= must match a key in PRODUCTS inside product.html -->
+          <!-- IMPORTANT: id=santahats must match PRODUCTS.santahats in product.html -->
           <a class="cardLink" href="product.html?id=santahats">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Santa hats card image -->
+                <!-- IMAGE (index card): Santa Hats -->
                 <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
               </div>
               <div class="content">
                 <div class="pill">Seasonal favorite</div>
                 <h3>Santa Hats</h3>
-                <p class="muted">Choose size, color combo, and optional glitter.</p>
+                <p class="muted">Pick size, color combo, and optional glitter.</p>
                 <p class="price">$30–$40</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
 
-          <!-- Blue Tote -->
+          <!-- Tote -->
           <a class="cardLink" href="product.html?id=tote">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Tote card image -->
-                <img src="images/IMG_4125.jpg" alt="Blue crochet tote bag">
+                <!-- IMAGE (index card): Tote -->
+                <img src="images/IMG_4125.jpg" alt="Crochet tote bag">
               </div>
               <div class="content">
                 <div class="pill">Featured</div>
-                <h3>Blue Tote Bag</h3>
-                <p class="muted">A statement tote — pick a colorway you love.</p>
+                <h3>Tote Bag</h3>
+                <p class="muted">A statement tote — choose your colorway.</p>
                 <p class="price">$45</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
+
         </div>
       </section>
 
       <!-- =========================
-           SHOP SECTION
+           SHOP
       ========================== -->
       <section id="shop">
         <h2 style="margin-top:22px">Shop</h2>
 
-        <!-- Wearables -->
         <h3>Wearables</h3>
         <div class="grid">
           <!-- Cardigan -->
           <a class="cardLink" href="product.html?id=cardigan">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Cardigan card image -->
+                <!-- IMAGE (index card): Cardigan -->
                 <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
               </div>
               <div class="content">
@@ -130,17 +136,17 @@
             </article>
           </a>
 
-          <!-- Crop Top -->
+          <!-- Crop top -->
           <a class="cardLink" href="product.html?id=croptop">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Crop top card image -->
+                <!-- IMAGE (index card): Crop Top -->
                 <img src="images/IMG_4188.jpg" alt="Ribbed lace drawstring crop top">
               </div>
               <div class="content">
                 <div class="pill">Custom fit</div>
                 <h3>Ribbed Lace Drawstring Crop Top</h3>
-                <p class="muted">Made to order — enter measurements for pricing.</p>
+                <p class="muted">Enter measurements for live pricing.</p>
                 <p class="price">Starting at $95</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
@@ -148,56 +154,56 @@
           </a>
         </div>
 
-        <!-- Accessories -->
         <h3 style="margin-top:18px">Accessories</h3>
         <div class="grid">
-          <!-- DIY Scrunchie -->
+
+          <!-- DIY (custom) scrunchie -->
           <a class="cardLink" href="product.html?id=scrunchies_diy">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: DIY scrunchies card image -->
-                <img src="images/IMG_4189.jpg" alt="Design your own scrunchie">
+                <!-- IMAGE (index card): DIY Scrunchie -->
+                <img src="images/IMG_4189.jpg" alt="Custom scrunchie">
               </div>
               <div class="content">
                 <div class="pill">Design your own</div>
                 <h3>Custom Scrunchie</h3>
-                <p class="muted">Pick 1 or 2 colors + optional trim (price updates live).</p>
+                <p class="muted">Pick colors + trim (price updates live).</p>
                 <p class="price">From $10</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
 
-          <!-- Premade Scrunchies -->
+          <!-- Premade scrunchies -->
           <a class="cardLink" href="product.html?id=scrunchies">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Premade scrunchies card image -->
+                <!-- IMAGE (index card): Premade Scrunchies -->
                 <img src="images/IMG_4189.jpg" alt="Premade scrunchies">
               </div>
               <div class="content">
                 <h3>Premade Scrunchies</h3>
-                <p class="muted">Singles or packs — optional trim available.</p>
+                <p class="muted">Singles or packs. Optional trim available.</p>
                 <p class="price">From $10</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
           </a>
+
         </div>
 
-        <!-- Home -->
         <h3 style="margin-top:18px">Home</h3>
         <div class="grid">
           <a class="cardLink" href="product.html?id=pillow">
             <article class="card">
               <div class="imgBox">
-                <!-- IMAGE: Pillow cover card image (replace when ready) -->
+                <!-- IMAGE (index card): Pillow cover (replace later) -->
                 <div style="padding:18px;text-align:center;color:var(--muted)">Add pillow cover photo</div>
               </div>
               <div class="content">
                 <h3>Pillow Covers (Cover Only)</h3>
-                <p class="muted">Standard sizes + custom option. Add flowers or tassels.</p>
-                <p class="price">$35+</p>
+                <p class="muted">Standard sizes + custom sizing. Add flowers or tassels.</p>
+                <p class="price">From $35</p>
                 <div style="margin-top:8px"><span class="btn">View details</span></div>
               </div>
             </article>
@@ -206,7 +212,7 @@
       </section>
 
       <!-- =========================
-           POLICIES / CONTACT
+           POLICIES + CONTACT
       ========================== -->
       <section id="policies" style="margin-top:28px">
         <h2>Policies</h2>
@@ -215,12 +221,9 @@
           If your item arrives <strong>damaged</strong> or <strong>incorrect</strong>, please contact me within <strong>48 hours</strong>.
         </p>
 
-        <!-- Instagram CTA -->
         <p class="muted">
-          For questions or custom requests, DM me on Instagram:
-          <strong>@HookedByKerrah</strong>
-          <!-- Optional later: add your real IG link -->
-          <!-- <a href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a> -->
+          Questions or custom requests? DM me on Instagram:
+          <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
         </p>
       </section>
     </main>
