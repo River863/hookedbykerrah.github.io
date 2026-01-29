@@ -4,228 +4,86 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Product • HookedByKerrah</title>
-
-  <!-- =========================================================
-       CSS / STYLES
-       This controls the look of the page.
-       Tip: If you want to change colors, edit the :root variables.
-  ========================================================== -->
   <style>
     :root{
-      /* Theme colors */
-      --bg:#fff3f6;        /* page background */
-      --bg2:#fff8fb;       /* lighter background accent */
-      --card:#fff;         /* card background */
-      --text:#2a2a2a;       /* main text */
-      --muted:#6f6f6f;      /* muted text (descriptions/hints) */
-      --accent:#e6a6b3;     /* button color */
-      --accent-hover:#d98c9a; /* button hover color */
-
-      /* Borders & shadows */
-      --border:rgba(0,0,0,.08);
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-
-      /* Layout sizing */
-      --radius:18px;       /* rounded corners */
-      --max:980px;         /* max width of page content */
+      --bg:#fff3f6; --bg2:#fff8fb; --card:#fff; --text:#2a2a2a;
+      --muted:#6f6f6f; --accent:#e6a6b3; --accent-hover:#d98c9a;
+      --border:rgba(0,0,0,.08); --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:18px; --max:980px;
     }
-
     *{box-sizing:border-box}
-
-    /* Page background + base font */
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:radial-gradient(1200px 600px at 20% 0%,var(--bg2),var(--bg));
-      color:var(--text);
-    }
-
-    /* Centers everything */
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 20% 0%,var(--bg2),var(--bg));color:var(--text)}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
-
-    /* Top bar with back link + brand name */
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px;
-      background:rgba(255,255,255,.9);
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-    }
-
-    /* Back button */
-    a.back{
-      font-weight:900;
-      color:var(--text);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#fff
-    }
-
-    /* Main card that holds the product page */
-    .card{
-      margin-top:16px;
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      border:1px solid var(--border);
-      overflow:hidden
-    }
-
-    /* Two-column layout: image left, info right */
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px;background:rgba(255,255,255,.9);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
+    a.back{font-weight:900;color:var(--text);text-decoration:none;padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .card{margin-top:16px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
     .grid{display:grid;grid-template-columns:1fr 1fr}
-
-    /* Image container */
-    .imgWrap{
-      background:#111;
-      min-height:320px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:zoom-in; /* hint that image is clickable */
-    }
-
-    /* Product image style */
-    .imgWrap img{
-      width:100%;
-      height:100%;
-      object-fit:contain; /* keeps whole image visible */
-      background:#111;
-      display:block
-    }
-
-    /* Right-hand content area */
+    .imgWrap{background:#111;min-height:320px;display:flex;align-items:center;justify-content:center;cursor:zoom-in}
+    .imgWrap img{width:100%;height:100%;object-fit:contain;background:#111;display:block}
     .info{padding:16px}
-
     h1{margin:0 0 6px;font-size:24px}
     .desc{color:var(--muted);margin-bottom:10px}
     .price{font-weight:950;font-size:18px;margin-bottom:6px}
     .hint{font-size:12px;color:var(--muted);margin-bottom:10px}
-
-    /* Form labels + inputs */
     label{display:block;font-weight:900;margin:10px 0 6px}
-    select,input{
-      width:100%;
-      padding:10px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      font-weight:700
-    }
-
-    /* Two inputs side-by-side (size + material, pillow width + height, etc.) */
+    select,input{width:100%;padding:10px;border-radius:12px;border:1px solid var(--border);font-weight:700}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-    /* Main buttons */
-    .btn{
-      width:100%;
-      margin-top:12px;
-      padding:12px;
-      border-radius:14px;
-      border:none;
-      font-weight:950;
-      cursor:pointer;
-      background:var(--accent);
-      color:#fff
-    }
+    .btn{width:100%;margin-top:12px;padding:12px;border-radius:14px;border:none;font-weight:950;cursor:pointer;background:var(--accent);color:#fff}
     .btn:hover{background:var(--accent-hover)}
     .btn.black{background:#111}
-
-    /* Small grey note at the bottom */
     .noteBox{margin-top:12px;font-size:13px;color:var(--muted)}
-
-    /* Checkbox rows for pillow extras */
     .checkRow{display:flex;gap:10px;align-items:center;margin-top:10px}
     .checkRow input{width:auto}
-
-    /* Mobile layout: stack columns */
-    @media(max-width:820px){
-      .grid{grid-template-columns:1fr}
-      .row{grid-template-columns:1fr}
-    }
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
   <div class="wrap">
-
-    <!-- =========================================================
-         TOP BAR (navigation)
-         Back link goes back to index.html
-    ========================================================== -->
     <div class="topbar">
       <a class="back" href="index.html">← Back to Home</a>
       <strong>HookedByKerrah ✨</strong>
     </div>
 
-    <!-- =========================================================
-         MAIN PRODUCT CARD
-         Left side: image
-         Right side: title, description, options, buttons
-    ========================================================== -->
     <div class="card">
       <div class="grid">
-
-        <!-- PRODUCT IMAGE (changes depending on product selected) -->
-        <div class="imgWrap" id="imgWrap">
-          <!-- JS sets src/alt based on PRODUCTS[id].img -->
-          <img id="prodImg" alt="">
-        </div>
-
+        <div class="imgWrap" id="imgWrap"><img id="prodImg" alt=""></div>
         <div class="info">
-          <!-- Product title + description (filled by JS) -->
           <h1 id="prodName">Product</h1>
           <p class="desc" id="prodDesc"></p>
 
-          <!-- Product details box (bullets). Hidden if no bullets for product. -->
-          <div id="detailsBox"
-               style="display:none;margin:10px 0 14px;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.8);">
+          <div id="detailsBox" style="display:none;margin:10px 0 14px;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.8);">
             <strong style="display:block;margin-bottom:6px">Product Details</strong>
-            <ul id="prodBullets"
-                style="margin:0;padding-left:18px;color:#6f6f6f;font-weight:650;line-height:1.5"></ul>
+            <ul id="prodBullets" style="margin:0;padding-left:18px;color:#6f6f6f;font-weight:650;line-height:1.5"></ul>
           </div>
 
-          <!-- Price text (filled by JS based on options selected) -->
           <div class="price" id="prodPrice"></div>
-
-          <!-- Price hint text (example: “Trim adds…” or “Glitter adds…”) -->
           <div class="hint" id="priceHint"></div>
 
-          <!-- =========================================================
-               CORE OPTIONS
-               These wrappers can be hidden per product (showSize/showMaterial)
-          ========================================================== -->
+          <!-- Core options (wrappers allow per-product hiding) -->
           <div class="row">
             <div id="sizeWrap">
               <label for="size">Size</label>
               <select id="size"></select>
             </div>
-
             <div id="materialWrap">
               <label for="material">Material</label>
               <select id="material"></select>
             </div>
           </div>
 
-          <!-- COLOR DROPDOWN (only shown if product has colorOptions) -->
+          <!-- Color -->
           <div id="colorWrap" style="display:none;margin-top:10px">
             <label for="color">Color</label>
             <select id="color"></select>
           </div>
 
-          <!-- ADD-ON DROPDOWN (only shown if product has addon options) -->
+          <!-- Add-on select -->
           <div id="addonWrap" style="display:none;margin-top:10px">
             <label id="addonLabel" for="addon">Add-on</label>
             <select id="addon"></select>
           </div>
 
-          <!-- =========================================================
-               SCRUNCHIES - DIY OPTIONS
-               Only shown when id === "scrunchies_diy"
-          ========================================================== -->
+          <!-- Scrunchies: DIY -->
           <div id="scrunchDIY" style="display:none;margin-top:10px">
             <label for="colorStyle">Color style</label>
             <select id="colorStyle"></select>
@@ -235,8 +93,6 @@
                 <label for="color1" style="margin-top:0">Main color</label>
                 <select id="color1"></select>
               </div>
-
-              <!-- This second color area shows only when you pick “Two colors” -->
               <div id="color2Wrap">
                 <label for="color2" style="margin-top:0">Second color (+$3)</label>
                 <select id="color2"></select>
@@ -245,27 +101,17 @@
 
             <label style="margin-top:10px" for="trim">Trim (optional)</label>
             <select id="trim"></select>
-            <div class="hint" style="margin-top:6px">
-              Trim adds $0.25 (regular) or $0.50 (glitter).
-            </div>
+            <div class="hint" style="margin-top:6px">Trim adds $0.25 (regular) or $0.50 (glitter).</div>
           </div>
 
-          <!-- =========================================================
-               SCRUNCHIES - PREMADE OPTIONS
-               Only shown when id === "scrunchies" or "scrunchies_premade"
-          ========================================================== -->
+          <!-- Scrunchies: Premade -->
           <div id="scrunchPremade" style="display:none;margin-top:10px">
             <label for="trim2">Trim (optional)</label>
             <select id="trim2"></select>
-            <div class="hint" style="margin-top:6px">
-              Trim adds $0.25 (regular) or $0.50 (glitter).
-            </div>
+            <div class="hint" style="margin-top:6px">Trim adds $0.25 (regular) or $0.50 (glitter).</div>
           </div>
 
-          <!-- =========================================================
-               CROP TOP MEASUREMENTS (required)
-               Only shown when id === "croptop"
-          ========================================================== -->
+          <!-- Crop top measurements (required) -->
           <div id="measurementArea" style="display:none;margin-top:10px">
             <label>Measurements (required)</label>
             <p class="hint">These are required and affect pricing if above the baselines.</p>
@@ -274,22 +120,17 @@
               <label for="mBust">Bust (in inches)</label>
               <input id="mBust" type="number" min="0" placeholder="e.g. 34">
             </div>
-
             <div style="margin-top:6px">
               <label for="mShoulder">Over-shoulder circumference</label>
               <input id="mShoulder" type="number" min="0" placeholder="e.g. 36">
             </div>
-
             <div style="margin-top:6px">
               <label for="mLength">Top length (in inches)</label>
               <input id="mLength" type="number" min="0" placeholder="e.g. 10">
             </div>
           </div>
 
-          <!-- =========================================================
-               PILLOW CUSTOM SIZE (only if size starts with "Custom")
-               Only shown when id === "pillow"
-          ========================================================== -->
+          <!-- Pillow custom size inputs -->
           <div id="pillowCustomArea" style="display:none;margin-top:10px">
             <label>Custom size (inches)</label>
             <div class="row">
@@ -304,29 +145,22 @@
             </div>
           </div>
 
-          <!-- PILLOW EXTRAS (checkbox add-ons) -->
+          <!-- Pillow add-ons -->
           <div id="pillowAddons" style="display:none;margin-top:10px">
             <label>Extras</label>
             <div class="checkRow">
               <input type="checkbox" id="addFlowers">
-              <label for="addFlowers" style="margin:0;font-weight:800">
-                Flowers (qty 4 corners) +$4
-              </label>
+              <label for="addFlowers" style="margin:0;font-weight:800">Flowers (qty 4 corners) +$4</label>
             </div>
-
             <div class="checkRow">
               <input type="checkbox" id="addTassels">
-              <label for="addTassels" style="margin:0;font-weight:800">
-                Tassels (qty 4 corners) +$2
-              </label>
+              <label for="addTassels" style="margin:0;font-weight:800">Tassels (qty 4 corners) +$2</label>
             </div>
           </div>
 
-          <!-- BUY BUTTONS -->
           <button class="btn" id="paypalBtn">Click here to buy via PayPal</button>
           <button class="btn black" id="appleBtn">Apple Pay (Coming Soon)</button>
 
-          <!-- Final note / policies -->
           <div class="noteBox" id="finalNote">
             All items are handmade & made to order. All sales final. <br>
             For custom orders or questions, <a href="mailto:PASTE_EMAIL_HERE">email me</a>.
@@ -336,29 +170,18 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       LIGHTBOX (image popup)
-       When user clicks the product image, we open this overlay.
-  ========================================================== -->
-  <div id="lightbox"
-       style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);align-items:center;justify-content:center;z-index:60;">
+  <!-- Lightbox -->
+  <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);align-items:center;justify-content:center;z-index:60;">
     <div style="width:min(1000px,98%);background:#fff;border-radius:16px;overflow:hidden;">
       <div style="padding:10px;text-align:right;">
-        <button id="lbClose"
-                style="padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer">
-          Close ✕
-        </button>
+        <button id="lbClose" style="padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer">Close ✕</button>
       </div>
       <img id="lbImg" src="" style="width:100%;height:auto;display:block;background:#111" alt="">
     </div>
   </div>
 
 <script>
-/* =========================================================
-   1) PAYPAL LINKS
-   Replace each placeholder with your real PayPal link.
-   The key MUST match what pricing() returns for that product.
-========================================================= */
+/* PayPal links placeholders: REPLACE each placeholder with your real PayPal link */
 const PAYPAL_LINKS = {
   "santa:kids_regular": "PAYPAL_SANTA_KIDS_REGULAR",
   "santa:kids_glitter": "PAYPAL_SANTA_KIDS_GLITTER",
@@ -398,45 +221,28 @@ const PAYPAL_LINKS = {
   "pillow:custom": "PAYPAL_PILLOW_CUSTOM"
 };
 
-/* =========================================================
-   2) SHARED COLOR LISTS
-   Used to quickly create lots of color options.
-========================================================= */
+/* Color lists */
 const COLORS_NO_BLACK = ["Pink","Red","Green","Blue","White","Orange","Yellow","Purple"];
 const COLORS_WITH_WHITE_COMBOS = COLORS_NO_BLACK.filter(c => c !== "White").map(c => `${c}/White`);
 function uniq(arr){ return [...new Set(arr)]; }
 
-/* =========================================================
-   3) PRODUCTS (data + pricing rules)
-   IMPORTANT:
-    - The key must match product.html?id=KEY
-    - img is where you change product images
-    - pricing(sel) returns { price, key, hint }
-========================================================= */
+/* PRODUCTS (with enticing descriptions + shipping line) */
 const PRODUCTS = {
   santahats: {
     name:"Santa Hats",
-
     // CHANGE IMAGE HERE
     img:"images/SantaHats.jpeg",
-
-    desc:"Kids hats start at $30 and adult hats start at $35. Glitter available (+$5).",
+    desc:"Festive crochet Santa hats with soft trim and optional sparkle — perfect for holiday photos, family matching, and gifting. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Kids start at $30 • Adults start at $35",
-      "Choose hat + trim color",
-      "Optional glitter (+$5)",
+      "Colorful hat + contrasting trim options",
+      "Optional glitter for a holiday sparkle (+$5)",
       "Handmade to order"
     ],
-
-    // Controls which dropdowns show
     showSize: true,
     showMaterial: false,
-
-    // Dropdown values
     sizes:["Kids","Adult"],
     materials:["Standard"],
-
-    // Color dropdown values
     colorOptions: uniq([
       "Red Hat/White Trim",
       "Black Hat/Red Trim",
@@ -444,8 +250,6 @@ const PRODUCTS = {
       "Pink Hat/White Trim",
       "White Hat/Pink Trim"
     ]),
-
-    // Add-on dropdown (glitter)
     addon: {
       label: "Glitter",
       options: [
@@ -453,15 +257,11 @@ const PRODUCTS = {
         { label: "Glitter (+$5)", value: "glitter" }
       ]
     },
-
-    // Pricing logic for this product
     pricing: sel => {
       const isAdult = sel.size==="Adult";
       const isGlitter = sel.addon==="glitter";
       let price = isAdult ? 35 : 30;
       if (isGlitter) price += 5;
-
-      // PayPal tier key (must match PAYPAL_LINKS)
       const key = (isAdult ? "santa:adult_" : "santa:kids_") + (isGlitter ? "glitter" : "regular");
       return {price, key, hint: isGlitter ? "Glitter adds $5." : ""};
     }
@@ -469,25 +269,19 @@ const PRODUCTS = {
 
   tote: {
     name:"Blue Tote Bag",
-
     // CHANGE IMAGE HERE
     img:"images/IMG_4125.jpg",
-
-    desc:"Sturdy and stylish everyday tote. Choose a color.",
+    desc:"Golden metallic circle with black t-shirt yarn body, bamboo handles and gold hardware — an elevated everyday tote that pairs with any autumn outfit. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
-      "Roomy everyday tote",
-      "Choose a colorway",
-      "Handmade crochet construction",
+      "Handmade t-shirt yarn construction",
+      "Bamboo handles + gold hardware",
+      "Roomy, structured interior",
       "Fixed price: $45"
     ],
-
     showSize: false,
     showMaterial: false,
-
     sizes:["One size"],
     materials:["As pictured"],
-
-    // Big color list
     colorOptions: uniq([
       "Blue Multicolor (Pictured)",
       "Pink/White",
@@ -495,30 +289,24 @@ const PRODUCTS = {
       ...COLORS_NO_BLACK,
       ...COLORS_WITH_WHITE_COMBOS
     ]),
-
-    pricing: () => ({price:45, key:"tote:default", hint:"Fixed price."})
+    pricing: sel => ({price:45, key:"tote:default", hint:"Fixed price."})
   },
 
   cardigan: {
     name:"Hexagon Cardigan",
-
     // CHANGE IMAGE HERE
     img:"images/BlueHexagonCardigan.png",
-
-    desc:"Made-to-order. Choose your size range, length, and color vibe.",
+    desc:"A statement hexagon-paneled cardigan — chunky yet breathable, with elegant trim options for a polished finish. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Made to order",
-      "Choose size range + length",
+      "Choose size range + refined length options",
       "Color vibe options available",
       "Length affects price"
     ],
-
     showSize: true,
     showMaterial: false,
-
     sizes:["S–M","M–L","L–XL"],
     materials:["Acrylic"],
-
     colorOptions: uniq([
       "Black With Red Trim (Pictured)",
       "Pink/White/Red (Valentines Vibes)",
@@ -526,8 +314,6 @@ const PRODUCTS = {
       ...COLORS_NO_BLACK,
       ...COLORS_WITH_WHITE_COMBOS
     ]),
-
-    // Add-on dropdown for length
     addon: {
       label: "Length",
       options: [
@@ -537,31 +323,22 @@ const PRODUCTS = {
         { label: "Duster-Length Finish (+$50)", value: "duster" }
       ]
     },
-
     pricing: sel => {
       const sizeKey = sel.size || "S–M";
-
-      // Base price by size range
       let base = 120;
       if(sizeKey==="S–M") base = 120;
       if(sizeKey==="M–L") base = 135;
       if(sizeKey==="L–XL") base = 150;
-
-      // Add-on by length
       const length = sel.addon || "crop";
       let add = 0;
       if(length==="butt") add = 15;
       if(length==="mid") add = 30;
       if(length==="duster") add = 50;
-
       const price = base + add;
-
-      // Turn size display name into a slug for PayPal keys
       const sizeSlug =
         sizeKey==="S–M" ? "sm_med" :
         sizeKey==="M–L" ? "med_lg" :
         "lg_xl";
-
       const key = `cardigan:${sizeSlug}_${length}`;
       return {price, key, hint:"Choose size range and length."};
     }
@@ -569,38 +346,28 @@ const PRODUCTS = {
 
   croptop: {
     name:"Ribbed Lace Drawstring Crop Top (Custom Fit)",
-
     // CHANGE IMAGE HERE
     img:"images/IMG_4188.jpg",
-
-    desc:"Made to order, custom fit. Measurements are required and determine final pricing.",
+    desc:"A delicate ribbed lace crop with an adjustable drawstring: custom-fit for flattering wear. Measurements required for accuracy. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Custom fit (measurements required)",
       "Base price $95",
       "Price adjusts if measurements exceed baselines",
-      "Handmade to order"
+      "Perfect for layering or statement outfit"
     ],
-
     showSize: false,
     showMaterial: false,
-
+    sizes:["Custom fit"],
+    materials:["As pictured"],
     pricing: sel => {
       let price = 95;
       let hint = "Base $95. Price adjusts if measurements exceed baselines.";
-
-      // Measurements are in sel.measurements (set in update())
       const m = sel.measurements || {bust:0, shoulder:0, length:0};
-
-      // Baselines (you can change these)
       const bustBase = 34, shoulderBase = 36, lengthBase = 10;
-
-      // Add-on math based on “over baseline”
       const bustAdd = Math.max(0, (m.bust || 0) - bustBase) * 1.0;
       const shoulderAdd = Math.max(0, (m.shoulder || 0) - shoulderBase) * 0.5;
       const lengthAdd = Math.max(0, (m.length || 0) - lengthBase) * 1.0;
-
       const add = Math.ceil(bustAdd + shoulderAdd + lengthAdd);
-
       if(add > 0){
         price += add;
         hint = `Measurements add +$${add} (above baselines).`;
@@ -612,116 +379,83 @@ const PRODUCTS = {
 
   scrunchies_diy: {
     name:"Scrunchies (Design Your Own)",
-
-    // CHANGE IMAGE HERE (this is the one you said you couldn’t find)
+    // CHANGE IMAGE HERE (this is the DIY scrunchie image)
     img:"images/IMG_4189.jpg",
-
-    desc:"Sold individually. Choose material, color style (1 or 2 colors), and optional trim. Two colors add +$3.",
+    desc:"Build the perfect scrunchie: choose yarn, pick one or two colors, and add an optional trim for a polished finish. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Sold individually",
       "Choose material + 1 or 2 colors",
       "Second color adds +$3",
       "Optional trim (+$0.25 / +$0.50 glitter)"
     ],
-
-    showSize: false,
+    showSize: false,   // single-only
     showMaterial: true,
     sizes:["Single"],
-
     materials:["Acrylic","Cotton","Plush"],
-
     pricing: sel => {
-      const mat = sel.material || "Acrylic";
-
-      // Base single pricing
-      let price = mat==="Acrylic" ? 10 : 12;
-
-      // PayPal key for single material
-      let key = `scrunch_diy:single_${mat.toLowerCase()}`;
-
-      let hint = "Sold individually";
-
-      // Two color add-on
-      if(sel.colorStyle === "two") { price += 3; hint += " • Two colors +$3"; }
-
-      // Trim add-on
+      // Base price equal across materials (per your request)
+      let basePrice = 10;
+      // Two-colors +$3
+      if(sel.colorStyle === "two") basePrice += 3;
+      // Trim fees
       const t = (sel.trim || "No trim").toLowerCase();
       let trimFee = 0;
       if(t !== "no trim"){ trimFee = t.startsWith("glitter") ? 0.50 : 0.25; }
-      price += trimFee;
+      const price = basePrice + trimFee;
+      const mat = (sel.material || "Acrylic").toLowerCase();
+      const key = `scrunch_diy:single_${mat}`;
+      let hint = "Sold individually";
+      if(sel.colorStyle === "two") hint += " • Two colors +$3";
       if(trimFee) hint += ` • Trim +$${trimFee.toFixed(2)}`;
-
       return {price, key, hint};
     }
   },
 
   scrunchies_premade: {
     name:"Premade Scrunchies",
-
     // CHANGE IMAGE HERE
     img:"images/IMG_4189.jpg",
-
-    desc:"Premade scrunchies ready to ship. Sold individually or in packs. Optional trim available.",
+    desc:"Ready-to-ship premade scrunchies in curated colorways — classic, plush, and holiday packs available. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Singles + packs available",
       "Choose material",
       "Optional trim (+$0.25 / +$0.50)"
     ],
-
     showSize: true,
     showMaterial: true,
     sizes:["Single","3-Pack","3-Valentine"],
     materials:["Acrylic","Cotton","Plush"],
-
     pricing: sel => {
       const mat = sel.material || "Acrylic";
-
-      let price = mat==="Acrylic" ? 10 : 12;
+      let price = mat==="Acrylic" ? 10 : mat==="Cotton" ? 12 : 12;
       let key = `scrunch_pre:single_${mat.toLowerCase()}`;
       let hint = "Single scrunchie";
-
-      // Pack pricing
-      if(sel.size==="3-Pack") {
-        price = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33;
-        key = `scrunch_pre:3_${mat.toLowerCase()}`;
-        hint = "3-pack pricing";
-      } else if(sel.size==="3-Valentine") {
-        price = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36;
-        key = `scrunch_pre:3_${mat.toLowerCase()}`;
-        hint = "Valentine 3-pack special";
-      }
-
-      // Trim add-on
+      if(sel.size==="3-Pack") { price = mat==="Acrylic" ? 27 : mat==="Cotton" ? 32 : 33; key = `scrunch_pre:3_${mat.toLowerCase()}`; hint = "3-pack pricing"; }
+      else if(sel.size==="3-Valentine") { price = mat==="Acrylic" ? 30 : mat==="Cotton" ? 34 : 36; key = `scrunch_pre:3_${mat.toLowerCase()}`; hint = "Valentine 3-pack special"; }
       const t = (sel.trim || "No trim").toLowerCase();
       let trimFee = 0;
       if(t !== "no trim"){ trimFee = t.startsWith("glitter") ? 0.50 : 0.25; }
       price += trimFee;
       if(trimFee) hint += ` • Trim +$${trimFee.toFixed(2)}`;
-
       return {price, key, hint};
     }
   },
 
-  /* Legacy id if you link product.html?id=scrunchies from index.html */
-  scrunchies: null,
+  scrunchies: null, // legacy id
 
   pillow: {
     name:"Pillow Covers (Cover Only)",
-
-    // CHANGE IMAGE HERE (you’ll probably want a pillow photo)
+    // CHANGE IMAGE HERE to a pillow cover photo
     img:"images/BlueHexagonCardigan.png",
-
-    desc:"Cover only (insert not included). Choose size, material, and extras.",
+    desc:"Decorative crochet pillow covers with optional corner flowers or tassels — select a size or request a custom fit. Product is available now and will be shipped within 7 business days from now.",
     bullets:[
       "Cover only (insert not included)",
       "Standard sizes + custom sizing option",
       "Plush has yarn upcharge by size tier",
       "Add flowers (+$4) and tassels (+$2)"
     ],
-
     showSize: true,
     showMaterial: true,
-
     sizes:[
       "16x16 (Small throw)",
       "18x18 (Throw)",
@@ -732,12 +466,9 @@ const PRODUCTS = {
       "Custom (enter size)"
     ],
     materials:["Acrylic","Cotton","Plush"],
-
     pricing: sel => {
       const sizeKey = sel.size || "18x18 (Throw)";
       const isCustom = sizeKey.startsWith("Custom");
-
-      // Standard base pricing
       const acrylicBase = {
         "16x16 (Small throw)": 35,
         "18x18 (Throw)": 40,
@@ -746,11 +477,7 @@ const PRODUCTS = {
         "24x24 (Oversized)": 55,
         "12x20 (Lumbar)": 38
       };
-
-      // Cotton is acrylic + 10
       const cottonBase = Object.fromEntries(Object.entries(acrylicBase).map(([k,v]) => [k, v+10]));
-
-      // Plush upcharge by size
       const plushUpcharge = {
         "16x16 (Small throw)": 3,
         "18x18 (Throw)": 6,
@@ -759,58 +486,38 @@ const PRODUCTS = {
         "24x24 (Oversized)": 15,
         "12x20 (Lumbar)": 6
       };
-
       let base = 40;
-
       if(!isCustom){
         if(sel.material === "Cotton") base = cottonBase[sizeKey] ?? 50;
         else base = acrylicBase[sizeKey] ?? 40;
-
         if(sel.material === "Plush"){
           base = (acrylicBase[sizeKey] ?? 40) + (plushUpcharge[sizeKey] ?? 6);
         }
       } else {
-        // Custom size uses width * height area pricing
         const w = Number(sel.pillowW || 0);
         const h = Number(sel.pillowH || 0);
         const area = w * h;
-
-        // These formulas are adjustable
         let acrylic = Math.max(40, Math.ceil(area * 0.14));
         let cotton = acrylic + 10;
         let plush = acrylic + (3 * Math.max(1, Math.ceil(area / 300)));
-
         base = sel.material === "Cotton" ? cotton : sel.material === "Plush" ? plush : acrylic;
       }
-
-      // Extras checkboxes
       let extras = 0;
       if(sel.flowers) extras += 4;
       if(sel.tassels) extras += 2;
-
       const price = base + extras;
-
-      // PayPal tier (standard vs custom)
       const key = isCustom ? "pillow:custom" : "pillow:standard";
-
       return {price, key, hint:"Cover only. Plush includes yarn upcharge. Extras priced below."};
     }
   }
 };
 
-/* Make old scrunchies link point to premade scrunchies */
 PRODUCTS.scrunchies = PRODUCTS.scrunchies_premade;
 
-/* =========================================================
-   4) GET THE PRODUCT ID FROM URL
-   Example: product.html?id=santahats
-========================================================= */
+/* UI wiring */
 const id = new URLSearchParams(window.location.search).get("id");
 const item = id ? PRODUCTS[id] : null;
 
-/* =========================================================
-   5) GRAB HTML ELEMENTS (so JS can update them)
-========================================================= */
 const prodName = document.getElementById("prodName");
 const prodDesc = document.getElementById("prodDesc");
 const prodImg = document.getElementById("prodImg");
@@ -856,18 +563,11 @@ const pillowAddons = document.getElementById("pillowAddons");
 const addFlowers = document.getElementById("addFlowers");
 const addTassels = document.getElementById("addTassels");
 
-/* =========================================================
-   6) SMALL HELPER FUNCTIONS
-========================================================= */
+/* helpers */
 function money(n){ return `$${Number(n).toFixed(0)}`; }
-function fillSimple(select, arr){
-  select.innerHTML = (arr||[]).map(a=>`<option>${a}</option>`).join("");
-}
-function fillValueLabel(select, arr){
-  select.innerHTML = (arr||[]).map(o=>`<option value="${o.value}">${o.label}</option>`).join("");
-}
+function fillSimple(select, arr){ select.innerHTML = (arr||[]).map(a=>`<option>${a}</option>`).join(""); }
+function fillValueLabel(select, arr){ select.innerHTML = (arr||[]).map(o=>`<option value="${o.value}">${o.label}</option>`).join(""); }
 
-/* Builds a summary the customer can copy/paste */
 function buildOrderSummary(sel, out){
   const lines = [];
   lines.push(`Product: ${item.name}`);
@@ -900,27 +600,20 @@ function buildOrderSummary(sel, out){
   return lines.join("\n");
 }
 
-/* =========================================================
-   7) INITIAL RENDER
-   - if product id not found: show error
-   - else: fill dropdowns and show/hide sections
-========================================================= */
+/* render */
 if(!item){
   prodName.textContent = "Product not found";
   prodDesc.textContent = "Go back and choose an item from the home page.";
   prodPrice.textContent = "";
   paypalBtn.disabled = true;
 } else {
-  // Set page title + main fields
   document.title = `${item.name} • HookedByKerrah`;
   prodName.textContent = item.name;
   prodDesc.textContent = item.desc;
-
-  // Show the correct image for this product
   prodImg.src = item.img;
   prodImg.alt = item.name;
 
-  // Show bullets if present
+  // bullets / details
   if(item.bullets && item.bullets.length){
     detailsBox.style.display = "block";
     prodBullets.innerHTML = item.bullets.map(b => `<li>${b}</li>`).join("");
@@ -928,15 +621,14 @@ if(!item){
     detailsBox.style.display = "none";
   }
 
-  // Show/hide Size and Material dropdowns based on product settings
+  // Show/hide Size & Material wrappers per product
   sizeWrap.style.display = (item.showSize === false) ? "none" : "block";
   materialWrap.style.display = (item.showMaterial === false) ? "none" : "block";
 
-  // Fill dropdowns (even if hidden, it’s okay)
   fillSimple(sizeSel, item.sizes || ["One size"]);
   fillSimple(materialSel, item.materials || ["As pictured"]);
 
-  // Color dropdown
+  // Color
   if(item.colorOptions && item.colorOptions.length){
     colorWrap.style.display = "block";
     fillSimple(colorSel, item.colorOptions);
@@ -944,7 +636,7 @@ if(!item){
     colorWrap.style.display = "none";
   }
 
-  // Add-on dropdown (like glitter / cardigan length)
+  // Add-on
   if(item.addon){
     addonWrap.style.display = "block";
     addonLabel.textContent = item.addon.label;
@@ -953,21 +645,18 @@ if(!item){
     addonWrap.style.display = "none";
   }
 
-  // Scrunchies setup lists
+  // Scrunchies UI
   const scrunchColorList = ["Multicolor","Pink","Red","Green","Blue","White","Orange","Yellow","Purple"];
   const trimOptions = ["No trim","Pink","Red","Green","Blue","White","Orange","Yellow","Black","Glitter (red)","Glitter (white)","Glitter (silver)","Glitter (pink)"];
 
-  // Show correct scrunch UI based on which scrunch product you opened
   if(id==="scrunchies_diy"){
     scrunchDIY.style.display = "block";
     scrunchPremade.style.display = "none";
-
     fillSimple(colorStyle, ["Single color (base price)","Two colors (+$3)"]);
     fillSimple(color1, scrunchColorList);
     fillSimple(color2, scrunchColorList);
     fillSimple(trim, trimOptions);
 
-    // When user switches color style, show/hide color2 dropdown
     function syncColorStyle(){
       const isTwo = (colorStyle.selectedIndex === 1);
       color2Wrap.style.display = isTwo ? "block" : "none";
@@ -983,22 +672,13 @@ if(!item){
     scrunchPremade.style.display = "none";
   }
 
-  // Measurements only show for crop top
+  // crop top measurements required
   measurementArea.style.display = (id==="croptop") ? "block" : "none";
 
-  // Pillow extras only show for pillow
+  // pillow extras + custom
   pillowAddons.style.display = (id==="pillow") ? "block" : "none";
   if(id!=="pillow") pillowCustomArea.style.display = "none";
 
-  /* =========================================================
-     update()
-     This runs whenever user changes an option.
-     It:
-      - gathers selected values into "sel"
-      - calls pricing(sel)
-      - updates price + hint
-      - stores PayPal key + order summary for checkout
-  ========================================================== */
   function update(){
     const sel = {
       size: (item.showSize === false) ? (item.sizes?.[0] || "One size") : sizeSel.value,
@@ -1006,22 +686,17 @@ if(!item){
       color: (colorWrap.style.display !== "none") ? colorSel.value : null,
       addon: (addonWrap.style.display !== "none") ? addonSel.value : null,
 
-      // DIY scrunch options
       colorStyle: (id==="scrunchies_diy") ? (colorStyle.selectedIndex === 1 ? "two" : "single") : null,
       color1: (id==="scrunchies_diy") ? color1.value : null,
       color2: (id==="scrunchies_diy") ? color2.value : null,
-      trim: (id==="scrunchies_diy") ? trim.value
-           : (id==="scrunchies_premade" || id==="scrunchies") ? trim2.value
-           : "No trim",
+      trim: (id==="scrunchies_diy") ? trim.value : (id==="scrunchies_premade" || id==="scrunchies") ? trim2.value : "No trim",
 
-      // pillow custom
       pillowW: (id==="pillow") ? Number(pW.value||0) : 0,
       pillowH: (id==="pillow") ? Number(pH.value||0) : 0,
       flowers: (id==="pillow") ? !!addFlowers.checked : false,
       tassels: (id==="pillow") ? !!addTassels.checked : false
     };
 
-    // Measurements for croptop
     if(id==="croptop"){
       sel.measurements = {
         bust: Number(mBust.value||0),
@@ -1030,37 +705,25 @@ if(!item){
       };
     }
 
-    // Pillow: show custom inputs only when size starts with "Custom"
     if(id==="pillow"){
       const isCustom = sel.size.startsWith("Custom");
       pillowCustomArea.style.display = isCustom ? "block" : "none";
     }
 
-    // Get price and PayPal key from product pricing()
     const out = item.pricing(sel);
-
-    // Update UI
     prodPrice.textContent = money(out.price);
     priceHint.textContent = out.hint || "";
 
-    // Store key + summary so PayPal button can use them
     paypalBtn.dataset.orderSummary = buildOrderSummary(sel, out);
     paypalBtn.dataset.payKey = out.key;
 
-    // Validation flags (used by PayPal click)
-    paypalBtn.dataset.cropOk =
-      (id==="croptop" && sel.measurements.bust>0 && sel.measurements.shoulder>0 && sel.measurements.length>0)
-        ? "true" : "false";
-
-    paypalBtn.dataset.pillowCustomOk =
-      (id==="pillow" && sel.size.startsWith("Custom"))
-        ? ((sel.pillowW>0 && sel.pillowH>0) ? "true" : "false")
-        : "true";
+    paypalBtn.dataset.cropOk = (id==="croptop" && sel.measurements.bust>0 && sel.measurements.shoulder>0 && sel.measurements.length>0) ? "true" : "false";
+    paypalBtn.dataset.pillowCustomOk = (id==="pillow" && sel.size.startsWith("Custom"))
+      ? ((sel.pillowW>0 && sel.pillowH>0) ? "true" : "false")
+      : "true";
   }
 
-  /* =========================================================
-     EVENT LISTENERS (when user changes dropdowns/inputs)
-  ========================================================== */
+  // listeners
   sizeSel.addEventListener("change", update);
   materialSel.addEventListener("change", update);
   if(colorSel) colorSel.addEventListener("change", update);
@@ -1087,69 +750,43 @@ if(!item){
     addTassels.addEventListener("change", update);
   }
 
-  // Run once at page load to show correct starting price
   update();
 }
 
-/* =========================================================
-   8) LIGHTBOX (click image to enlarge)
-========================================================= */
+/* lightbox */
 const imgWrap = document.getElementById("imgWrap");
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
 const lbClose = document.getElementById("lbClose");
-
 if(imgWrap) imgWrap.addEventListener("click", ()=> {
   lbImg.src = (item && item.img) ? item.img : "";
   lightbox.style.display = "flex";
 });
-if(lbClose) lbClose.addEventListener("click", ()=> {
-  lightbox.style.display = "none";
-  lbImg.src = "";
-});
-if(lightbox) lightbox.addEventListener("click", (e)=> {
-  if(e.target===lightbox){
-    lightbox.style.display="none";
-    lbImg.src="";
-  }
-});
+if(lbClose) lbClose.addEventListener("click", ()=> { lightbox.style.display = "none"; lbImg.src = ""; });
+if(lightbox) lightbox.addEventListener("click", (e)=> { if(e.target===lightbox){ lightbox.style.display="none"; lbImg.src=""; } });
 
-/* =========================================================
-   9) PAYPAL BUTTON CLICK
-   - validates required fields (croptop measurements / pillow custom size)
-   - looks up PayPal link using returned payKey
-   - opens PayPal link
-========================================================= */
+/* payment button */
 paypalBtn.addEventListener("click", ()=>{
   if(!item){ alert("No product selected."); return; }
 
-  // Require measurements for crop top
   if(id==="croptop" && paypalBtn.dataset.cropOk !== "true"){
     alert("Please enter ALL required measurements (bust, over-shoulder, and top length).");
     return;
   }
 
-  // Require custom dimensions for custom pillow size
   if(paypalBtn.dataset.pillowCustomOk !== "true"){
     alert("Please enter both width and height for your custom pillow size.");
     return;
   }
 
-  // PayPal tier key created by pricing()
   const payKey = paypalBtn.dataset.payKey;
-
-  // PayPal URL from PAYPAL_LINKS
   const payLink = PAYPAL_LINKS[payKey];
-
-  // Summary customer can paste later
   const summary = paypalBtn.dataset.orderSummary || "";
 
-  // Copy summary automatically (nice for order messages)
   if(navigator.clipboard){
     navigator.clipboard.writeText(summary).catch(()=>{});
   }
 
-  // If you didn’t set the PayPal link yet, show an alert explaining what to do
   if(!payLink || payLink.startsWith("PAYPAL_")){
     alert(
       "PayPal link for this option isn't set yet.\n\n" +
@@ -1159,14 +796,10 @@ paypalBtn.addEventListener("click", ()=>{
     return;
   }
 
-  // Open PayPal checkout in new tab
   window.open(payLink, "_blank", "noopener");
-
-  // Let them know it copied
   alert("Order details copied. After checkout, paste them in your message/email if needed.");
 });
 
-/* Apple Pay placeholder */
 appleBtn.addEventListener("click", ()=> {
   alert("Apple Pay coming soon after domain is connected 🍎");
 });
