@@ -82,11 +82,25 @@
 <body>
   <div class="wrap">
     <!-- =========================
-         TOP BAR
+         TOP BAR (Back + Brand + Cart)
     ========================== -->
     <div class="topbar">
       <a class="back" href="index.html">← Back to Home</a>
-      <strong>HookedByKerrah ✨</strong>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <strong>HookedByKerrah ✨</strong>
+
+        <!-- CART BUTTON (opens the cart drawer) -->
+        <button id="cartBtn"
+          style="position:relative;padding:8px 12px;border-radius:12px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer;font-weight:900">
+          Cart
+          <span id="cartCount"
+            style="position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;border-radius:999px;background:#111;color:#fff;
+                  display:flex;align-items:center;justify-content:center;font-size:12px;padding:0 6px;">
+            0
+          </span>
+        </button>
+      </div>
     </div>
 
     <!-- =========================
@@ -144,8 +158,7 @@
           </div>
 
           <!-- =========================
-               SCRUNCHIES: DESIGN YOUR OWN
-               (shows only when id=scrunchies_diy)
+               SCRUNCHIES: DESIGN YOUR OWN (id=scrunchies_diy)
           ========================== -->
           <div id="scrunchDIY" style="display:none;margin-top:10px">
             <label for="colorStyle">Color style</label>
@@ -171,8 +184,7 @@
           </div>
 
           <!-- =========================
-               SCRUNCHIES: PREMADE
-               (shows only when id=scrunchies)
+               SCRUNCHIES: PREMADE (id=scrunchies)
           ========================== -->
           <div id="scrunchPremade" style="display:none;margin-top:10px">
             <label for="trim2">Trim (optional)</label>
@@ -183,8 +195,7 @@
           </div>
 
           <!-- =========================
-               CROP TOP MEASUREMENTS
-               (shows only when id=croptop)
+               CROP TOP MEASUREMENTS (id=croptop)
           ========================== -->
           <div id="measurementArea" style="display:none;margin-top:10px">
             <label>Measurements (required)</label>
@@ -207,8 +218,7 @@
           </div>
 
           <!-- =========================
-               PILLOW CUSTOM SIZE INPUTS
-               (shows only when size is Custom)
+               PILLOW CUSTOM SIZE INPUTS (size=Custom)
           ========================== -->
           <div id="pillowCustomArea" style="display:none;margin-top:10px">
             <label>Custom size (inches)</label>
@@ -238,8 +248,10 @@
           </div>
 
           <!-- =========================
-               PAYMENT BUTTONS
+               CART + PAYMENT BUTTONS
           ========================== -->
+          <button class="btn" id="addToCartBtn">Add to Cart</button>
+
           <button class="btn" id="paypalBtn">Click here to buy via PayPal</button>
           <button class="btn black" id="appleBtn">Apple Pay (Coming Soon)</button>
 
@@ -265,10 +277,44 @@
     </div>
   </div>
 
+  <!-- =========================
+       CART DRAWER (no backend)
+  ========================== -->
+  <div id="cartDrawer" style="display:none;position:fixed;inset:0;z-index:80;">
+    <div id="cartBackdrop" style="position:absolute;inset:0;background:rgba(0,0,0,.35)"></div>
+
+    <div style="position:absolute;top:0;right:0;height:100%;width:min(420px,92vw);background:#fff;
+                box-shadow:-16px 0 40px rgba(0,0,0,.18);padding:16px;display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="margin:0;font-size:18px">Your Cart</h2>
+        <button id="cartClose" style="padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer">
+          Close ✕
+        </button>
+      </div>
+
+      <div id="cartItems" style="flex:1;overflow:auto;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:10px">
+        <!-- items injected by JS -->
+      </div>
+
+      <div style="display:flex;justify-content:space-between;font-weight:950">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+
+      <div style="display:flex;gap:10px">
+        <button id="cartClear" class="btn black" style="margin-top:0">Clear</button>
+        <button id="cartCheckout" class="btn" style="margin-top:0">Checkout</button>
+      </div>
+
+      <p class="hint" style="margin:0">
+        For launch: checkout will copy your order details and open Instagram.
+      </p>
+    </div>
+  </div>
+
 <script>
 /* =========================================================
    PAYPAL LINKS (placeholders)
-   Replace later — for now they can stay as PAYPAL_...
 ========================================================= */
 const PAYPAL_LINKS = {
   "santa:kids_regular": "PAYPAL_SANTA_KIDS_REGULAR",
@@ -320,18 +366,15 @@ function uniq(arr){ return [...new Set(arr)]; }
    COLOR LISTS
 ========================================================= */
 const COLORS_NO_BLACK = ["Pink","Red","Green","Blue","White","Orange","Yellow","Purple"];
-const COLORS_WITH_WHITE_COMBOS = COLORS_NO_BLACK
-  .filter(c => c !== "White")
-  .map(c => `${c}/White`);
+const COLORS_WITH_WHITE_COMBOS = COLORS_NO_BLACK.filter(c => c !== "White").map(c => `${c}/White`);
 
 /* =========================================================
-   PRODUCTS
-   IMPORTANT: keys must match index.html links exactly
+   PRODUCTS (keys must match index.html links)
 ========================================================= */
 const PRODUCTS = {
   santahats: {
     name:"Santa Hats",
-    /* IMAGE (product): Santa hats */
+    /* IMAGE: Santa Hats */
     img:"images/SantaHats.jpeg",
     desc:"Holiday magic, handmade. Choose your size and favorite color combo — then add a little sparkle if you want.",
     bullets:[
@@ -370,7 +413,7 @@ const PRODUCTS = {
 
   tote: {
     name:"Tote Bag",
-    /* IMAGE (product): Tote */
+    /* IMAGE: Tote */
     img:"images/IMG_4125.jpg",
     desc:"A statement tote with cozy texture and real room for your day — pick a colorway that fits your vibe.",
     bullets:[
@@ -395,7 +438,7 @@ const PRODUCTS = {
 
   cardigan: {
     name:"Hexagon Cardigan",
-    /* IMAGE (product): Cardigan */
+    /* IMAGE: Cardigan */
     img:"images/BlueHexagonCardigan.png",
     desc:"Your new favorite layer — cozy, bold, and made to order. Choose your size range, length, and color vibe.",
     bullets:[
@@ -446,7 +489,7 @@ const PRODUCTS = {
 
   croptop: {
     name:"Ribbed Lace Drawstring Crop Top (Custom Fit)",
-    /* IMAGE (product): Crop top */
+    /* IMAGE: Crop top */
     img:"images/IMG_4188.jpg",
     desc:"Made just for you — a custom-fit top with a flattering drawstring finish. Enter your measurements for live pricing.",
     bullets:[
@@ -480,13 +523,10 @@ const PRODUCTS = {
     }
   },
 
-  /* =========================
-     CUSTOM SCRUNCHIE (SINGLE ONLY)
-  ========================== */
+  /* ============= CUSTOM SCRUNCHIE (single-only) ============= */
   scrunchies_diy: {
     name:"Custom Scrunchie (Design Your Own)",
-    /* IMAGE (product): Custom scrunchie
-       CHANGE THIS to your individual scrunchie image when ready */
+    /* IMAGE: Custom scrunchie (CHANGE THIS when you add a new photo) */
     img:"images/IMG_4189.jpg",
     desc:"Build the scrunchie you’re dreaming of — choose your yarn, colors, and finishing trim (price updates live).",
     bullets:[
@@ -495,7 +535,7 @@ const PRODUCTS = {
       "Second color adds +$3",
       "Optional trim (+$0.25 / +$0.50 glitter)"
     ],
-    showSize:false,      /* hides size dropdown */
+    showSize:false,
     showMaterial:true,
     sizes:["Single"],
     materials:["Acrylic","Cotton","Plush"],
@@ -505,13 +545,11 @@ const PRODUCTS = {
       let key = `scrunch_diy:single_${mat.toLowerCase()}`;
       let hint = "Sold individually";
 
-      // two colors +$3
       if(sel.colorStyle === "two"){
         price += 3;
         hint += " • Two colors +$3";
       }
 
-      // trim fee
       const t = (sel.trim || "No trim").toLowerCase();
       let trimFee = 0;
       if(t !== "no trim"){
@@ -524,12 +562,10 @@ const PRODUCTS = {
     }
   },
 
-  /* =========================
-     PREMADE SCRUNCHIES
-  ========================== */
+  /* ============= PREMADE SCRUNCHIES ============= */
   scrunchies: {
     name:"Premade Scrunchies",
-    /* IMAGE (product): Premade scrunchies */
+    /* IMAGE: Premade scrunchies (CHANGE THIS IMAGE HERE!) */
     img:"images/IMG_4189.jpg",
     desc:"Ready-to-ship style — grab a single or a bundle. Optional trim available.",
     bullets:[
@@ -572,7 +608,7 @@ const PRODUCTS = {
 
   pillow: {
     name:"Pillow Covers (Cover Only)",
-    /* IMAGE (product): Pillow cover (replace later) */
+    /* IMAGE: Pillow (replace later) */
     img:"images/BlueHexagonCardigan.png",
     desc:"Upgrade your space with cozy texture — choose your size and finish with optional flowers or tassels.",
     bullets:[
@@ -653,7 +689,7 @@ const PRODUCTS = {
 const params = new URLSearchParams(window.location.search);
 let productId = params.get("id");
 
-// Fallback to first product if missing or invalid
+// fallback to first product if missing or invalid
 if(!productId || !PRODUCTS[productId]){
   const firstKey = Object.keys(PRODUCTS)[0];
   productId = firstKey;
@@ -708,6 +744,20 @@ const addTassels = document.getElementById("addTassels");
 
 const paypalBtn = document.getElementById("paypalBtn");
 const appleBtn = document.getElementById("appleBtn");
+
+/* =========================================================
+   CART ELEMENTS
+========================================================= */
+const cartBtn = document.getElementById("cartBtn");
+const cartCountEl = document.getElementById("cartCount");
+const cartDrawer = document.getElementById("cartDrawer");
+const cartBackdrop = document.getElementById("cartBackdrop");
+const cartClose = document.getElementById("cartClose");
+const cartItemsEl = document.getElementById("cartItems");
+const cartTotalEl = document.getElementById("cartTotal");
+const cartClear = document.getElementById("cartClear");
+const cartCheckout = document.getElementById("cartCheckout");
+const addToCartBtn = document.getElementById("addToCartBtn");
 
 /* =========================================================
    RENDER BASE PRODUCT INFO
@@ -794,6 +844,12 @@ pillowAddons.style.display = (productId === "pillow") ? "block" : "none";
 if(productId !== "pillow") pillowCustomArea.style.display = "none";
 
 /* =========================================================
+   CART: selection snapshot for cart items
+========================================================= */
+let LAST_SELECTION = "";
+let LAST_PRICE = 0;
+
+/* =========================================================
    UPDATE PRICE LIVE
 ========================================================= */
 function update(){
@@ -805,6 +861,8 @@ function update(){
 
     // scrunchies info
     colorStyle: (productId==="scrunchies_diy") ? (colorStyle.selectedIndex === 1 ? "two" : "single") : null,
+    color1: (productId==="scrunchies_diy") ? color1.value : null,
+    color2: (productId==="scrunchies_diy") ? color2.value : null,
     trim: (productId==="scrunchies_diy") ? trim.value : (productId==="scrunchies") ? trim2.value : "No trim",
 
     // pillow info
@@ -843,6 +901,44 @@ function update(){
     (productId==="pillow" && sel.size.startsWith("Custom"))
       ? ((sel.pillowW>0 && sel.pillowH>0) ? "true" : "false")
       : "true";
+
+  /* =========================
+     CART SNAPSHOT (what gets saved)
+  ========================== */
+  LAST_PRICE = out.price;
+
+  const parts = [];
+  if(sel.color) parts.push(`Color: ${sel.color}`);
+  if(item.showSize !== false) parts.push(`Size: ${sel.size}`);
+  if(item.showMaterial !== false) parts.push(`Material: ${sel.material}`);
+
+  if(item.addon && sel.addon){
+    const opt = item.addon.options.find(o => o.value === sel.addon);
+    parts.push(`${item.addon.label}: ${opt ? opt.label : sel.addon}`);
+  }
+
+  if(productId === "scrunchies_diy"){
+    parts.push(`Color style: ${sel.colorStyle === "two" ? "Two colors" : "Single color"}`);
+    parts.push(`Main color: ${sel.color1}`);
+    if(sel.colorStyle === "two") parts.push(`Second color: ${sel.color2}`);
+    parts.push(`Trim: ${sel.trim}`);
+  }
+
+  if(productId === "scrunchies"){
+    parts.push(`Trim: ${sel.trim}`);
+  }
+
+  if(productId === "croptop"){
+    parts.push(`Measurements: bust ${sel.measurements.bust}" / shoulder ${sel.measurements.shoulder}" / length ${sel.measurements.length}"`);
+  }
+
+  if(productId === "pillow"){
+    if(sel.size.startsWith("Custom")) parts.push(`Custom size: ${sel.pillowW}" x ${sel.pillowH}"`);
+    if(sel.flowers) parts.push("Extras: Flowers (+$4)");
+    if(sel.tassels) parts.push("Extras: Tassels (+$2)");
+  }
+
+  LAST_SELECTION = parts.join("\n");
 }
 
 /* Listeners */
@@ -853,6 +949,8 @@ if(addonSel) addonSel.addEventListener("change", update);
 
 if(productId==="scrunchies_diy"){
   colorStyle.addEventListener("change", update);
+  color1.addEventListener("change", update);
+  color2.addEventListener("change", update);
   trim.addEventListener("change", update);
 }
 if(productId==="scrunchies"){
@@ -911,10 +1009,10 @@ paypalBtn.addEventListener("click", ()=>{
   const payKey = paypalBtn.dataset.payKey;
   const payLink = PAYPAL_LINKS[payKey];
 
-  // For launch: allow placeholders and just show the key
+  // Launch mode: allow placeholders
   if(!payLink || payLink.startsWith("PAYPAL_")){
     alert(
-      "Payment link not set yet (totally fine for launch).\n\n" +
+      "Payment link not set yet (okay for launch).\n\n" +
       "Selected tier key:\n" + payKey + "\n\n" +
       "Later: replace that key in PAYPAL_LINKS with your real PayPal link."
     );
@@ -927,6 +1025,123 @@ paypalBtn.addEventListener("click", ()=>{
 appleBtn.addEventListener("click", ()=> {
   alert("Apple Pay coming soon after your domain is connected 🍎");
 });
+
+/* =========================================================
+   CART (localStorage)
+========================================================= */
+const CART_KEY = "hb_cart_v1";
+
+function getCart(){
+  try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+  catch { return []; }
+}
+function setCart(items){
+  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  renderCart();
+}
+function cartCount(){
+  return getCart().reduce((sum, it) => sum + (it.qty || 1), 0);
+}
+function cartTotal(){
+  return getCart().reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
+}
+
+function openCart(){ cartDrawer.style.display = "block"; }
+function closeCart(){ cartDrawer.style.display = "none"; }
+
+function renderCart(){
+  const cart = getCart();
+  if(cartCountEl) cartCountEl.textContent = String(cartCount());
+  if(cartTotalEl) cartTotalEl.textContent = money(cartTotal());
+
+  if(!cartItemsEl) return;
+
+  if(cart.length === 0){
+    cartItemsEl.innerHTML = `<p class="muted" style="margin:0">Your cart is empty.</p>`;
+    return;
+  }
+
+  cartItemsEl.innerHTML = cart.map((it, idx) => {
+    return `
+      <div style="border-bottom:1px solid rgba(0,0,0,.08);padding:10px 4px">
+        <div style="display:flex;justify-content:space-between;gap:10px">
+          <div>
+            <div style="font-weight:950">${it.name}</div>
+            <div class="hint" style="margin-top:4px;white-space:pre-line">${it.details || ""}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:950">${money(it.price)}</div>
+            <button data-remove="${idx}" style="margin-top:6px;padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;cursor:pointer">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  cartItemsEl.querySelectorAll("button[data-remove]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = Number(btn.getAttribute("data-remove"));
+      const cartNow = getCart();
+      cartNow.splice(i, 1);
+      setCart(cartNow);
+    });
+  });
+}
+
+/* cart open/close */
+cartBtn.addEventListener("click", openCart);
+cartClose.addEventListener("click", closeCart);
+cartBackdrop.addEventListener("click", closeCart);
+
+cartClear.addEventListener("click", () => setCart([]));
+
+cartCheckout.addEventListener("click", () => {
+  const cart = getCart();
+  if(cart.length === 0){
+    alert("Your cart is empty.");
+    return;
+  }
+
+  const lines = [];
+  lines.push("Hi! I’d like to order:");
+  cart.forEach((it, i) => {
+    lines.push(`\n${i+1}) ${it.name} — ${money(it.price)}`);
+    if(it.details) lines.push(it.details);
+  });
+  lines.push(`\nTotal: ${money(cartTotal())}`);
+
+  const msg = lines.join("\n");
+
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(msg).catch(()=>{});
+  }
+
+  alert("Order details copied! Please DM @HookedByKerrah and paste your order details.");
+  window.open("https://instagram.com/HookedByKerrah", "_blank", "noopener");
+});
+
+/* add to cart */
+addToCartBtn.addEventListener("click", () => {
+  if(!LAST_SELECTION || LAST_PRICE == null){
+    alert("Please select your options first.");
+    return;
+  }
+
+  const cart = getCart();
+  cart.push({
+    name: item.name,
+    price: LAST_PRICE,
+    qty: 1,
+    details: LAST_SELECTION
+  });
+  setCart(cart);
+  openCart();
+});
+
+/* render cart on load */
+renderCart();
 </script>
 </body>
 </html>
