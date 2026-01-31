@@ -608,7 +608,7 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
-{
+{ 
       id: "croptop",
       name: "Front Tie Crop Top",
       category: "wearables",
@@ -630,6 +630,29 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
+    { 
+      id: "croptop",
+      name: "Blue White Net Bow Crop Top",
+      category: "wearables",
+      image: "images/Blue White Net Bow Top.png",
+      alt: "Blue White Net Bow Crop Top",
+      priceLabel: "Starting at $35",
+      options: {
+        sizes: ["XS","S","M","L"],
+        colors: ["Mustard Yellow(Pictured),Blue/ White Multicolor","Black","Pink","Royal Blue","Pink/White"]
+      },
+      price(sel){
+        let base = 45;
+        if(sel.size === "M") base += 10;
+        if(sel.size === "L") base += 20;
+        return base;
+      },
+      material: "Yarn (type varies).",
+      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
+      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+   
     {
       id: "scrunchies_diy",
       name: "Custom Scrunchie",
