@@ -669,7 +669,7 @@
       },
       price(sel){
         // Plush slightly higher
-        return (sel.material === "Plush") ? 12 : 10;
+        return (sel.material === "Plush") ? 13 : 10;
       },
       material: "Yarn (type varies).",
       uses: "Hair accessory, wrist accessory, cute gift add-on.",
@@ -687,14 +687,13 @@
       priceLabel: "From $10",
       options: {
         sizes: ["Single","3-Pack"],
-        materials: ["Acrylic","Cotton","Plush"],
+        materials: ["Regular","Plush"],
         colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
       },
       price(sel){
         let baseSingle = 10;
-        if(sel.material === "Cotton") baseSingle += 2;
-        if(sel.material === "Plush") baseSingle += 3;
-        const qty = (sel.size === "3-Pack") ? 3 : 1;
+        if(sel.material === "Plush") baseSingle += 4;
+        const qty = (sel.size === "3-Pack") ? 3.3 : 1;
         return baseSingle * qty;
       },
       material: "Yarn (varies by scrunchie).",
