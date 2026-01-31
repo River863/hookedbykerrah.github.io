@@ -492,13 +492,13 @@
       priceLabel: "$30–$40",
       // OPTIONAL: options and price logic for modal
       options: {
-        sizes: ["Baby","Child","Adult"],
-        materials: ["Acrylic","Cotton"],
-        colors: ["Red","Green","White"]
+        sizes: ["Child","Adult"],
+        materials: ["Regular","Glitter"],
+          colors: ["Red Hat/Black Trim","Black Hat/Red Trim"]
       },
       price(sel){
         // example: adult = 40, child = 35, baby = 30; cotton +$5
-        const sizeMap = { "Baby":30, "Child":35, "Adult":40 };
+        const sizeMap = {"Child":35, "Adult":40 };
         const base = sizeMap[sel.size] || 30;
         const matAdj = (sel.material === "Cotton") ? 5 : 0;
         return base + matAdj;
@@ -519,9 +519,7 @@
       subtitle: "A statement tote — choose your colorway.",
       priceLabel: "$45",
       options: {
-        sizes: ["Standard"],
-        materials: ["Acrylic","Cotton"],
-        colors: ["Neutral","Bright"]
+        colors: ["Blue Multicolor","Pink Multicolor"]
       },
       price(sel){
         let base = 45;
@@ -555,7 +553,7 @@
         if(sel.material === "Wool Blend") base += 25;
         return base;
       },
-      material: "Yarn (type varies by season + feel).",
+      material: "Yarn ( varies by color).",
       uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
       pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
