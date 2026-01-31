@@ -19,6 +19,9 @@
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
       --max:1100px;
+
+      /* drawer + modal */
+      --overlay: rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     body{
@@ -54,7 +57,16 @@
     }
 
     /* Make entire card clickable */
-    .cardLink{display:block;text-decoration:none;color:inherit}
+    .cardBtn{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border:0;
+      padding:0;
+      background:transparent;
+      cursor:pointer;
+      text-align:left;
+    }
 
     .card{
       background:var(--card);
@@ -103,7 +115,9 @@
       color:white;
       border-radius:12px;
       text-decoration:none;
-      font-weight:800
+      font-weight:800;
+      border:0;
+      cursor:pointer;
     }
     .btn:hover{background:var(--accent-hover)}
 
@@ -124,6 +138,162 @@
     @media(max-width:620px){
       nav a{padding:6px 10px}
     }
+
+    /* =========================
+       MODAL (Product Details)
+    ========================== */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:var(--overlay);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .overlay.open{display:flex;}
+    .modal{
+      width:min(920px, 100%);
+      background:var(--card);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.08);
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+    }
+    @media(max-width:860px){
+      .modal{grid-template-columns:1fr;}
+    }
+    .modalImg{
+      min-height:280px;
+      background:#f1f1f1;
+    }
+    .modalBody{padding:18px;}
+    .modalTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .xBtn{
+      border:0;
+      background:rgba(0,0,0,.06);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .xBtn:hover{background:rgba(0,0,0,.10)}
+    .meta{
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      background:rgba(230,166,179,.18);
+      color:#5a2832;
+      font-size:14px;
+      line-height:1.35;
+    }
+    .meta strong{display:block;margin-bottom:4px}
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .ghostBtn{
+      background:transparent;
+      border:1px solid rgba(0,0,0,.14);
+      color:var(--text);
+    }
+    .ghostBtn:hover{background:rgba(0,0,0,.04)}
+
+    /* =========================
+       CART DRAWER (Right side)
+    ========================== */
+    .drawerOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.25);
+      display:none;
+      z-index:60;
+    }
+    .drawerOverlay.open{display:block}
+
+    .drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100%;
+      width:min(420px, 92vw);
+      background:var(--card);
+      box-shadow: -18px 0 50px rgba(0,0,0,.18);
+      transform:translateX(110%);
+      transition:transform .25s ease;
+      z-index:70;
+      display:flex;
+      flex-direction:column;
+    }
+    .drawer.open{transform:translateX(0)}
+    .drawerHeader{
+      padding:16px;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .drawerBody{padding:16px; overflow:auto; flex:1;}
+    .line{
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .small{font-size:13px;color:var(--muted)}
+    .qtyBtn{
+      border:1px solid rgba(0,0,0,.15);
+      background:transparent;
+      border-radius:10px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-weight:850;
+    }
+    .qtyBtn:hover{background:rgba(0,0,0,.04)}
+    .drawerFooter{
+      padding:16px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+    .totalRow{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
+    .checkoutNote{font-size:12px;color:var(--muted);line-height:1.35;margin-top:10px}
+
+    /* =========================
+       TOAST (made-to-order message)
+    ========================== */
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      width:min(720px, 92vw);
+      background:#fff;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:12px 14px;
+      display:none;
+      z-index:80;
+    }
+    .toast.show{display:block}
+    .toast strong{display:block;margin-bottom:2px}
   </style>
 </head>
 
@@ -140,6 +310,7 @@
     <nav>
       <a href="#featured">Featured</a>
       <a href="#shop">Shop</a>
+      <a href="#custom">Custom Request</a>
       <a href="#policies">Policies</a>
     </nav>
   </header>
@@ -148,47 +319,11 @@
 
     <!-- =========================
          FEATURED
+         NOTE: Cards are generated by JS from PRODUCTS below.
     ========================== -->
     <section id="featured">
       <h2>Featured Right Now</h2>
-
-      <div class="grid">
-
-        <!-- Santa Hats -->
-        <a class="cardLink" href="product.html?id=santahats">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Santa Hats -->
-              <img src="images/SantaHats.jpeg" alt="Crochet Santa hats">
-            </div>
-            <div class="content">
-              <div class="pill">Seasonal favorite</div>
-              <h3>Santa Hats</h3>
-              <p class="muted">Pick size, color combo, and optional glitter.</p>
-              <p class="price">$30–$40</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-        <!-- Tote Bag -->
-        <a class="cardLink" href="product.html?id=tote">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Tote Bag -->
-              <img src="images/IMG_4125.jpg" alt="Crochet tote bag">
-            </div>
-            <div class="content">
-              <div class="pill">Featured</div>
-              <h3>Tote Bag</h3>
-              <p class="muted">A statement tote — choose your colorway.</p>
-              <p class="price">$45</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-      </div>
+      <div class="grid" id="featuredGrid"></div>
     </section>
 
     <!-- =========================
@@ -198,107 +333,41 @@
       <h2 style="margin-top:22px">Shop</h2>
 
       <h3>Wearables</h3>
-      <div class="grid">
+      <div class="grid" id="wearablesGrid"></div>
 
-        <!-- Cardigan -->
-        <a class="cardLink" href="product.html?id=cardigan">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Cardigan -->
-              <img src="images/BlueHexagonCardigan.png" alt="Hexagon cardigan">
-            </div>
-            <div class="content">
-              <h3>Hexagon Cardigan</h3>
-              <p class="muted">Choose size range, length, and color vibe.</p>
-              <p class="price">Starting at $120</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-        <!-- Crop Top -->
-        <a class="cardLink" href="product.html?id=croptop">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Crop Top -->
-              <img src="images/IMG_4188.jpg" alt="Ribbed lace drawstring crop top">
-            </div>
-            <div class="content">
-              <div class="pill">Custom fit</div>
-              <h3>Ribbed Lace Drawstring Crop Top</h3>
-              <p class="muted">Enter measurements for live pricing.</p>
-              <p class="price">Starting at $95</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-      </div>
-
-      <!-- =========================
-           ACCESSORIES
-      ========================== -->
       <h3 style="margin-top:18px">Accessories</h3>
-      <div class="grid">
+      <div class="grid" id="accessoriesGrid"></div>
 
-        <!-- Custom Scrunchie -->
-        <a class="cardLink" href="product.html?id=scrunchies_diy">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Custom Scrunchie -->
-              <img src="images/IMG_4189.jpg" alt="Custom scrunchie">
-            </div>
-            <div class="content">
-              <div class="pill">Design your own</div>
-              <h3>Custom Scrunchie</h3>
-              <p class="muted">Pick colors and trim — price updates live.</p>
-              <p class="price">From $10</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-        <!-- ✅ PREMADE SCRUNCHIES (THIS IS THE ONE YOU WANT) -->
-        <a class="cardLink" href="product.html?id=scrunchies">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Premade Scrunchies -->
-              <img src="images/9indscrunchiesreg.jpg" alt="Premade scrunchies">
-            </div>
-            <div class="content">
-              <h3>Premade Scrunchies</h3>
-              <p class="muted">Singles or packs. Optional trim available.</p>
-              <p class="price">From $10</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
-
-      </div>
-
-      <!-- =========================
-           HOME
-      ========================== -->
       <h3 style="margin-top:18px">Home</h3>
-      <div class="grid">
+      <div class="grid" id="homeGrid"></div>
+    </section>
 
-        <a class="cardLink" href="product.html?id=pillow">
-          <article class="card">
-            <div class="imgBox">
-              <!-- IMAGE (home card): Pillow (replace later) -->
-              <div style="padding:18px;text-align:center;color:var(--muted)">
-                Add pillow cover photo
-              </div>
-            </div>
-            <div class="content">
-              <h3>Pillow Covers (Cover Only)</h3>
-              <p class="muted">Standard sizes + custom sizing. Add flowers or tassels.</p>
-              <p class="price">From $35</p>
-              <span class="btn">View details</span>
-            </div>
-          </article>
-        </a>
+    <!-- =========================
+         CUSTOM REQUEST BOX
+         Option 1 (simple): just shows a thank-you message (no email sent).
+         Option 2 (better): connect to Formspree/Netlify later (leave comments).
+    ========================== -->
+    <section id="custom" style="margin-top:28px">
+      <h2>Custom Request</h2>
+      <p class="muted">Want something not listed? Tell me what you have in mind.</p>
 
+      <div class="card" style="padding:16px">
+        <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">
+          Your request
+        </label>
+        <textarea id="customText" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
+
+        <button class="btn" id="customSubmit" style="margin-top:12px">Submit request</button>
+
+        <!-- Confirmation message shows here -->
+        <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
+
+        <p class="muted" style="margin-top:10px">
+          Follow me on Instagram:
+          <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">
+            @HookedByKerrah
+          </a>
+        </p>
       </div>
     </section>
 
@@ -311,7 +380,7 @@
         All items are handmade and made to order. All sales are final.
       </p>
       <p class="muted">
-        Questions or custom requests? DM me on Instagram:
+        Questions? DM me on Instagram:
         <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">
           @HookedByKerrah
         </a>
@@ -325,5 +394,458 @@
   </footer>
 
 </div>
+
+<!-- =========================
+     PRODUCT DETAILS MODAL
+========================== -->
+<div class="overlay" id="productOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modalImg imgBox">
+      <img id="modalImg" src="" alt="">
+    </div>
+
+    <div class="modalBody">
+      <div class="modalTop">
+        <div>
+          <div class="pill" id="modalPill" style="display:none"></div>
+          <h2 id="modalTitle" style="margin:0"></h2>
+          <p class="muted" id="modalSubtitle" style="margin:6px 0 0"></p>
+          <p class="price" id="modalPrice" style="margin-top:10px"></p>
+        </div>
+
+        <button class="xBtn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+
+      <!-- EDIT-HERE: Product details -->
+      <div class="meta" id="modalDetails"></div>
+
+      <div class="actions">
+        <button class="btn" id="addToCartBtn">Add to cart</button>
+        <button class="btn ghostBtn" id="keepShoppingBtn">Keep shopping</button>
+      </div>
+
+      <p class="small" style="margin-top:10px">
+        Made to order. Allow 7+ days depending on the product. Items may ship sooner.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- =========================
+     CART DRAWER (slides from right)
+========================== -->
+<div class="drawerOverlay" id="drawerOverlay"></div>
+
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawerHeader">
+    <strong>Cart</strong>
+    <button class="xBtn" id="closeCart" aria-label="Close cart">✕</button>
+  </div>
+
+  <div class="drawerBody" id="cartItems"></div>
+
+  <div class="drawerFooter">
+    <div class="totalRow">
+      <span>Total</span>
+      <span id="cartTotal">$0</span>
+    </div>
+
+    <!-- You can replace this later with a real checkout link (Shopify, Stripe, etc.) -->
+    <button class="btn" id="checkoutBtn" style="width:100%">Checkout (placeholder)</button>
+
+    <div class="checkoutNote">
+      <strong>Made to order:</strong> allow 7+ days depending on the product. Items may be shipped sooner.
+    </div>
+  </div>
+</aside>
+
+<!-- =========================
+     TOAST MESSAGE
+========================== -->
+<div class="toast" id="toast">
+  <strong>Added to cart</strong>
+  <span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span>
+</div>
+
+<script>
+  /* =========================================================
+     EDIT PRODUCT INFO HERE (simple + centralized)
+     - Add products once
+     - Grid + modal + cart update automatically
+     ========================================================= */
+  const PRODUCTS = [
+    {
+      id: "santahats",
+      name: "Santa Hats",
+      category: "featured", // featured, wearables, accessories, home
+      pill: "Seasonal favorite",
+      image: "images/SantaHats.jpeg",
+      alt: "Crochet Santa hats",
+      subtitle: "Pick size, color combo, and optional glitter.",
+      priceLabel: "$30–$40",
+
+      /* Details shown inside modal */
+      material: "Yarn (type varies by request).",
+      uses: "Warm seasonal hat for holidays, gifts, photos, and cozy winter outfits.",
+      pairing: "Pairs cute with a neutral coat, boots, and a festive scarf.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "tote",
+      name: "Tote Bag",
+      category: "featured",
+      pill: "Featured",
+      image: "images/IMG_4125.jpg",
+      alt: "Crochet tote bag",
+      subtitle: "A statement tote — choose your colorway.",
+      priceLabel: "$45",
+      material: "Yarn (type varies).",
+      uses: "Everyday carry: books, laptop, errands, markets, travel.",
+      pairing: "Elevates a simple outfit — jeans + tee becomes styled instantly.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "cardigan",
+      name: "Hexagon Cardigan",
+      category: "wearables",
+      pill: "",
+      image: "images/BlueHexagonCardigan.png",
+      alt: "Hexagon cardigan",
+      subtitle: "Choose size range, length, and color vibe.",
+      priceLabel: "Starting at $120",
+      material: "Yarn (type varies by season + feel).",
+      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
+      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "croptop",
+      name: "Ribbed Lace Drawstring Crop Top",
+      category: "wearables",
+      pill: "Custom fit",
+      image: "images/IMG_4188.jpg",
+      alt: "Ribbed lace drawstring crop top",
+      subtitle: "Enter measurements for live pricing (optional later).",
+      priceLabel: "Starting at $95",
+      material: "Yarn (type varies).",
+      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
+      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "scrunchies_diy",
+      name: "Custom Scrunchie",
+      category: "accessories",
+      pill: "Design your own",
+      image: "images/IMG_4189.jpg",
+      alt: "Custom scrunchie",
+      subtitle: "Pick colors and trim.",
+      priceLabel: "From $10",
+      material: "Yarn (type varies).",
+      uses: "Hair accessory, wrist accessory, cute gift add-on.",
+      pairing: "Matches your outfit colors — adds a soft handmade touch.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "scrunchies",
+      name: "Premade Scrunchies",
+      category: "accessories",
+      pill: "",
+      image: "images/9indscrunchiesreg.jpg",
+      alt: "Premade scrunchies",
+      subtitle: "Singles or packs. Optional trim available.",
+      priceLabel: "From $10",
+      material: "Yarn (varies by scrunchie).",
+      uses: "Quick grab accessory for everyday hair styling.",
+      pairing: "Easy match with athleisure, casual fits, or a soft glam look.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+    {
+      id: "pillow",
+      name: "Pillow Covers (Cover Only)",
+      category: "home",
+      pill: "",
+      image: "", // leave blank if you don't have it yet
+      alt: "Pillow cover",
+      subtitle: "Standard sizes + custom sizing. Add flowers or tassels.",
+      priceLabel: "From $35",
+      material: "Yarn (type varies).",
+      uses: "Home decor accent. Great for couches, beds, gifts.",
+      pairing: "Pairs with neutral throws + textured blankets to make the room feel cozy.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    }
+  ];
+
+  /* =========================================================
+     UI HELPERS
+     ========================================================= */
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  function moneyToNumber(label){
+    // Very simple helper for totals. You can upgrade later.
+    // If label is "Starting at $120" it returns 120.
+    const m = (label || "").match(/\$([\d]+)/);
+    return m ? Number(m[1]) : 0;
+  }
+
+  /* =========================================================
+     RENDER GRIDS
+     ========================================================= */
+  function renderGrid(targetId, items){
+    const grid = document.getElementById(targetId);
+    grid.innerHTML = items.map(p => {
+      const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
+      const img = p.image
+        ? `<img src="${p.image}" alt="${p.alt || p.name}">`
+        : `<div style="padding:18px;text-align:center;color:var(--muted)">Add photo</div>`;
+
+      return `
+        <button class="cardBtn" type="button" data-id="${p.id}">
+          <article class="card">
+            <div class="imgBox">${img}</div>
+            <div class="content">
+              ${pill}
+              <h3>${p.name}</h3>
+              <p class="muted">${p.subtitle || ""}</p>
+              <p class="price">${p.priceLabel || ""}</p>
+              <span class="btn" style="pointer-events:none">View details</span>
+            </div>
+          </article>
+        </button>
+      `;
+    }).join("");
+
+    // click handlers: open modal
+    grid.querySelectorAll(".cardBtn").forEach(btn => {
+      btn.addEventListener("click", () => openProduct(btn.dataset.id));
+    });
+  }
+
+  /* =========================================================
+     PRODUCT MODAL
+     ========================================================= */
+  let activeProduct = null;
+
+  function openProduct(id){
+    const p = PRODUCTS.find(x => x.id === id);
+    if(!p) return;
+
+    activeProduct = p;
+
+    $("#modalTitle").textContent = p.name;
+    $("#modalSubtitle").textContent = p.subtitle || "";
+    $("#modalPrice").textContent = p.priceLabel || "";
+
+    // pill
+    if(p.pill){
+      $("#modalPill").style.display = "inline-block";
+      $("#modalPill").textContent = p.pill;
+    }else{
+      $("#modalPill").style.display = "none";
+    }
+
+    // image
+    if(p.image){
+      $("#modalImg").src = p.image;
+      $("#modalImg").alt = p.alt || p.name;
+    }else{
+      // if no image, show nothing (keeps layout clean)
+      $("#modalImg").src = "";
+      $("#modalImg").alt = "";
+    }
+
+    // details
+    $("#modalDetails").innerHTML = `
+      <strong>Details</strong>
+      <div><strong>Material:</strong> ${p.material || "—"}</div>
+      <div style="margin-top:6px"><strong>Uses:</strong> ${p.uses || "—"}</div>
+      <div style="margin-top:6px"><strong>Style pairing:</strong> ${p.pairing || "—"}</div>
+      <div style="margin-top:6px"><strong>Made to order:</strong> ${p.madeToOrder || "Allow 7+ days depending on the product. Items may ship sooner."}</div>
+    `;
+
+    $("#productOverlay").classList.add("open");
+    $("#productOverlay").setAttribute("aria-hidden","false");
+  }
+
+  function closeProduct(){
+    $("#productOverlay").classList.remove("open");
+    $("#productOverlay").setAttribute("aria-hidden","true");
+    activeProduct = null;
+  }
+
+  $("#closeModal").addEventListener("click", closeProduct);
+  $("#keepShoppingBtn").addEventListener("click", closeProduct);
+
+  // click outside modal closes
+  $("#productOverlay").addEventListener("click", (e) => {
+    if(e.target.id === "productOverlay") closeProduct();
+  });
+
+  // ESC closes modal + cart
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape"){
+      closeProduct();
+      closeCart();
+    }
+  });
+
+  /* =========================================================
+     CART (stored in localStorage so it stays after refresh)
+     ========================================================= */
+  const CART_KEY = "hbk_cart_v1";
+  let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  function addToCart(product){
+    const found = cart.find(i => i.id === product.id);
+    if(found){
+      found.qty += 1;
+    }else{
+      cart.push({
+        id: product.id,
+        name: product.name,
+        priceLabel: product.priceLabel,
+        unitPrice: moneyToNumber(product.priceLabel),
+        qty: 1
+      });
+    }
+    saveCart();
+    renderCart();
+
+    // show made-to-order message every add
+    showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
+
+    // open cart drawer so it "pops up on the side"
+    openCart();
+  }
+
+  function changeQty(id, delta){
+    const item = cart.find(i => i.id === id);
+    if(!item) return;
+    item.qty += delta;
+    if(item.qty <= 0) cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCart();
+  }
+
+  function cartTotal(){
+    return cart.reduce((sum, i) => sum + (i.unitPrice * i.qty), 0);
+  }
+
+  function renderCart(){
+    const el = $("#cartItems");
+
+    if(cart.length === 0){
+      el.innerHTML = `<p class="muted">Your cart is empty.</p>`;
+      $("#cartTotal").textContent = "$0";
+      return;
+    }
+
+    el.innerHTML = cart.map(i => `
+      <div class="line">
+        <div class="row">
+          <div>
+            <strong>${i.name}</strong>
+            <div class="small">${i.priceLabel || ""}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:900">$${(i.unitPrice * i.qty).toFixed(0)}</div>
+            <div class="small">Qty: ${i.qty}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="qtyBtn" type="button" data-act="dec" data-id="${i.id}">−</button>
+          <button class="qtyBtn" type="button" data-act="inc" data-id="${i.id}">+</button>
+        </div>
+      </div>
+    `).join("");
+
+    $("#cartTotal").textContent = `$${cartTotal().toFixed(0)}`;
+
+    // wire qty buttons
+    el.querySelectorAll("button[data-act]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+        const act = btn.dataset.act;
+        changeQty(id, act === "inc" ? 1 : -1);
+      });
+    });
+  }
+
+  /* =========================================================
+     CART DRAWER open/close
+     ========================================================= */
+  function openCart(){
+    $("#drawerOverlay").classList.add("open");
+    $("#cartDrawer").classList.add("open");
+  }
+  function closeCart(){
+    $("#drawerOverlay").classList.remove("open");
+    $("#cartDrawer").classList.remove("open");
+  }
+  $("#closeCart").addEventListener("click", closeCart);
+  $("#drawerOverlay").addEventListener("click", closeCart);
+
+  /* =========================================================
+     TOAST
+     ========================================================= */
+  let toastTimer = null;
+  function showToast(msg){
+    $("#toastText").textContent = msg;
+    $("#toast").classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 3200);
+  }
+
+  /* =========================================================
+     BUTTONS: Add to cart from modal
+     ========================================================= */
+  $("#addToCartBtn").addEventListener("click", () => {
+    if(!activeProduct) return;
+    addToCart(activeProduct);
+    closeProduct(); // closes modal so cart drawer becomes the focus
+  });
+
+  /* =========================================================
+     CUSTOM REQUEST submit
+     ========================================================= */
+  $("#customSubmit").addEventListener("click", () => {
+    const text = $("#customText").value.trim();
+    const msg = $("#customMsg");
+
+    if(!text){
+      msg.style.display = "block";
+      msg.textContent = "Please type your request first.";
+      return;
+    }
+
+    // Simple “frontend-only” submission:
+    // If you want to actually receive messages, we can connect this to Formspree/Netlify.
+    $("#customText").value = "";
+    msg.style.display = "block";
+    msg.textContent = "Thank you — submission received! I’ll get back to you soon. Thank you for the inquiry. Follow me on IG: @HookedByKerrah";
+  });
+
+  /* =========================================================
+     INIT: render everything
+     ========================================================= */
+  renderGrid("featuredGrid", PRODUCTS.filter(p => p.category === "featured"));
+  renderGrid("wearablesGrid", PRODUCTS.filter(p => p.category === "wearables"));
+  renderGrid("accessoriesGrid", PRODUCTS.filter(p => p.category === "accessories"));
+  renderGrid("homeGrid", PRODUCTS.filter(p => p.category === "home"));
+
+  renderCart();
+
+  // OPTIONAL: placeholder checkout button
+  $("#checkoutBtn").addEventListener("click", () => {
+    alert("Checkout is a placeholder. If you want real checkout, tell me what you want to use (Shopify / Stripe Payment Link / Etsy / DM checkout).");
+  });
+</script>
+
 </body>
 </html>
