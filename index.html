@@ -527,13 +527,12 @@
       alt: "Black with Red Glitter Trim Hexagon Cardigan",
       priceLabel: "Starting at $90",
       options: {
-        sizes: ["XS-S","M-L","XL-XXL"],
+        sizes: ["S-M","L-XL"],
         colors: ["Black with red glitter trim"]
       },
       price(sel){
         let base = 90;
-        if(sel.size === "M-L") base += 20;
-        if(sel.size === "XL-XXL") base += 40;
+        if(sel.size === "L-XL") base += 20;
         return base;
       },
       material: "Yarn (varies by color).",
@@ -550,13 +549,12 @@
       alt: "Valentines Hexagon Cardigan",
       priceLabel: "Starting at $110",
       options: {
-        sizes: ["XS-S","M-L","XL-XXL"],
+        sizes: ["S-M","L-XL"],
         colors: ["Pink Ombre with white glitter"]
       },
       price(sel){
         let base = 110;
-        if(sel.size === "M-L") base += 30;
-        if(sel.size === "XL-XXL") base += 60;
+       if(sel.size === "L-XL") base += 20;
         return base;
       },
       material: "Yarn (all cardigans will have slight variations in color — handmade).",
