@@ -503,6 +503,12 @@
         const matAdj = (sel.material === "Cotton") ? 5 : 0;
         return base + matAdj;
       },
+      //i added  this part bc if the selection is glitter, i want to charge $3 more
+      price(sel){
+        let base = 40;
+        if(sel.material === "Glitter") base += 3;
+        return base;
+      },
       material: "Yarn (type varies by request).",
       uses: "Warm seasonal hat for holidays, gifts, photos, and cozy winter outfits.",
       pairing: "Pairs cute with a neutral coat, boots, and a festive scarf.",
@@ -519,7 +525,7 @@
       subtitle: "A statement tote — choose your colorway.",
       priceLabel: "$45",
       options: {
-        colors: ["Blue Multicolor","Pink Multicolor"]
+        colors: ["Blue Multicolor"]
       },
       price(sel){
         let base = 45;
@@ -540,20 +546,43 @@
       image: "images/BlueHexagonCardigan.png",
       alt: "Hexagon cardigan",
       subtitle: "Choose size range, length, and color vibe.",
-      priceLabel: "Starting at $120",
+      priceLabel: "Starting at $90",
       options: {
         sizes: ["XS-S","M-L","XL-XXL"],
-        materials: ["Acrylic","Wool Blend"],
-        colors: ["Blue","Cream","Multi"]
+        colors: ["Black with red glitter trim"]
+      },
+      price(sel){
+        let base = 90;
+        if(sel.size === "M-L") base += 20;
+        if(sel.size === "XL-XXL") base += 40;
+        return base;
+      },
+      material: "Yarn ( varies by color).",
+      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
+      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+  {
+      id: "cardigan",
+      name: "Valentines- Hexagon Cardigan",
+      category: "wearables",
+      pill: "",
+    // fix image later
+      image: "images/BlueHexagonCardigan.png",
+      alt: "Valentines- Hexagon Cardigan",
+      subtitle: "Choose size range, length, and color vibe.",
+      priceLabel: "Starting at $110",
+      options: {
+        sizes: ["XS-S","M-L","XL-XXL"],
+        colors: ["Pink Ombre with white glitter"]
       },
       price(sel){
         let base = 120;
         if(sel.size === "M-L") base += 30;
         if(sel.size === "XL-XXL") base += 60;
-        if(sel.material === "Wool Blend") base += 25;
         return base;
       },
-      material: "Yarn ( varies by color).",
+      material: "Yarn ( all cardigans will have slight variations in color-handmade).",
       uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
       pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
@@ -566,18 +595,15 @@
       pill: "Custom fit",
       image: "images/IMG_4188.jpg",
       alt: "Ribbed lace drawstring crop top",
-      subtitle: "Enter measurements for live pricing (optional later).",
-      priceLabel: "Starting at $95",
+      priceLabel: "Starting at $45",
       options: {
         sizes: ["XS","S","M","L"],
-        materials: ["Acrylic","Cotton"],
-        colors: ["Neutral","Black","Pink"]
+        colors: ["Coral Orange(Pictured),Blue/ White Multicolor","Black","Pink","Mustard Yellow","Royal Blue","Pink/White"]
       },
       price(sel){
-        let base = 95;
+        let base = 45;
         if(sel.size === "M") base += 10;
         if(sel.size === "L") base += 20;
-        if(sel.material === "Cotton") base += 10;
         return base;
       },
       material: "Yarn (type varies).",
@@ -585,7 +611,29 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
-
+{
+      id: "croptop",
+      name: "Front Tie Crop Top",
+      category: "wearables",
+      pill: "Custom fit",
+      image: "images/IMG_4188.jpg",
+      alt: "Front Tie Crop Top",
+      priceLabel: "Starting at $45",
+      options: {
+        sizes: ["XS","S","M","L"],
+        colors: ["Mustard Yellow(Pictured),Blue/ White Multicolor","Black","Pink","Royal Blue","Pink/White"]
+      },
+      price(sel){
+        let base = 45;
+        if(sel.size === "M") base += 10;
+        if(sel.size === "L") base += 20;
+        return base;
+      },
+      material: "Yarn (type varies).",
+      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
+      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
     {
       id: "scrunchies_diy",
       name: "Custom Scrunchie",
@@ -597,11 +645,11 @@
       priceLabel: "From $10",
       options: {
         sizes: ["Single"],
-        materials: ["Acrylic","Cotton","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Purple"]
+        materials: ["Regular","Plush"],
+        colors: ["Pink","Red","Green","Blue","White","Black","Multicolred","Purple"]
       },
       price(sel){
-        return (sel.material === "Acrylic") ? 10 : 12;
+        return (sel.material === "Plush") ? 10 : 12;
       },
       material: "Yarn (type varies).",
       uses: "Hair accessory, wrist accessory, cute gift add-on.",
@@ -621,11 +669,12 @@
       options: {
         sizes: ["Single","3-Pack"],
         materials: ["Acrylic","Cotton","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Purple"]
+        colors: ["Pink","Red","Green","Blue","White","Black","Multicolred","Purple"]
+  
       },
       price(sel){
         let base = (sel.size === "3-Pack") ? 10 * 3 : 10;
-        if(sel.material !== "Acrylic") base += 2 * (sel.size === "3-Pack" ? 3 : 1);
+        if(sel.material !== "Plush") base += 2 * (sel.size === "3-Pack" ? 3 : 1);
         return base;
       },
       material: "Yarn (varies by scrunchie).",
@@ -641,18 +690,19 @@
       pill: "",
       image: "", // leave empty if you don't have it yet
       alt: "Pillow cover",
-      subtitle: "Standard sizes + custom sizing. Add flowers or tassels.",
+      subtitle: "Standard sizes + custom sizing.",
       priceLabel: "From $35",
       options: {
         sizes: ["16x16","18x18","20x20"],
-        materials: ["Acrylic","Cotton","Wool Blend"],
-        colors: ["Neutral","Pattern"]
+        materials: ["Regular","Glitter","Plush"],
+        colors: ["Red","Purple Ombre","Pink Ombre"]
       },
       price(sel){
         let base = 35;
         if(sel.size === "18x18") base += 5;
         if(sel.size === "20x20") base += 10;
-        if(sel.material === "Wool Blend") base += 8;
+        if(sel.material === "Glitter") base += 5;
+        if(sel.material === "Plush") base += 5;
         return base;
       },
       material: "Yarn (type varies).",
