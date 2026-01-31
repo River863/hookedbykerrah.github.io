@@ -492,23 +492,18 @@
       priceLabel: "$30–$40",
       // OPTIONAL: options and price logic for modal
       options: {
-        sizes: ["Child","Adult"],
+        sizes: ["Adult"],
         materials: ["Regular","Glitter"],
           colors: ["Red Hat/Black Trim","Black Hat/Red Trim"]
       },
       price(sel){
         // example: adult = 40, child = 35, baby = 30; cotton +$5
-        const sizeMap = {"Child":35, "Adult":40 };
+        const sizeMap = { "Adult":40 };
         const base = sizeMap[sel.size] || 30;
-        const matAdj = (sel.material === "Cotton") ? 5 : 0;
+        const matAdj = (sel.material === "Glitter") ? 3 : 0;
         return base + matAdj;
       },
-      //i added  this part bc if the selection is glitter, i want to charge $3 more
-      price(sel){
-        let base = 40;
-        if(sel.material === "Glitter") base += 3;
-        return base;
-      },
+      { 
       material: "Yarn (type varies by request).",
       uses: "Warm seasonal hat for holidays, gifts, photos, and cozy winter outfits.",
       pairing: "Pairs cute with a neutral coat, boots, and a festive scarf.",
