@@ -19,7 +19,6 @@
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
       --max:1100px;
-
       /* drawer + modal */
       --overlay: rgba(0,0,0,.45);
     }
@@ -324,7 +323,6 @@
 
     <!-- =========================
          FEATURED
-         Cards are generated from PRODUCTS below.
     ========================== -->
     <section id="featured">
       <h2>Featured Right Now</h2>
@@ -362,7 +360,6 @@
 
         <button class="btn" id="customSubmit" style="margin-top:12px">Submit request</button>
 
-        <!-- Confirmation message shows here -->
         <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
 
         <p class="muted" style="margin-top:10px">
@@ -400,7 +397,6 @@
 
 <!-- =========================
      PRODUCT DETAILS MODAL
-     (Now includes selectors for size/material/color when product provides them)
 ========================== -->
 <div class="overlay" id="productOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
@@ -420,10 +416,9 @@
         <button class="xBtn" id="closeModal" aria-label="Close">✕</button>
       </div>
 
-      <!-- EDIT-HERE: Product details -->
       <div class="meta" id="modalDetails"></div>
 
-      <!-- selectors: only shown when product defines options -->
+      <!-- selectors -->
       <div id="modalOptions" style="margin-top:12px"></div>
 
       <div class="actions">
@@ -439,7 +434,7 @@
 </div>
 
 <!-- =========================
-     CART DRAWER (slides from right)
+     CART DRAWER
 ========================== -->
 <div class="drawerOverlay" id="drawerOverlay"></div>
 
@@ -457,7 +452,6 @@
       <span id="cartTotal">$0</span>
     </div>
 
-    <!-- You can replace this later with a real checkout link (Shopify, Stripe, etc.) -->
     <button class="btn" id="checkoutBtn" style="width:100%">Checkout (placeholder)</button>
 
     <div class="checkoutNote">
@@ -467,7 +461,7 @@
 </aside>
 
 <!-- =========================
-     TOAST MESSAGE
+     TOAST
 ========================== -->
 <div class="toast" id="toast">
   <strong>Added to cart</strong>
@@ -476,34 +470,28 @@
 
 <script>
   /* =========================================================
-     EDIT PRODUCT INFO HERE (centralized)
-     - Use each product object to define options + a price() function
-     - price() must return a Number (dollars)
-     ========================================================= */
+     EDIT PRODUCT INFO HERE
+  ========================================================= */
   const PRODUCTS = [
     {
       id: "santahats",
       name: "Santa Hats",
-      category: "featured", // featured, wearables, accessories, home
+      category: "featured",
       pill: "Seasonal favorite",
       image: "images/SantaHats.jpeg",
       alt: "Crochet Santa hats",
       subtitle: "Pick size, color combo, and optional glitter.",
-      priceLabel: "$30–$40",
-      // OPTIONAL: options and price logic for modal
+      priceLabel: "$40+",
       options: {
         sizes: ["Adult"],
         materials: ["Regular","Glitter"],
-          colors: ["Red Hat/Black Trim","Black Hat/Red Trim"]
+        colors: ["Red Hat/Black Trim","Black Hat/Red Trim"]
       },
       price(sel){
-        // example: adult = 40, child = 35, baby = 30; cotton +$5
-        const sizeMap = { "Adult":40 };
-        const base = sizeMap[sel.size] || 30;
+        const base = 40;
         const matAdj = (sel.material === "Glitter") ? 3 : 0;
         return base + matAdj;
       },
-      { 
       material: "Yarn (type varies by request).",
       uses: "Warm seasonal hat for holidays, gifts, photos, and cozy winter outfits.",
       pairing: "Pairs cute with a neutral coat, boots, and a festive scarf.",
@@ -523,9 +511,7 @@
         colors: ["Blue Multicolor"]
       },
       price(sel){
-        let base = 45;
-        if(sel.material === "Cotton") base += 5;
-        return base;
+        return 45;
       },
       material: "Yarn (type varies).",
       uses: "Everyday carry: books, laptop, errands, markets, travel.",
@@ -534,10 +520,9 @@
     },
 
     {
-      id: "cardigan",
+      id: "cardigan_black_red",
       name: "Black with Red Glitter Trim Hexagon Cardigan",
       category: "wearables",
-      pill: "",
       image: "images/BlueHexagonCardigan.png",
       alt: "Black with Red Glitter Trim Hexagon Cardigan",
       priceLabel: "Starting at $90",
@@ -551,38 +536,37 @@
         if(sel.size === "XL-XXL") base += 40;
         return base;
       },
-      material: "Yarn ( varies by color).",
-      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
-      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
-  {
-      id: "cardigan",
-      name: "Valentines- Hexagon Cardigan",
-      category: "wearables",
-      pill: "",
-    // fix image later
-      image: "images/BlueHexagonCardigan.png",
-      alt: "Valentines- Hexagon Cardigan",
-      priceLabel: "Starting at $110",
-      options: {
-        sizes: ["XS-S","M-L","XL-XXL"],
-        colors: ["Pink Ombre with white glitter"]
-      },
-      price(sel){
-        let base = 120;
-        if(sel.size === "M-L") base += 30;
-        if(sel.size === "XL-XXL") base += 60;
-        return base;
-      },
-      material: "Yarn ( all cardigans will have slight variations in color-handmade).",
+      material: "Yarn (varies by color).",
       uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
       pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
     {
-      id: "croptop",
+      id: "cardigan_valentines",
+      name: "Valentines Hexagon Cardigan",
+      category: "wearables",
+      image: "images/BlueHexagonCardigan.png", /* replace with real image when ready */
+      alt: "Valentines Hexagon Cardigan",
+      priceLabel: "Starting at $110",
+      options: {
+        sizes: ["XS-S","M-L","XL-XXL"],
+        colors: ["Pink Ombre with white glitter"]
+      },
+      price(sel){
+        let base = 110;
+        if(sel.size === "M-L") base += 30;
+        if(sel.size === "XL-XXL") base += 60;
+        return base;
+      },
+      material: "Yarn (all cardigans will have slight variations in color — handmade).",
+      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
+      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
+      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
+    },
+
+    {
+      id: "croptop_drawstring",
       name: "Ribbed Lace Drawstring Crop Top",
       category: "wearables",
       image: "images/IMG_4188.jpg",
@@ -590,10 +574,18 @@
       priceLabel: "Starting at $90",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: ["Coral Orange(Pictured),Blue/ White Multicolor","Black","Pink","Mustard Yellow","Royal Blue","Pink/White"]
+        colors: [
+          "Coral Orange (Pictured)",
+          "Blue/White Multicolor",
+          "Black",
+          "Pink",
+          "Mustard Yellow",
+          "Royal Blue",
+          "Pink/White"
+        ]
       },
       price(sel){
-        let base = 45;
+        let base = 90;
         if(sel.size === "M") base += 10;
         if(sel.size === "L") base += 20;
         return base;
@@ -603,8 +595,9 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
-{ 
-      id: "croptop",
+
+    {
+      id: "croptop_front_tie",
       name: "Front Tie Crop Top",
       category: "wearables",
       image: "images/FrontTie.png",
@@ -612,7 +605,14 @@
       priceLabel: "Starting at $45",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: ["Mustard Yellow(Pictured),Blue/ White Multicolor","Black","Pink","Royal Blue","Pink/White"]
+        colors: [
+          "Mustard Yellow (Pictured)",
+          "Blue/White Multicolor",
+          "Black",
+          "Pink",
+          "Royal Blue",
+          "Pink/White"
+        ]
       },
       price(sel){
         let base = 45;
@@ -625,8 +625,9 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
-    { 
-      id: "croptop",
+
+    {
+      id: "croptop_net_bow",
       name: "Blue White Net Bow Crop Top",
       category: "wearables",
       image: "images/Blue White Net Bow Top.png",
@@ -634,10 +635,16 @@
       priceLabel: "Starting at $35",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: ["Mustard Yellow(Pictured),Blue/ White Multicolor","Black","Pink","Royal Blue","Pink/White"]
+        colors: [
+          "Blue/White (Pictured)",
+          "Black",
+          "Pink",
+          "Royal Blue",
+          "Pink/White"
+        ]
       },
       price(sel){
-        let base = 45;
+        let base = 35;
         if(sel.size === "M") base += 10;
         if(sel.size === "L") base += 20;
         return base;
@@ -647,7 +654,7 @@
       pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
-   
+
     {
       id: "scrunchies_diy",
       name: "Custom Scrunchie",
@@ -660,10 +667,11 @@
       options: {
         sizes: ["Single"],
         materials: ["Regular","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Black","Multicolred","Purple"]
+        colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
       },
       price(sel){
-        return (sel.material === "Plush") ? 10 : 12;
+        // Plush slightly higher
+        return (sel.material === "Plush") ? 12 : 10;
       },
       material: "Yarn (type varies).",
       uses: "Hair accessory, wrist accessory, cute gift add-on.",
@@ -675,7 +683,6 @@
       id: "scrunchies",
       name: "Premade Scrunchies",
       category: "accessories",
-      pill: "",
       image: "images/9indscrunchiesreg.jpg",
       alt: "Premade scrunchies",
       subtitle: "Singles or packs. Optional trim available.",
@@ -683,13 +690,14 @@
       options: {
         sizes: ["Single","3-Pack"],
         materials: ["Acrylic","Cotton","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Black","Multicolred","Purple"]
-  
+        colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
       },
       price(sel){
-        let base = (sel.size === "3-Pack") ? 10 * 3 : 10;
-        if(sel.material !== "Plush") base += 2 * (sel.size === "3-Pack" ? 3 : 1);
-        return base;
+        let baseSingle = 10;
+        if(sel.material === "Cotton") baseSingle += 2;
+        if(sel.material === "Plush") baseSingle += 3;
+        const qty = (sel.size === "3-Pack") ? 3 : 1;
+        return baseSingle * qty;
       },
       material: "Yarn (varies by scrunchie).",
       uses: "Quick grab accessory for everyday hair styling.",
@@ -701,8 +709,7 @@
       id: "pillow",
       name: "Pillow Covers (Cover Only)",
       category: "home",
-      pill: "",
-      image: "", // leave empty if you don't have it yet
+      image: "", /* add image path when you have it */
       alt: "Pillow cover",
       subtitle: "Standard sizes + custom sizing.",
       priceLabel: "From $35",
@@ -727,7 +734,7 @@
   ];
 
   /* =========================================================
-     UI HELPERS
+     HELPERS
   ========================================================= */
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => document.querySelectorAll(sel);
@@ -741,8 +748,9 @@
   ========================================================= */
   function createCardHtml(p){
     const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
-    const img = p.image ? `<img src="${p.image}" alt="${p.alt || p.name}">`
-                        : `<div style="padding:18px;text-align:center;color:var(--muted)">Add photo</div>`;
+    const img = p.image
+      ? `<img src="${p.image}" alt="${p.alt || p.name}">`
+      : `<div style="padding:18px;text-align:center;color:var(--muted)">Add photo</div>`;
     return `
       <button class="cardBtn" type="button" data-id="${p.id}">
         <article class="card">
@@ -760,25 +768,24 @@
   }
 
   function renderAllGrids(){
-    const featured = document.getElementById("featuredGrid");
-    const wearables = document.getElementById("wearablesGrid");
-    const accessories = document.getElementById("accessoriesGrid");
-    const home = document.getElementById("homeGrid");
+    const featured = $("#featuredGrid");
+    const wearables = $("#wearablesGrid");
+    const accessories = $("#accessoriesGrid");
+    const home = $("#homeGrid");
 
     featured.innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
     wearables.innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
     accessories.innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
     home.innerHTML = PRODUCTS.filter(p => p.category === "home").map(createCardHtml).join("");
 
-    // Wire up click handlers
     $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
   }
 
   /* =========================================================
-     PRODUCT MODAL (with options and live price)
+     PRODUCT MODAL
   ========================================================= */
   let activeProduct = null;
-  let activeSelection = {}; // {size, material, color}
+  let activeSelection = {};
 
   function openProduct(id){
     const p = PRODUCTS.find(x => x.id === id);
@@ -787,10 +794,14 @@
 
     $("#modalTitle").textContent = p.name;
     $("#modalSubtitle").textContent = p.subtitle || "";
-    $("#modalPill").textContent = p.pill || "";
-    if(p.pill) $("#modalPill").style.display = "inline-block"; else $("#modalPill").style.display = "none";
+    if(p.pill){
+      $("#modalPill").style.display = "inline-block";
+      $("#modalPill").textContent = p.pill;
+    } else {
+      $("#modalPill").style.display = "none";
+      $("#modalPill").textContent = "";
+    }
 
-    // image
     if(p.image){
       $("#modalImg").src = p.image;
       $("#modalImg").alt = p.alt || p.name;
@@ -799,7 +810,6 @@
       $("#modalImg").alt = "";
     }
 
-    // details block
     $("#modalDetails").innerHTML = `
       <strong>Details</strong>
       <div><strong>Material:</strong> ${p.material || "—"}</div>
@@ -808,13 +818,11 @@
       <div style="margin-top:6px"><strong>Made to order:</strong> ${p.madeToOrder || "Allow 7+ days depending on the product. Items may ship sooner."}</div>
     `;
 
-    // build options UI (if product.options exists)
     const optsContainer = $("#modalOptions");
     optsContainer.innerHTML = "";
     activeSelection = {};
 
     if(p.options){
-      // SIZE
       if(p.options.sizes && p.options.sizes.length){
         const div = document.createElement("div");
         div.className = "field";
@@ -822,12 +830,11 @@
         optsContainer.appendChild(div);
         const sel = div.querySelector("select");
         p.options.sizes.forEach(s => sel.add(new Option(s,s)));
-        sel.addEventListener("change", () => { activeSelection.size = sel.value; updateModalPrice(); });
         sel.value = p.options.sizes[0];
+        sel.addEventListener("change", () => { activeSelection.size = sel.value; updateModalPrice(); });
         activeSelection.size = sel.value;
       }
 
-      // MATERIAL
       if(p.options.materials && p.options.materials.length){
         const div = document.createElement("div");
         div.className = "field";
@@ -835,12 +842,11 @@
         optsContainer.appendChild(div);
         const sel = div.querySelector("select");
         p.options.materials.forEach(m => sel.add(new Option(m,m)));
-        sel.addEventListener("change", () => { activeSelection.material = sel.value; updateModalPrice(); });
         sel.value = p.options.materials[0];
+        sel.addEventListener("change", () => { activeSelection.material = sel.value; updateModalPrice(); });
         activeSelection.material = sel.value;
       }
 
-      // COLOR
       if(p.options.colors && p.options.colors.length){
         const div = document.createElement("div");
         div.className = "field";
@@ -848,8 +854,8 @@
         optsContainer.appendChild(div);
         const sel = div.querySelector("select");
         p.options.colors.forEach(c => sel.add(new Option(c,c)));
-        sel.addEventListener("change", () => { activeSelection.color = sel.value; updateModalPrice(); });
         sel.value = p.options.colors[0];
+        sel.addEventListener("change", () => { activeSelection.color = sel.value; updateModalPrice(); });
         activeSelection.color = sel.value;
       }
     }
@@ -864,13 +870,12 @@
     let priceVal = 0;
     try {
       if(typeof activeProduct.price === "function"){
-        priceVal = activeProduct.price(activeSelection);
+        priceVal = activeProduct.price(activeSelection || {});
       } else {
-        // fallback: try to read from priceLabel e.g. "$45" or "Starting at $120"
         const m = (activeProduct.priceLabel || "").match(/\$([\d]+)/);
         priceVal = m ? Number(m[1]) : 0;
       }
-    } catch (e) {
+    } catch(e){
       priceVal = 0;
     }
     $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
@@ -886,12 +891,10 @@
   $("#closeModal").addEventListener("click", closeProduct);
   $("#keepShoppingBtn").addEventListener("click", closeProduct);
 
-  // click outside modal closes
   $("#productOverlay").addEventListener("click", (e) => {
     if(e.target.id === "productOverlay") closeProduct();
   });
 
-  // ESC closes modal + cart
   document.addEventListener("keydown", (e) => {
     if(e.key === "Escape"){
       closeProduct();
@@ -900,10 +903,7 @@
   });
 
   /* =========================================================
-     CART (stored in localStorage)
-     Each cart item now stores:
-       { uid, id, name, options:{size,material,color}, unitPrice, qty }
-     uid is unique per cart line (id + options JSON) so different option combos are separate lines
+     CART
   ========================================================= */
   const CART_KEY = "hbk_cart_v2";
   let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
@@ -917,7 +917,9 @@
   function addToCart(product, selection){
     const uid = genUID(product.id, selection);
     const found = cart.find(i => i.uid === uid);
-    const unitPrice = (typeof product.price === "function") ? product.price(selection) : (Number((product.priceLabel||"").match(/\$([\d]+)/)?.[1]) || 0);
+    const unitPrice = (typeof product.price === "function")
+      ? product.price(selection || {})
+      : (Number((product.priceLabel||"").match(/\$([\d]+)/)?.[1]) || 0);
 
     if(found){
       found.qty += 1;
@@ -933,11 +935,7 @@
     }
     saveCart();
     renderCart();
-
-    // show made-to-order message
     showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
-
-    // open cart drawer so it "pops up on the side"
     openCart();
   }
 
@@ -964,32 +962,32 @@
     }
 
     el.innerHTML = cart.map(i => {
-      // display options
-      const opts = i.options ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("") : "";
+      const opts = i.options
+        ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("")
+        : "";
       return `
-      <div class="line">
-        <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
-          <div>
-            <strong>${i.name}</strong>
-            ${opts}
+        <div class="line">
+          <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
+            <div>
+              <strong>${i.name}</strong>
+              ${opts}
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
+              <div class="small">Qty: ${i.qty}</div>
+            </div>
           </div>
-          <div style="text-align:right">
-            <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
-            <div class="small">Qty: ${i.qty}</div>
-          </div>
-        </div>
 
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
-          <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
+            <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
+          </div>
         </div>
-      </div>
-    `;
+      `;
     }).join("");
 
-    $("#cartTotal").textContent = `${formatMoney(cartTotal())}`;
+    $("#cartTotal").textContent = formatMoney(cartTotal());
 
-    // wire qty buttons
     el.querySelectorAll("button[data-act]").forEach(btn => {
       btn.addEventListener("click", () => {
         const uid = btn.dataset.uid;
@@ -1000,7 +998,7 @@
   }
 
   /* =========================================================
-     CART DRAWER open/close
+     CART DRAWER
   ========================================================= */
   function openCart(){
     $("#drawerOverlay").classList.add("open");
@@ -1025,28 +1023,24 @@
   }
 
   /* =========================================================
-     Add to cart button inside modal:
-     - ensure we capture the selected options (activeSelection)
-     - if product has no options, add with empty selection
+     ADD TO CART BUTTON
   ========================================================= */
   $("#addToCartBtn").addEventListener("click", () => {
     if(!activeProduct) return;
-
-    // gather current selection (if any inputs were created)
     const sel = {};
-    const sizeEl = document.getElementById("optSize");
-    const matEl  = document.getElementById("optMaterial");
-    const colEl  = document.getElementById("optColor");
+    const sizeEl = $("#optSize");
+    const matEl  = $("#optMaterial");
+    const colEl  = $("#optColor");
     if(sizeEl) sel.size = sizeEl.value;
-    if(matEl) sel.material = matEl.value;
-    if(colEl) sel.color = colEl.value;
+    if(matEl)  sel.material = matEl.value;
+    if(colEl)  sel.color = colEl.value;
 
     addToCart(activeProduct, sel);
-    closeProduct(); // close modal so cart drawer becomes the focus
+    closeProduct();
   });
 
   /* =========================================================
-     CUSTOM REQUEST submit
+     CUSTOM REQUEST
   ========================================================= */
   $("#customSubmit").addEventListener("click", () => {
     const text = $("#customText").value.trim();
@@ -1058,25 +1052,21 @@
       return;
     }
 
-    // Simple “frontend-only” submission:
-    // If you want to actually receive messages, we can connect this to Formspree/Netlify later.
     $("#customText").value = "";
     msg.style.display = "block";
     msg.textContent = "Thank you — submission received! I’ll get back to you soon. Thank you for the inquiry. Follow me on IG: @HookedByKerrah";
   });
 
   /* =========================================================
-     INIT: render everything and cart
+     INIT
   ========================================================= */
   renderAllGrids();
   renderCart();
 
-  // OPTIONAL: placeholder checkout button
   $("#checkoutBtn").addEventListener("click", () => {
     alert("Checkout is a placeholder. If you want real checkout, tell me what you want to use (Shopify / Stripe Payment Link / Etsy / DM checkout).");
   });
 
-  // close modal/drawer on navigation if desired (small UX polish)
   window.addEventListener("popstate", () => { closeProduct(); closeCart(); });
 </script>
 
