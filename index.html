@@ -220,7 +220,8 @@ function safeGetStartPrice(label){ const m = (label||"").match(/\$([\d]+)/); ret
 
 const PRODUCTS = [
   /* featured */
-  { id:"cardigan_black_red", name:"Black with Red Glitter Trim Hexagon Cardigan", category:"featured", pill:"wearables", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan", subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90", options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] }, price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; }, material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."},
+  { id:"cardigan_black_red", name:"Black with Red Glitter Trim Hexagon Cardigan",
+   category:"wearables", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan", subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90", options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] }, price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; }, material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."},
   { id:"cardigan_valentines", name:"Valentines Hexagon Cardigan", category:"featured", pill:"Featured", image:"images/ValentinesHexCardi.png", alt:"Valentines Hexagon Cardigan", subtitle:"Pink ombre with glitter.", priceLabel:"Starting at $110", options:{ size:["S-M","L-XL"], color:["Pink Ombre"] }, price(sel){ let base=110; if(sel.size==="L-XL") base+=20; return base }, material:"Yarn (handmade).", uses:"Layering.", pairing:"Dress up or down."},
   { id:"santahats", name:"Santa Hats", category:"featured", pill:"Seasonal favourite", image:"images/SantaHats.jpeg", subtitle:"Pick glitter or regular.", priceLabel:"$40+", options:{ size:["Adult"], material:["Regular","Glitter"], color:["Red Hat/Black Trim","Black Hat/Red Trim"] }, price(sel){ const base=40; return base + ((sel.material==="Glitter")?3:0) }, material:"Yarn", uses:"Holiday wear."},
 
@@ -232,7 +233,7 @@ const PRODUCTS = [
   { id:"croptop_net_bow", name:"Blue/White Net Bow Crop Top", category:"wearables", image:"images/Blue White Net Bow Top.png", subtitle:"Choose bra band for best fit.", priceLabel:"Starting at $40", options:{ band:BAND_SIZES, color:["Blue/White","Black","Pink","Royal Blue","Pink/White"] }, price(sel){ let base=40; base += bandUpcharge(sel.band); return base; }, material:"Yarn", uses:"Lightweight top", pairing:"Denim."},
 
   /* accessories */
-  { id:"tote", name:"Tote Bag", category:"accessories", pill:"Featured", image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45", options:{ color:["Blue Multicolor"] }, price(){ return 45; }, material:"Yarn", uses:"Carry all."},
+  { id:"tote", name:"Tote Bag", category:"accessories", image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45", options:{ color:["Blue Multicolor"] }, price(){ return 45; }, material:"Yarn", uses:"Carry all."},
 
   { id:"scrunchies_diy", name:"Custom Scrunchie", category:"accessories", pill:"Design your own", image:"images/IMG_4189.jpg", subtitle:"Choose main color + optional trim.", priceLabel:"From $10", options:{ size:["Single"], material:["Regular","Plush"], color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"], trim:["No trim","Add trim (no extra charge)"], trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"] }, price(sel){ return (sel.material==="Plush")?13:10; }, material:"Yarn", uses:"Hair accessory."},
 
