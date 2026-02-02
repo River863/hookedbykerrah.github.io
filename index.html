@@ -19,7 +19,6 @@
       --shadow:0 12px 30px rgba(0,0,0,.08);
       --radius:18px;
       --max:1100px;
-      /* drawer + modal */
       --overlay: rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
@@ -55,7 +54,6 @@
       margin-top:18px
     }
 
-    /* Make entire card clickable */
     .cardBtn{
       display:block;
       text-decoration:none;
@@ -138,9 +136,7 @@
       nav a{padding:6px 10px}
     }
 
-    /* =========================
-       MODAL (Product Details)
-    ========================== */
+    /* MODAL */
     .overlay{
       position:fixed;
       inset:0;
@@ -162,14 +158,9 @@
       display:grid;
       grid-template-columns: 1.1fr .9fr;
     }
-    @media(max-width:860px){
-      .modal{grid-template-columns:1fr;}
-    }
-    .modalImg{
-      min-height:280px;
-      background:#f1f1f1;
-    }
-    .modalBody{padding:18px;}
+    @media(max-width:860px){ .modal{grid-template-columns:1fr;} }
+    .modalImg{ min-height:280px; background:#f1f1f1; }
+    .modalBody{ padding:18px; }
     .modalTop{
       display:flex;
       align-items:flex-start;
@@ -209,14 +200,11 @@
     }
     .ghostBtn:hover{background:rgba(0,0,0,.04)}
 
-    /* Forms inside modal */
     .field{margin-top:10px}
     .field label{display:block;font-weight:800;margin-bottom:6px}
-    .field select, .field input{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.12)}
+    .field select{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.12)}
 
-    /* =========================
-       CART DRAWER (Right side)
-    ========================== */
+    /* CART DRAWER */
     .drawerOverlay{
       position:fixed;
       inset:0;
@@ -225,7 +213,6 @@
       z-index:60;
     }
     .drawerOverlay.open{display:block}
-
     .drawer{
       position:fixed;
       top:0;
@@ -256,12 +243,6 @@
       padding:12px;
       margin-bottom:12px;
     }
-    .row{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-    }
     .small{font-size:13px;color:var(--muted)}
     .qtyBtn{
       border:1px solid rgba(0,0,0,.15);
@@ -279,9 +260,7 @@
     .totalRow{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
     .checkoutNote{font-size:12px;color:var(--muted);line-height:1.35;margin-top:10px}
 
-    /* =========================
-       TOAST (made-to-order message)
-    ========================== */
+    /* TOAST */
     .toast{
       position:fixed;
       left:50%;
@@ -304,9 +283,6 @@
 <body>
 <div class="wrap">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
   <header>
     <h1>HookedByKerrah</h1>
     <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
@@ -320,18 +296,11 @@
   </header>
 
   <main>
-
-    <!-- =========================
-         FEATURED
-    ========================== -->
     <section id="featured">
       <h2>Featured Right Now</h2>
       <div class="grid" id="featuredGrid"></div>
     </section>
 
-    <!-- =========================
-         SHOP
-    ========================== -->
     <section id="shop">
       <h2 style="margin-top:22px">Shop</h2>
 
@@ -340,69 +309,52 @@
 
       <h3 style="margin-top:18px">Accessories</h3>
       <div class="grid" id="accessoriesGrid"></div>
-
-      <h3 style="margin-top:18px">Home</h3>
-      <div class="grid" id="homeGrid"></div>
     </section>
 
-    <!-- =========================
-         CUSTOM REQUEST BOX
-    ========================== -->
     <section id="custom" style="margin-top:28px">
       <h2>Custom Request</h2>
       <p class="muted">Want something not listed? Tell me what you have in mind.</p>
 
-      <div class="card" style="padding:16px">
-        <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">
-          Your request
-        </label>
-        <textarea id="customText" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
+      <!-- Custom Request FORM (this actually sends) -->
+      <form class="card" style="padding:16px" id="customForm">
+        <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">Your request</label>
+        <textarea id="customText" name="message" rows="5"
+          style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"
+          placeholder="Example: I want a matching hat + tote set in black and red..."></textarea>
 
-        <button class="btn" id="customSubmit" style="margin-top:12px">Submit request</button>
+        <label for="customerEmail" style="font-weight:850;display:block;margin:12px 0 8px">Your email (optional)</label>
+        <input id="customerEmail" name="email" type="email"
+          style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"
+          placeholder="so I can reply to you">
+
+        <button class="btn" type="submit" style="margin-top:12px">Submit request</button>
 
         <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
 
         <p class="muted" style="margin-top:10px">
           Follow me on Instagram:
-          <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">
-            @HookedByKerrah
-          </a>
+          <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
         </p>
-      </div>
+      </form>
     </section>
 
-    <!-- =========================
-         POLICIES
-    ========================== -->
     <section id="policies" style="margin-top:28px">
       <h2>Policies</h2>
-      <p class="muted">
-        All items are handmade and made to order. All sales are final.
-      </p>
+      <p class="muted">All items are handmade and made to order. All sales are final.</p>
       <p class="muted">
         Questions? DM me on Instagram:
-        <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">
-          @HookedByKerrah
-        </a>
+        <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
       </p>
     </section>
-
   </main>
 
-  <footer>
-    © 2026 HookedByKerrah • Handmade Crochet
-  </footer>
-
+  <footer>© 2026 HookedByKerrah • Handmade Crochet</footer>
 </div>
 
-<!-- =========================
-     PRODUCT DETAILS MODAL
-========================== -->
+<!-- PRODUCT MODAL -->
 <div class="overlay" id="productOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
-    <div class="modalImg imgBox">
-      <img id="modalImg" src="" alt="">
-    </div>
+    <div class="modalImg imgBox"><img id="modalImg" src="" alt=""></div>
 
     <div class="modalBody">
       <div class="modalTop">
@@ -412,13 +364,10 @@
           <p class="muted" id="modalSubtitle" style="margin:6px 0 0"></p>
           <p class="price" id="modalPrice" style="margin-top:10px"></p>
         </div>
-
         <button class="xBtn" id="closeModal" aria-label="Close">✕</button>
       </div>
 
       <div class="meta" id="modalDetails"></div>
-
-      <!-- selectors -->
       <div id="modalOptions" style="margin-top:12px"></div>
 
       <div class="actions">
@@ -433,36 +382,27 @@
   </div>
 </div>
 
-<!-- =========================
-     CART DRAWER
-========================== -->
+<!-- CART -->
 <div class="drawerOverlay" id="drawerOverlay"></div>
-
 <aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="drawerHeader">
     <strong>Cart</strong>
     <button class="xBtn" id="closeCart" aria-label="Close cart">✕</button>
   </div>
-
   <div class="drawerBody" id="cartItems"></div>
-
   <div class="drawerFooter">
     <div class="totalRow">
       <span>Total</span>
       <span id="cartTotal">$0</span>
     </div>
-
     <button class="btn" id="checkoutBtn" style="width:100%">Checkout (placeholder)</button>
-
     <div class="checkoutNote">
       <strong>Made to order:</strong> allow 7+ days depending on the product. Items may be shipped sooner.
     </div>
   </div>
 </aside>
 
-<!-- =========================
-     TOAST
-========================== -->
+<!-- TOAST -->
 <div class="toast" id="toast">
   <strong>Added to cart</strong>
   <span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span>
@@ -470,7 +410,10 @@
 
 <script>
   /* =========================================================
-     EDIT PRODUCT INFO HERE
+     PRODUCTS
+     - Tote moved to wearables
+     - Valentines cardigan moved to featured
+     - Home removed (no home category used)
   ========================================================= */
   const PRODUCTS = [
     {
@@ -498,31 +441,34 @@
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
+    /* Valentines moved to FEATURED */
     {
-      id: "tote",
-      name: "Tote Bag",
-      category: "home",
-      image: "images/IMG_4125.jpg",
-      alt: "Crochet tote bag",
-      subtitle: "A statement tote — choose your colorway.",
-      priceLabel: "$45",
+      id: "cardigan_valentines",
+      name: "Valentines Hexagon Cardigan",
+      category: "featured",
+      pill: "Featured",
+      image: "images/ValentinesHexCardi.png",
+      alt: "Valentines Hexagon Cardigan",
+      priceLabel: "Starting at $110",
       options: {
-        colors: ["Blue Multicolor"]
+        sizes: ["S-M","L-XL"],
+        colors: ["Pink Ombre with white glitter (Pictured)"]
       },
       price(sel){
-        return 45;
+        let base = 110;
+        if(sel.size === "L-XL") base += 20;
+        return base;
       },
-      material: "Yarn (type varies).",
-      uses: "Everyday carry: books, laptop, errands, markets, travel.",
-      pairing: "Elevates a simple outfit — jeans + tee becomes styled instantly.",
+      material: "Yarn (all cardigans will have slight variations in color — handmade).",
+      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
+      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
     {
       id: "cardigan_black_red",
       name: "Black with Red Glitter Trim Hexagon Cardigan",
-      category: "featured",
-      pill: "Featured",
+      category: "wearables",
       image: "images/BlueHexagonCardigan.png",
       alt: "Black with Red Glitter Trim Hexagon Cardigan",
       priceLabel: "Starting at $90",
@@ -541,25 +487,20 @@
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
+    /* Tote moved to WEARABLES */
     {
-      id: "cardigan_valentines",
-      name: "Valentines Hexagon Cardigan",
+      id: "tote",
+      name: "Tote Bag",
       category: "wearables",
-      image: "images/ValentinesHexCardi.png", /* replace with real image when ready */
-      alt: "Valentines Hexagon Cardigan",
-      priceLabel: "Starting at $110",
-      options: {
-        sizes: ["S-M","L-XL"],
-        colors: ["Pink Ombre with white glitter(Pictured)"]
-      },
-      price(sel){
-        let base = 110;
-       if(sel.size === "L-XL") base += 20;
-        return base;
-      },
-      material: "Yarn (all cardigans will have slight variations in color — handmade).",
-      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
-      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
+      image: "images/IMG_4125.jpg",
+      alt: "Crochet tote bag",
+      subtitle: "A statement tote — choose your colorway.",
+      priceLabel: "$45",
+      options: { colors: ["Blue Multicolor"] },
+      price(sel){ return 45; },
+      material: "Yarn (type varies).",
+      uses: "Everyday carry: books, laptop, errands, markets, travel.",
+      pairing: "Elevates a simple outfit — jeans + tee becomes styled instantly.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
@@ -572,15 +513,7 @@
       priceLabel: "Starting at $90",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: [
-          "Coral Orange (Pictured)",
-          "Blue/White Multicolor",
-          "Black",
-          "Pink",
-          "Mustard Yellow",
-          "Royal Blue",
-          "Pink/White"
-        ]
+        colors: ["Coral Orange (Pictured)","Blue/White Multicolor","Black","Pink","Mustard Yellow","Royal Blue","Pink/White"]
       },
       price(sel){
         let base = 90;
@@ -603,14 +536,7 @@
       priceLabel: "Starting at $45",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: [
-          "Mustard Yellow (Pictured)",
-          "Blue/White Multicolor",
-          "Black",
-          "Pink",
-          "Royal Blue",
-          "Pink/White"
-        ]
+        colors: ["Mustard Yellow (Pictured)","Blue/White Multicolor","Black","Pink","Royal Blue","Pink/White"]
       },
       price(sel){
         let base = 45;
@@ -633,13 +559,7 @@
       priceLabel: "Starting at $35",
       options: {
         sizes: ["XS","S","M","L"],
-        colors: [
-          "Blue/White (Pictured)",
-          "Black",
-          "Pink",
-          "Royal Blue",
-          "Pink/White"
-        ]
+        colors: ["Blue/White (Pictured)","Black","Pink","Royal Blue","Pink/White"]
       },
       price(sel){
         let base = 35;
@@ -668,7 +588,6 @@
         colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
       },
       price(sel){
-        // Plush slightly higher
         return (sel.material === "Plush") ? 13 : 10;
       },
       material: "Yarn (type varies).",
@@ -683,7 +602,7 @@
       category: "accessories",
       image: "images/9indscrunchiesreg.jpg",
       alt: "Premade scrunchies",
-      subtitle: "Singles or packs. Optional trim available.",
+      subtitle: "Singles or packs.",
       priceLabel: "From $10",
       options: {
         sizes: ["Single","3-Pack"],
@@ -693,30 +612,21 @@
       price(sel){
         let baseSingle = 10;
         if(sel.material === "Plush") baseSingle += 4;
-        const qty = (sel.size === "3-Pack") ? 3.3 : 1;
+        const qty = (sel.size === "3-Pack") ? 3 : 1;
         return baseSingle * qty;
       },
       material: "Yarn (varies by scrunchie).",
       uses: "Quick grab accessory for everyday hair styling.",
       pairing: "Easy match with athleisure, casual fits, or a soft glam look.",
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
-
+    }
   ];
 
-  /* =========================================================
-     HELPERS
-  ========================================================= */
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => document.querySelectorAll(sel);
 
-  function formatMoney(n){
-    return `$${Number(n).toFixed(0)}`;
-  }
+  function formatMoney(n){ return `$${Number(n).toFixed(0)}`; }
 
-  /* =========================================================
-     RENDER GRID
-  ========================================================= */
   function createCardHtml(p){
     const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
     const img = p.image
@@ -739,22 +649,12 @@
   }
 
   function renderAllGrids(){
-    const featured = $("#featuredGrid");
-    const wearables = $("#wearablesGrid");
-    const accessories = $("#accessoriesGrid");
-    const home = $("#homeGrid");
-
-    featured.innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
-    wearables.innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
-    accessories.innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
-    home.innerHTML = PRODUCTS.filter(p => p.category === "home").map(createCardHtml).join("");
-
+    $("#featuredGrid").innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
+    $("#wearablesGrid").innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
+    $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
     $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
   }
 
-  /* =========================================================
-     PRODUCT MODAL
-  ========================================================= */
   let activeProduct = null;
   let activeSelection = {};
 
@@ -793,42 +693,40 @@
     optsContainer.innerHTML = "";
     activeSelection = {};
 
-    if(p.options){
-      if(p.options.sizes && p.options.sizes.length){
-        const div = document.createElement("div");
-        div.className = "field";
-        div.innerHTML = `<label>Size</label><select id="optSize"></select>`;
-        optsContainer.appendChild(div);
-        const sel = div.querySelector("select");
-        p.options.sizes.forEach(s => sel.add(new Option(s,s)));
-        sel.value = p.options.sizes[0];
-        sel.addEventListener("change", () => { activeSelection.size = sel.value; updateModalPrice(); });
-        activeSelection.size = sel.value;
-      }
+    if(p.options?.sizes?.length){
+      const div = document.createElement("div");
+      div.className = "field";
+      div.innerHTML = `<label>Size</label><select id="optSize"></select>`;
+      optsContainer.appendChild(div);
+      const sel = div.querySelector("select");
+      p.options.sizes.forEach(s => sel.add(new Option(s,s)));
+      sel.value = p.options.sizes[0];
+      sel.addEventListener("change", () => { activeSelection.size = sel.value; updateModalPrice(); });
+      activeSelection.size = sel.value;
+    }
 
-      if(p.options.materials && p.options.materials.length){
-        const div = document.createElement("div");
-        div.className = "field";
-        div.innerHTML = `<label>Material</label><select id="optMaterial"></select>`;
-        optsContainer.appendChild(div);
-        const sel = div.querySelector("select");
-        p.options.materials.forEach(m => sel.add(new Option(m,m)));
-        sel.value = p.options.materials[0];
-        sel.addEventListener("change", () => { activeSelection.material = sel.value; updateModalPrice(); });
-        activeSelection.material = sel.value;
-      }
+    if(p.options?.materials?.length){
+      const div = document.createElement("div");
+      div.className = "field";
+      div.innerHTML = `<label>Material</label><select id="optMaterial"></select>`;
+      optsContainer.appendChild(div);
+      const sel = div.querySelector("select");
+      p.options.materials.forEach(m => sel.add(new Option(m,m)));
+      sel.value = p.options.materials[0];
+      sel.addEventListener("change", () => { activeSelection.material = sel.value; updateModalPrice(); });
+      activeSelection.material = sel.value;
+    }
 
-      if(p.options.colors && p.options.colors.length){
-        const div = document.createElement("div");
-        div.className = "field";
-        div.innerHTML = `<label>Color</label><select id="optColor"></select>`;
-        optsContainer.appendChild(div);
-        const sel = div.querySelector("select");
-        p.options.colors.forEach(c => sel.add(new Option(c,c)));
-        sel.value = p.options.colors[0];
-        sel.addEventListener("change", () => { activeSelection.color = sel.value; updateModalPrice(); });
-        activeSelection.color = sel.value;
-      }
+    if(p.options?.colors?.length){
+      const div = document.createElement("div");
+      div.className = "field";
+      div.innerHTML = `<label>Color</label><select id="optColor"></select>`;
+      optsContainer.appendChild(div);
+      const sel = div.querySelector("select");
+      p.options.colors.forEach(c => sel.add(new Option(c,c)));
+      sel.value = p.options.colors[0];
+      sel.addEventListener("change", () => { activeSelection.color = sel.value; updateModalPrice(); });
+      activeSelection.color = sel.value;
     }
 
     updateModalPrice();
@@ -839,16 +737,9 @@
   function updateModalPrice(){
     if(!activeProduct) return;
     let priceVal = 0;
-    try {
-      if(typeof activeProduct.price === "function"){
-        priceVal = activeProduct.price(activeSelection || {});
-      } else {
-        const m = (activeProduct.priceLabel || "").match(/\$([\d]+)/);
-        priceVal = m ? Number(m[1]) : 0;
-      }
-    } catch(e){
-      priceVal = 0;
-    }
+    try{
+      priceVal = (typeof activeProduct.price === "function") ? activeProduct.price(activeSelection || {}) : 0;
+    } catch(e){ priceVal = 0; }
     $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
   }
 
@@ -858,52 +749,24 @@
     activeProduct = null;
     activeSelection = {};
   }
-
   $("#closeModal").addEventListener("click", closeProduct);
   $("#keepShoppingBtn").addEventListener("click", closeProduct);
+  $("#productOverlay").addEventListener("click", (e) => { if(e.target.id === "productOverlay") closeProduct(); });
 
-  $("#productOverlay").addEventListener("click", (e) => {
-    if(e.target.id === "productOverlay") closeProduct();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if(e.key === "Escape"){
-      closeProduct();
-      closeCart();
-    }
-  });
-
-  /* =========================================================
-     CART
-  ========================================================= */
+  /* CART */
   const CART_KEY = "hbk_cart_v2";
   let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-
   function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-
-  function genUID(id, opts){
-    return id + "::" + JSON.stringify(opts || {});
-  }
+  function genUID(id, opts){ return id + "::" + JSON.stringify(opts || {}); }
 
   function addToCart(product, selection){
     const uid = genUID(product.id, selection);
     const found = cart.find(i => i.uid === uid);
-    const unitPrice = (typeof product.price === "function")
-      ? product.price(selection || {})
-      : (Number((product.priceLabel||"").match(/\$([\d]+)/)?.[1]) || 0);
+    const unitPrice = (typeof product.price === "function") ? product.price(selection || {}) : 0;
 
-    if(found){
-      found.qty += 1;
-    } else {
-      cart.push({
-        uid,
-        id: product.id,
-        name: product.name,
-        options: selection,
-        unitPrice: Number(unitPrice),
-        qty: 1
-      });
-    }
+    if(found) found.qty += 1;
+    else cart.push({ uid, id: product.id, name: product.name, options: selection, unitPrice:Number(unitPrice), qty:1 });
+
     saveCart();
     renderCart();
     showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
@@ -915,17 +778,13 @@
     if(!item) return;
     item.qty += delta;
     if(item.qty <= 0) cart = cart.filter(i => i.uid !== uid);
-    saveCart();
-    renderCart();
+    saveCart(); renderCart();
   }
 
-  function cartTotal(){
-    return cart.reduce((sum, i) => sum + (i.unitPrice * i.qty), 0);
-  }
+  function cartTotal(){ return cart.reduce((sum,i)=> sum + (i.unitPrice*i.qty), 0); }
 
   function renderCart(){
     const el = $("#cartItems");
-
     if(cart.length === 0){
       el.innerHTML = `<p class="muted">Your cart is empty.</p>`;
       $("#cartTotal").textContent = "$0";
@@ -933,22 +792,16 @@
     }
 
     el.innerHTML = cart.map(i => {
-      const opts = i.options
-        ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("")
-        : "";
+      const opts = i.options ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("") : "";
       return `
         <div class="line">
           <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
-            <div>
-              <strong>${i.name}</strong>
-              ${opts}
-            </div>
+            <div><strong>${i.name}</strong>${opts}</div>
             <div style="text-align:right">
-              <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
+              <div style="font-weight:900">${formatMoney(i.unitPrice*i.qty)}</div>
               <div class="small">Qty: ${i.qty}</div>
             </div>
           </div>
-
           <div style="display:flex;gap:8px;margin-top:10px">
             <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
             <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
@@ -960,31 +813,16 @@
     $("#cartTotal").textContent = formatMoney(cartTotal());
 
     el.querySelectorAll("button[data-act]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const uid = btn.dataset.uid;
-        const act = btn.dataset.act;
-        changeQty(uid, act === "inc" ? 1 : -1);
-      });
+      btn.addEventListener("click", () => changeQty(btn.dataset.uid, btn.dataset.act === "inc" ? 1 : -1));
     });
   }
 
-  /* =========================================================
-     CART DRAWER
-  ========================================================= */
-  function openCart(){
-    $("#drawerOverlay").classList.add("open");
-    $("#cartDrawer").classList.add("open");
-  }
-  function closeCart(){
-    $("#drawerOverlay").classList.remove("open");
-    $("#cartDrawer").classList.remove("open");
-  }
+  function openCart(){ $("#drawerOverlay").classList.add("open"); $("#cartDrawer").classList.add("open"); }
+  function closeCart(){ $("#drawerOverlay").classList.remove("open"); $("#cartDrawer").classList.remove("open"); }
   $("#closeCart").addEventListener("click", closeCart);
   $("#drawerOverlay").addEventListener("click", closeCart);
 
-  /* =========================================================
-     TOAST
-  ========================================================= */
+  /* TOAST */
   let toastTimer = null;
   function showToast(msg){
     $("#toastText").textContent = msg;
@@ -993,53 +831,57 @@
     toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 3200);
   }
 
-  /* =========================================================
-     ADD TO CART BUTTON
-  ========================================================= */
   $("#addToCartBtn").addEventListener("click", () => {
     if(!activeProduct) return;
     const sel = {};
-    const sizeEl = $("#optSize");
-    const matEl  = $("#optMaterial");
-    const colEl  = $("#optColor");
-    if(sizeEl) sel.size = sizeEl.value;
-    if(matEl)  sel.material = matEl.value;
-    if(colEl)  sel.color = colEl.value;
-
+    if($("#optSize")) sel.size = $("#optSize").value;
+    if($("#optMaterial")) sel.material = $("#optMaterial").value;
+    if($("#optColor")) sel.color = $("#optColor").value;
     addToCart(activeProduct, sel);
     closeProduct();
   });
 
-  /* =========================================================
-     CUSTOM REQUEST
-  ========================================================= */
-  $("#customSubmit").addEventListener("click", () => {
-    const text = $("#customText").value.trim();
-    const msg = $("#customMsg");
+  /* CUSTOM REQUEST: sends to Formspree */
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID";
 
-    if(!text){
+  $("#customForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msg = $("#customMsg");
+    const message = $("#customText").value.trim();
+    const email = $("#customerEmail").value.trim();
+
+    if(!message){
       msg.style.display = "block";
       msg.textContent = "Please type your request first.";
       return;
     }
 
-    $("#customText").value = "";
     msg.style.display = "block";
-    msg.textContent = "Thank you — submission received! I’ll get back to you soon. Thank you for the inquiry. Follow me on IG: @HookedByKerrah";
+    msg.textContent = "Sending...";
+
+    try{
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ message, email })
+      });
+
+      if(!res.ok) throw new Error("Form error");
+
+      $("#customText").value = "";
+      $("#customerEmail").value = "";
+      msg.textContent = "Thank you — submission received! I’ll get back to you soon. Thank you for the inquiry. Follow me on IG: @HookedByKerrah";
+    } catch(err){
+      msg.textContent = "Hmm—your request didn’t send. Please DM me on Instagram @HookedByKerrah.";
+    }
   });
 
-  /* =========================================================
-     INIT
-  ========================================================= */
+  /* INIT */
   renderAllGrids();
   renderCart();
-
   $("#checkoutBtn").addEventListener("click", () => {
     alert("Checkout is a placeholder. If you want real checkout, tell me what you want to use (Shopify / Stripe Payment Link / Etsy / DM checkout).");
   });
-
-  window.addEventListener("popstate", () => { closeProduct(); closeCart(); });
 </script>
-
 </body>
 </html>
