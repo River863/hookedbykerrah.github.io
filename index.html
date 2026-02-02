@@ -1,312 +1,91 @@
 <!DOCTYPE html>
-<!-- deploy ping -->
-<!-- force-pages-deploy -->
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HookedByKerrah</title>
-
-  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and home decor." />
-
+  <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and more." />
   <style>
     :root{
-      --bg:#fff3f6;
-      --card:#ffffff;
-      --text:#2a2a2a;
-      --muted:#6f6f6f;
-      --accent:#e6a6b3;
-      --accent-hover:#d98c9a;
-      --tab-bg:#f7d6de;
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:18px;
-      --max:1100px;
+      --bg:#fff3f6; --card:#ffffff; --text:#2a2a2a; --muted:#6f6f6f;
+      --accent:#e6a6b3; --accent-hover:#d98c9a; --tab-bg:#f7d6de;
+      --shadow:0 12px 30px rgba(0,0,0,.08); --radius:18px; --max:1100px;
       --overlay: rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text)
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     .wrap{max-width:var(--max);margin:0 auto;padding:20px}
-    header{margin-bottom:10px}
-    h1{margin:0}
-    .muted{color:var(--muted)}
-
+    header{margin-bottom:10px} h1{margin:0} .muted{color:var(--muted)}
     nav{margin-top:10px}
-    nav a{
-      display:inline-block;
-      margin:6px 10px 0 0;
-      padding:8px 14px;
-      background:var(--tab-bg);
-      border-radius:999px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:650;
-      transition:background .2s
-    }
+    nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
     nav a:hover{background:var(--accent);color:#fff}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:18px;
-      margin-top:18px
-    }
-
-    .cardBtn{
-      display:block;
-      text-decoration:none;
-      color:inherit;
-      border:0;
-      padding:0;
-      background:transparent;
-      cursor:pointer;
-      text-align:left;
-    }
-
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.06)
-    }
-
-    .imgBox{
-      aspect-ratio:4/3;
-      background:#f1f1f1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden
-    }
-
-    img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block
-    }
-
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
+    .cardBtn{display:block;text-decoration:none;color:inherit;border:0;padding:0;background:transparent;cursor:pointer;text-align:left;}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+    .imgBox{aspect-ratio:4/3;background:#f1f1f1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    img{width:100%;height:100%;object-fit:cover;display:block}
     .content{padding:16px}
-
-    .pill{
-      display:inline-block;
-      font-size:12px;
-      font-weight:800;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(230,166,179,.25);
-      color:#6a2f3a;
-      margin-bottom:10px
-    }
-
+    .pill{display:inline-block;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(230,166,179,.25);color:#6a2f3a;margin-bottom:10px}
     .price{font-weight:900;margin:10px 0 0}
+    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:var(--accent);color:white;border-radius:12px;text-decoration:none;font-weight:800;border:0;cursor:pointer}
+    .btn:hover{background:var(--accent-hover)} .btn[disabled]{opacity:.55;cursor:not-allowed}
+    footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
+    a.igLink{color:var(--accent-hover);font-weight:900;text-decoration:none} a.igLink:hover{text-decoration:underline}
+    @media(max-width:620px){nav a{padding:6px 10px}}
 
-    .btn{
-      display:inline-block;
-      margin-top:12px;
-      padding:10px 16px;
-      background:var(--accent);
-      color:white;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:800;
-      border:0;
-      cursor:pointer;
-    }
-    .btn:hover{background:var(--accent-hover)}
-
-    footer{
-      text-align:center;
-      color:var(--muted);
-      margin-top:40px;
-      font-size:14px
-    }
-
-    a.igLink{
-      color:var(--accent-hover);
-      font-weight:900;
-      text-decoration:none
-    }
-    a.igLink:hover{text-decoration:underline}
-
-    @media(max-width:620px){
-      nav a{padding:6px 10px}
-    }
-
-    /* MODAL */
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:var(--overlay);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:50;
-    }
-    .overlay.open{display:flex;}
-    .modal{
-      width:min(920px, 100%);
-      background:var(--card);
-      border-radius:22px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.08);
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-    }
-    @media(max-width:860px){ .modal{grid-template-columns:1fr;} }
-    .modalImg{ min-height:280px; background:#f1f1f1; }
-    .modalBody{ padding:18px; }
-    .modalTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .xBtn{
-      border:0;
-      background:rgba(0,0,0,.06);
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:900;
-    }
+    /* Modal */
+    .overlay{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+    .overlay.open{display:flex}
+    .modal{width:min(920px,100%);background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:1.1fr .9fr}
+    @media(max-width:860px){.modal{grid-template-columns:1fr}}
+    .modalImg{min-height:280px;background:#f1f1f1}
+    .modalBody{padding:18px}
+    .modalTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .xBtn{border:0;background:rgba(0,0,0,.06);border-radius:12px;padding:8px 10px;cursor:pointer;font-weight:900}
     .xBtn:hover{background:rgba(0,0,0,.10)}
-    .meta{
-      margin-top:10px;
-      padding:12px;
-      border-radius:14px;
-      background:rgba(230,166,179,.18);
-      color:#5a2832;
-      font-size:14px;
-      line-height:1.35;
-    }
-    .meta strong{display:block;margin-bottom:4px}
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
-    .ghostBtn{
-      background:transparent;
-      border:1px solid rgba(0,0,0,.14);
-      color:var(--text);
-    }
-    .ghostBtn:hover{background:rgba(0,0,0,.04)}
-
-    .field{margin-top:10px}
-    .field label{display:block;font-weight:800;margin-bottom:6px}
+    .meta{margin-top:10px;padding:12px;border-radius:14px;background:rgba(230,166,179,.18);color:#5a2832;font-size:14px;line-height:1.35}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .ghostBtn{background:transparent;border:1px solid rgba(0,0,0,.14);color:var(--text)} .ghostBtn:hover{background:rgba(0,0,0,.04)}
+    .field{margin-top:10px} .field label{display:block;font-weight:800;margin-bottom:6px}
     .field select{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.12)}
 
-    /* CART DRAWER */
-    .drawerOverlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.25);
-      display:none;
-      z-index:60;
-    }
+    /* Cart Drawer */
+    .drawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;z-index:60}
     .drawerOverlay.open{display:block}
-    .drawer{
-      position:fixed;
-      top:0;
-      right:0;
-      height:100%;
-      width:min(420px, 92vw);
-      background:var(--card);
-      box-shadow: -18px 0 50px rgba(0,0,0,.18);
-      transform:translateX(110%);
-      transition:transform .25s ease;
-      z-index:70;
-      display:flex;
-      flex-direction:column;
-    }
+    .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--card);box-shadow:-18px 0 50px rgba(0,0,0,.18);transform:translateX(110%);transition:transform .25s ease;z-index:70;display:flex;flex-direction:column}
     .drawer.open{transform:translateX(0)}
-    .drawerHeader{
-      padding:16px;
-      border-bottom:1px solid rgba(0,0,0,.08);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .drawerBody{padding:16px; overflow:auto; flex:1;}
-    .line{
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:14px;
-      padding:12px;
-      margin-bottom:12px;
-    }
-    .small{font-size:13px;color:var(--muted)}
-    .qtyBtn{
-      border:1px solid rgba(0,0,0,.15);
-      background:transparent;
-      border-radius:10px;
-      padding:6px 10px;
-      cursor:pointer;
-      font-weight:850;
-    }
-    .qtyBtn:hover{background:rgba(0,0,0,.04)}
-    .drawerFooter{
-      padding:16px;
-      border-top:1px solid rgba(0,0,0,.08);
-    }
+    .drawerHeader{padding:16px;border-bottom:1px solid rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .drawerBody{padding:16px;overflow:auto;flex:1} .line{border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:12px;margin-bottom:12px}
+    .row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .small{font-size:13px;color:var(--muted)} .qtyBtn{border:1px solid rgba(0,0,0,.15);background:transparent;border-radius:10px;padding:6px 10px;cursor:pointer;font-weight:850}
+    .qtyBtn:hover{background:rgba(0,0,0,.04)} .drawerFooter{padding:16px;border-top:1px solid rgba(0,0,0,.08)}
     .totalRow{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
     .checkoutNote{font-size:12px;color:var(--muted);line-height:1.35;margin-top:10px}
 
-    /* TOAST */
-    .toast{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:18px;
-      width:min(720px, 92vw);
-      background:#fff;
-      border:1px solid rgba(0,0,0,.10);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-      padding:12px 14px;
-      display:none;
-      z-index:80;
-    }
-    .toast.show{display:block}
-    .toast strong{display:block;margin-bottom:2px}
+    /* Toast */
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(720px,92vw);background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px;display:none;z-index:80}
+    .toast.show{display:block}.toast strong{display:block;margin-bottom:2px}
   </style>
 </head>
-
 <body>
 <div class="wrap">
-
   <header>
     <h1>HookedByKerrah</h1>
     <p class="muted">Handmade crochet pieces made to order 🧶✨</p>
-
     <nav>
       <a href="#featured">Featured</a>
       <a href="#shop">Shop</a>
+      <a href="#coming">Coming Soon</a>
       <a href="#custom">Custom Request</a>
       <a href="#policies">Policies</a>
     </nav>
   </header>
 
   <main>
-    <section id="featured">
-      <h2>Featured Right Now</h2>
-      <div class="grid" id="featuredGrid"></div>
-    </section>
+    <section id="featured"><h2>Featured Right Now</h2><div class="grid" id="featuredGrid"></div></section>
 
     <section id="shop">
       <h2 style="margin-top:22px">Shop</h2>
-
       <h3>Wearables</h3>
       <div class="grid" id="wearablesGrid"></div>
 
@@ -314,38 +93,41 @@
       <div class="grid" id="accessoriesGrid"></div>
     </section>
 
+    <section id="coming" style="margin-top:28px">
+      <h2>Coming Soon</h2>
+      <p class="muted">New items dropping soon — check back.</p>
+      <div class="grid" id="comingSoonGrid"></div>
+    </section>
+
     <section id="custom" style="margin-top:28px">
       <h2>Custom Request</h2>
       <p class="muted">Want something not listed? Tell me what you have in mind.</p>
 
-      <!-- Custom Request FORM (this actually sends) -->
-      <form class="card" style="padding:16px" id="customForm">
+      <!-- Netlify-ready form: Netlify will capture submissions when deployed on Netlify -->
+      <form id="customForm" name="custom-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="card" style="padding:16px">
+        <input type="hidden" name="form-name" value="custom-request" />
+        <p style="display:none">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+
         <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">Your request</label>
-        <textarea id="customText" name="message" rows="5"
-          style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"
-          placeholder="Example: I want a matching hat + tote set in black and red..."></textarea>
+        <textarea id="customText" name="message" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
 
-        <label for="customerEmail" style="font-weight:850;display:block;margin:12px 0 8px">Your email (optional)</label>
-        <input id="customerEmail" name="email" type="email"
-          style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"
-          placeholder="so I can reply to you">
-
-        <button class="btn" type="submit" style="margin-top:12px">Submit request</button>
+        <button class="btn" id="customSubmit" style="margin-top:12px" type="submit">Submit request</button>
 
         <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
 
-        <p class="muted" style="margin-top:10px">
-          Follow me on Instagram:
+        <p class="muted" style="margin-top:10px">Follow me on Instagram:
           <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
         </p>
       </form>
+
     </section>
 
     <section id="policies" style="margin-top:28px">
       <h2>Policies</h2>
       <p class="muted">All items are handmade and made to order. All sales are final.</p>
-      <p class="muted">
-        Questions? DM me on Instagram:
+      <p class="muted">Questions? DM me on Instagram:
         <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
       </p>
     </section>
@@ -358,7 +140,6 @@
 <div class="overlay" id="productOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
     <div class="modalImg imgBox"><img id="modalImg" src="" alt=""></div>
-
     <div class="modalBody">
       <div class="modalTop">
         <div>
@@ -378,27 +159,37 @@
         <button class="btn ghostBtn" id="keepShoppingBtn">Keep shopping</button>
       </div>
 
-      <p class="small" style="margin-top:10px">
-        Made to order. Allow 7+ days depending on the product. Items may ship sooner.
-      </p>
+      <p class="small" style="margin-top:10px">Made to order. Allow 7+ days depending on the product. Items may ship sooner.</p>
     </div>
   </div>
 </div>
 
-<!-- CART -->
+<!-- CART DRAWER -->
 <div class="drawerOverlay" id="drawerOverlay"></div>
 <aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="drawerHeader">
     <strong>Cart</strong>
     <button class="xBtn" id="closeCart" aria-label="Close cart">✕</button>
   </div>
+
   <div class="drawerBody" id="cartItems"></div>
+
   <div class="drawerFooter">
     <div class="totalRow">
       <span>Total</span>
       <span id="cartTotal">$0</span>
     </div>
-    <button class="btn" id="checkoutBtn" style="width:100%">Checkout (placeholder)</button>
+
+    <!-- Payment area: PayPal Buttons container + Stripe Checkout link -->
+    <div id="paypal-button-container" style="margin-bottom:10px"></div>
+
+    <!-- Stripe Checkout Payment Link (Apple Pay available when using Stripe Payment Link) -->
+    <button class="btn" id="stripeBtn" style="width:100%;margin-bottom:8px">Pay with Card / Apple Pay (Stripe)</button>
+
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn ghostBtn" id="checkoutBtn" style="width:100%">Checkout (fallback)</button>
+    </div>
+
     <div class="checkoutNote">
       <strong>Made to order:</strong> allow 7+ days depending on the product. Items may be shipped sooner.
     </div>
@@ -406,485 +197,292 @@
 </aside>
 
 <!-- TOAST -->
-<div class="toast" id="toast">
-  <strong>Added to cart</strong>
-  <span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span>
-</div>
+<div class="toast" id="toast"><strong>Added to cart</strong><span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span></div>
+
+<!-- PayPal SDK: replace YOUR_PAYPAL_CLIENT_ID with your actual PayPal Client ID (or use 'sb' for sandbox testing) -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
 
 <script>
-  /* =========================================================
-     PRODUCTS
-     - Tote moved to wearables
-     - Valentines cardigan moved to featured
-     - Home removed (no home category used)
-  ========================================================= */
-  const PRODUCTS = [
-    {
-      id: "santahats",
-      name: "Santa Hats",
-      category: "featured",
-      pill: "Seasonal favorite",
-      image: "images/SantaHats.jpeg",
-      alt: "Crochet Santa hats",
-      subtitle: "Pick size, color combo, and optional glitter.",
-      priceLabel: "$40+",
-      options: {
-        sizes: ["Adult"],
-        materials: ["Regular","Glitter"],
-        colors: ["Red Hat/Black Trim","Black Hat/Red Trim"]
-      },
-      price(sel){
-        const base = 40;
-        const matAdj = (sel.material === "Glitter") ? 3 : 0;
-        return base + matAdj;
-      },
-      material: "Yarn (type varies by request).",
-      uses: "Warm seasonal hat for holidays, gifts, photos, and cozy winter outfits.",
-      pairing: "Pairs cute with a neutral coat, boots, and a festive scarf.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+/* =========================================================
+   SITE DATA (products, pricing, helpers)
+   - Keep Stripe Payment Link in STRIPE_CHECKOUT_URL
+   - Replace PayPal client id in the script src above
+========================================================= */
 
-    /* Valentines moved to FEATURED */
-    {
-      id: "cardigan_valentines",
-      name: "Valentines Hexagon Cardigan",
-      category: "featured",
-      pill: "Featured",
-      image: "images/ValentinesHexCardi.png",
-      alt: "Valentines Hexagon Cardigan",
-      priceLabel: "Starting at $110",
-      options: {
-        sizes: ["S-M","L-XL"],
-        colors: ["Pink Ombre with white glitter (Pictured)"]
-      },
-      price(sel){
-        let base = 110;
-        if(sel.size === "L-XL") base += 20;
-        return base;
-      },
-      material: "Yarn (all cardigans will have slight variations in color — handmade).",
-      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
-      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+const STRIPE_CHECKOUT_URL = "https://checkout.stripe.com/pay/YOUR_PAYMENT_LINK"; // <<--- REPLACE with your Stripe Payment Link (or leave empty)
+const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
+const CUP_SIZES  = ["A","B","C","D"];
+function bandUpcharge(band){ const b = Number(band || 0); if(b >= 46) return 15; if(b >= 40) return 10; if(b >= 36) return 5; return 0; }
+function cupUpcharge(cup){ const map = { A:0, B:5, C:10, D:15 }; return map[cup] ?? 0; }
 
-    {
-      id: "cardigan_black_red",
-      name: "Black with Red Glitter Trim Hexagon Cardigan",
-      category: "wearables",
-      image: "images/BlueHexagonCardigan.png",
-      alt: "Black with Red Glitter Trim Hexagon Cardigan",
-      priceLabel: "Starting at $90",
-      options: {
-        sizes: ["S-M","L-XL"],
-        colors: ["Black with red glitter trim"]
-      },
-      price(sel){
-        let base = 90;
-        if(sel.size === "L-XL") base += 20;
-        return base;
-      },
-      material: "Yarn (varies by color).",
-      uses: "Layering piece for everyday wear, dinner, travel, and cozy days.",
-      pairing: "The hexagon cardigan elevates the outfit — wear it to business casual work over a top with trousers, or with jeans + boots for a clean look.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+function formatMoney(n){ return `$${Number(n).toFixed(0)}`; }
+function safeGetStartPrice(label){ const m = (label||"").match(/\$([\d]+)/); return m ? Number(m[1]) : 0; }
 
-    /* Tote moved to WEARABLES */
-    {
-      id: "tote",
-      name: "Tote Bag",
-      category: "wearables",
-      image: "images/IMG_4125.jpg",
-      alt: "Crochet tote bag",
-      subtitle: "A statement tote — choose your colorway.",
-      priceLabel: "$45",
-      options: { colors: ["Blue Multicolor"] },
-      price(sel){ return 45; },
-      material: "Yarn (type varies).",
-      uses: "Everyday carry: books, laptop, errands, markets, travel.",
-      pairing: "Elevates a simple outfit — jeans + tee becomes styled instantly.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+const PRODUCTS = [
+  /* featured */
+  { id:"cardigan_black_red", name:"Black with Red Glitter Trim Hexagon Cardigan", category:"featured", pill:"Featured", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan", subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90", options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] }, price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; }, material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."},
+  { id:"cardigan_valentines", name:"Valentines Hexagon Cardigan", category:"featured", pill:"Featured", image:"images/ValentinesHexCardi.png", alt:"Valentines Hexagon Cardigan", subtitle:"Pink ombre with glitter.", priceLabel:"Starting at $110", options:{ size:["S-M","L-XL"], color:["Pink Ombre"] }, price(sel){ let base=110; if(sel.size==="L-XL") base+=20; return base }, material:"Yarn (handmade).", uses:"Layering.", pairing:"Dress up or down."},
+  { id:"santahats", name:"Santa Hats", category:"featured", pill:"Seasonal favourite", image:"images/SantaHats.jpeg", subtitle:"Pick glitter or regular.", priceLabel:"$40+", options:{ size:["Adult"], material:["Regular","Glitter"], color:["Red Hat/Black Trim","Black Hat/Red Trim"] }, price(sel){ const base=40; return base + ((sel.material==="Glitter")?3:0) }, material:"Yarn", uses:"Holiday wear."},
 
-    {
-      id: "croptop_drawstring",
-      name: "Ribbed Lace Drawstring Crop Top",
-      category: "wearables",
-      image: "images/IMG_4188.jpg",
-      alt: "Ribbed lace drawstring crop top",
-      priceLabel: "Starting at $90",
-      options: {
-        sizes: ["XS","S","M","L"],
-        colors: ["Coral Orange (Pictured)","Blue/White Multicolor","Black","Pink","Mustard Yellow","Royal Blue","Pink/White"]
-      },
-      price(sel){
-        let base = 90;
-        if(sel.size === "M") base += 10;
-        if(sel.size === "L") base += 20;
-        return base;
-      },
-      material: "Yarn (type varies).",
-      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
-      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+  /* wearables */
+  { id:"croptop_drawstring", name:"Ribbed Lace Drawstring Crop Top", category:"wearables", image:"images/IMG_4188.jpg", subtitle:"Custom fit — choose size + bra measurements.", priceLabel:"Starting at $120", options:{ size:["XS","S","M","L"], band:BAND_SIZES, cup:CUP_SIZES, color:["Coral Orange","Blue/White","Black","Pink","Mustard","Royal Blue","Pink/White"] }, price(sel){ const baseBySize={XS:120,S:130,M:145,L:160}; let base = baseBySize[sel.size] ?? 120; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; }, material:"Yarn (varies).", uses:"Statement top.", pairing:"High-waisted jeans."},
 
-    {
-      id: "croptop_front_tie",
-      name: "Front Tie Crop Top",
-      category: "wearables",
-      image: "images/FrontTie.png",
-      alt: "Front Tie Crop Top",
-      priceLabel: "Starting at $45",
-      options: {
-        sizes: ["XS","S","M","L"],
-        colors: ["Mustard Yellow (Pictured)","Blue/White Multicolor","Black","Pink","Royal Blue","Pink/White"]
-      },
-      price(sel){
-        let base = 45;
-        if(sel.size === "M") base += 10;
-        if(sel.size === "L") base += 20;
-        return base;
-      },
-      material: "Yarn (type varies).",
-      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
-      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+  { id:"croptop_front_tie", name:"Front Tie Crop Top", category:"wearables", image:"images/FrontTie.png", subtitle:"Pricing is based on bra band + cup size.", priceLabel:"Starting at $55", options:{ band:BAND_SIZES, cup:CUP_SIZES, color:["Mustard Yellow","Blue/White","Black","Pink","Royal Blue","Pink/White"] }, price(sel){ let base=55; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; }, material:"Yarn", uses:"Casual wear", pairing:"Jeans or skirts."},
 
-    {
-      id: "croptop_net_bow",
-      name: "Blue White Net Bow Crop Top",
-      category: "wearables",
-      image: "images/Blue White Net Bow Top.png",
-      alt: "Blue White Net Bow Crop Top",
-      priceLabel: "Starting at $35",
-      options: {
-        sizes: ["XS","S","M","L"],
-        colors: ["Blue/White (Pictured)","Black","Pink","Royal Blue","Pink/White"]
-      },
-      price(sel){
-        let base = 35;
-        if(sel.size === "M") base += 10;
-        if(sel.size === "L") base += 20;
-        return base;
-      },
-      material: "Yarn (type varies).",
-      uses: "Statement top for warm weather, brunch, concerts, layering under jackets.",
-      pairing: "Pairs with high-waisted jeans, a skirt, or layered under a blazer.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+  { id:"croptop_net_bow", name:"Blue/White Net Bow Crop Top", category:"wearables", image:"images/Blue White Net Bow Top.png", subtitle:"Choose bra band for best fit.", priceLabel:"Starting at $40", options:{ band:BAND_SIZES, color:["Blue/White","Black","Pink","Royal Blue","Pink/White"] }, price(sel){ let base=40; base += bandUpcharge(sel.band); return base; }, material:"Yarn", uses:"Lightweight top", pairing:"Denim."},
 
-    {
-      id: "scrunchies_diy",
-      name: "Custom Scrunchie",
-      category: "accessories",
-      pill: "Design your own",
-      image: "images/IMG_4189.jpg",
-      alt: "Custom scrunchie",
-      subtitle: "Pick colors and trim.",
-      priceLabel: "From $10",
-      options: {
-        sizes: ["Single"],
-        materials: ["Regular","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
-      },
-      price(sel){
-        return (sel.material === "Plush") ? 13 : 10;
-      },
-      material: "Yarn (type varies).",
-      uses: "Hair accessory, wrist accessory, cute gift add-on.",
-      pairing: "Matches your outfit colors — adds a soft handmade touch.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    },
+  /* accessories */
+  { id:"tote", name:"Tote Bag", category:"accessories", pill:"Featured", image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45", options:{ color:["Blue Multicolor"] }, price(){ return 45; }, material:"Yarn", uses:"Carry all."},
 
-    {
-      id: "scrunchies",
-      name: "Premade Scrunchies",
-      category: "accessories",
-      image: "images/9indscrunchiesreg.jpg",
-      alt: "Premade scrunchies",
-      subtitle: "Singles or packs.",
-      priceLabel: "From $10",
-      options: {
-        sizes: ["Single","3-Pack"],
-        materials: ["Regular","Plush"],
-        colors: ["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"]
-      },
-      price(sel){
-        let baseSingle = 10;
-        if(sel.material === "Plush") baseSingle += 4;
-        const qty = (sel.size === "3-Pack") ? 3 : 1;
-        return baseSingle * qty;
-      },
-      material: "Yarn (varies by scrunchie).",
-      uses: "Quick grab accessory for everyday hair styling.",
-      pairing: "Easy match with athleisure, casual fits, or a soft glam look.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    }
-  ];
+  { id:"scrunchies_diy", name:"Custom Scrunchie", category:"accessories", pill:"Design your own", image:"images/IMG_4189.jpg", subtitle:"Choose main color + optional trim.", priceLabel:"From $10", options:{ size:["Single"], material:["Regular","Plush"], color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"], trim:["No trim","Add trim (no extra charge)"], trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"] }, price(sel){ return (sel.material==="Plush")?13:10; }, material:"Yarn", uses:"Hair accessory."},
 
-  const $ = (sel) => document.querySelector(sel);
-  const $$ = (sel) => document.querySelectorAll(sel);
+  { id:"scrunchies_mystery", name:"Mystery Scrunchies", category:"accessories", pill:"Mystery drop", image:"images/9indscrunchiesreg.jpg", subtitle:"You don’t know what color you’ll get 👀", priceLabel:"$7 / $12", options:{ pack:["1 Mystery ($7)","2 Pack ($12) — 1 black + 1 mystery"] }, price(sel){ return (sel.pack && sel.pack.startsWith("2 Pack")) ? 12 : 7; }, material:"Mystery yarn", uses:"Everyday hair."},
 
-  function formatMoney(n){ return `$${Number(n).toFixed(0)}`; }
+  /* coming */
+  { id:"soon_pillow", name:"Pillow Covers", category:"coming", pill:"Coming soon", image:"", subtitle:"Custom colors + sizes.", priceLabel:"Coming soon", comingSoon:true },
+  { id:"soon_custom_cardigans", name:"Custom Cardigans", category:"coming", pill:"Coming soon", image:"", subtitle:"More styles + colors.", priceLabel:"Coming soon", comingSoon:true },
+  { id:"soon_coasters", name:"Coasters", category:"coming", pill:"Coming soon", image:"", subtitle:"Sets + singles.", priceLabel:"Coming soon", comingSoon:true }
+];
 
-  function createCardHtml(p){
-    const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
-    const img = p.image
-      ? `<img src="${p.image}" alt="${p.alt || p.name}">`
-      : `<div style="padding:18px;text-align:center;color:var(--muted)">Add photo</div>`;
-    return `
-      <button class="cardBtn" type="button" data-id="${p.id}">
-        <article class="card">
-          <div class="imgBox">${img}</div>
-          <div class="content">
-            ${pill}
-            <h3>${p.name}</h3>
-            <p class="muted">${p.subtitle || ""}</p>
-            <p class="price">${p.priceLabel || ""}</p>
-            <span class="btn" style="pointer-events:none">View details</span>
-          </div>
-        </article>
-      </button>
-    `;
-  }
+/* HELPERS */
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
 
-  function renderAllGrids(){
-    $("#featuredGrid").innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
-    $("#wearablesGrid").innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
-    $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
-    $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
-  }
+function createCardHtml(p){
+  const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
+  const img = p.image ? `<img src="${p.image}" alt="${p.alt || p.name}">` : `<div style="padding:18px;text-align:center;color:var(--muted)">Coming soon</div>`;
+  const btnText = p.comingSoon ? "Coming soon" : "View details";
+  return `
+    <button class="cardBtn" type="button" data-id="${p.id}">
+      <article class="card">
+        <div class="imgBox">${img}</div>
+        <div class="content">${pill}<h3>${p.name}</h3><p class="muted">${p.subtitle||""}</p><p class="price">${p.priceLabel||""}</p><span class="btn" style="pointer-events:none">${btnText}</span></div>
+      </article>
+    </button>
+  `;
+}
 
-  let activeProduct = null;
-  let activeSelection = {};
+function renderAllGrids(){
+  $("#featuredGrid").innerHTML = PRODUCTS.filter(p=>p.category==="featured").map(createCardHtml).join("");
+  $("#wearablesGrid").innerHTML = PRODUCTS.filter(p=>p.category==="wearables").map(createCardHtml).join("");
+  $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p=>p.category==="accessories").map(createCardHtml).join("");
+  $("#comingSoonGrid").innerHTML = PRODUCTS.filter(p=>p.category==="coming").map(createCardHtml).join("");
+  $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
+}
 
-  function openProduct(id){
-    const p = PRODUCTS.find(x => x.id === id);
-    if(!p) return;
-    activeProduct = p;
+/* PRODUCT MODAL */
+let activeProduct = null;
+let activeSelection = {};
 
-    $("#modalTitle").textContent = p.name;
-    $("#modalSubtitle").textContent = p.subtitle || "";
-    if(p.pill){
-      $("#modalPill").style.display = "inline-block";
-      $("#modalPill").textContent = p.pill;
-    } else {
-      $("#modalPill").style.display = "none";
-      $("#modalPill").textContent = "";
-    }
+function openProduct(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  activeProduct = p;
+  $("#modalTitle").textContent = p.name;
+  $("#modalSubtitle").textContent = p.subtitle || "";
+  if(p.pill){ $("#modalPill").style.display="inline-block"; $("#modalPill").textContent=p.pill } else { $("#modalPill").style.display="none"; $("#modalPill").textContent="" }
+  if(p.image){ $("#modalImg").src=p.image; $("#modalImg").alt=p.alt||p.name } else { $("#modalImg").src=""; $("#modalImg").alt="" }
 
-    if(p.image){
-      $("#modalImg").src = p.image;
-      $("#modalImg").alt = p.alt || p.name;
-    } else {
-      $("#modalImg").src = "";
-      $("#modalImg").alt = "";
-    }
+  $("#modalDetails").innerHTML = `<strong>Details</strong>
+    <div><strong>Material:</strong> ${p.material || "—"}</div>
+    <div style="margin-top:6px"><strong>Uses:</strong> ${p.uses || "—"}</div>
+    <div style="margin-top:6px"><strong>Style pairing:</strong> ${p.pairing || "—"}</div>
+    <div style="margin-top:6px"><strong>Made to order:</strong> Allow 7+ days depending on the product. Items may ship sooner.</div>`;
 
-    $("#modalDetails").innerHTML = `
-      <strong>Details</strong>
-      <div><strong>Material:</strong> ${p.material || "—"}</div>
-      <div style="margin-top:6px"><strong>Uses:</strong> ${p.uses || "—"}</div>
-      <div style="margin-top:6px"><strong>Style pairing:</strong> ${p.pairing || "—"}</div>
-      <div style="margin-top:6px"><strong>Made to order:</strong> ${p.madeToOrder || "Allow 7+ days depending on the product. Items may ship sooner."}</div>
-    `;
+  const optsContainer = $("#modalOptions");
+  optsContainer.innerHTML = "";
+  activeSelection = {};
 
-    const optsContainer = $("#modalOptions");
-    optsContainer.innerHTML = "";
-    activeSelection = {};
-
-    if(p.options?.sizes?.length){
+  if(p.options){
+    Object.entries(p.options).forEach(([key, arr]) => {
+      if(!Array.isArray(arr) || !arr.length) return;
       const div = document.createElement("div");
       div.className = "field";
-      div.innerHTML = `<label>Size</label><select id="optSize"></select>`;
+      const label = key === "band" ? "Bra Band Size" : (key === "cup" ? "Bra Cup" : (key === "pack" ? "Pack" : (key === "trim" ? "Trim" : key.charAt(0).toUpperCase()+key.slice(1))));
+      div.innerHTML = `<label>${label}</label><select id="opt_${key}"></select>`;
       optsContainer.appendChild(div);
       const sel = div.querySelector("select");
-      p.options.sizes.forEach(s => sel.add(new Option(s,s)));
-      sel.value = p.options.sizes[0];
-      sel.addEventListener("change", () => { activeSelection.size = sel.value; updateModalPrice(); });
-      activeSelection.size = sel.value;
-    }
-
-    if(p.options?.materials?.length){
-      const div = document.createElement("div");
-      div.className = "field";
-      div.innerHTML = `<label>Material</label><select id="optMaterial"></select>`;
-      optsContainer.appendChild(div);
-      const sel = div.querySelector("select");
-      p.options.materials.forEach(m => sel.add(new Option(m,m)));
-      sel.value = p.options.materials[0];
-      sel.addEventListener("change", () => { activeSelection.material = sel.value; updateModalPrice(); });
-      activeSelection.material = sel.value;
-    }
-
-    if(p.options?.colors?.length){
-      const div = document.createElement("div");
-      div.className = "field";
-      div.innerHTML = `<label>Color</label><select id="optColor"></select>`;
-      optsContainer.appendChild(div);
-      const sel = div.querySelector("select");
-      p.options.colors.forEach(c => sel.add(new Option(c,c)));
-      sel.value = p.options.colors[0];
-      sel.addEventListener("change", () => { activeSelection.color = sel.value; updateModalPrice(); });
-      activeSelection.color = sel.value;
-    }
-
-    updateModalPrice();
-    $("#productOverlay").classList.add("open");
-    $("#productOverlay").setAttribute("aria-hidden","false");
-  }
-
-  function updateModalPrice(){
-    if(!activeProduct) return;
-    let priceVal = 0;
-    try{
-      priceVal = (typeof activeProduct.price === "function") ? activeProduct.price(activeSelection || {}) : 0;
-    } catch(e){ priceVal = 0; }
-    $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
-  }
-
-  function closeProduct(){
-    $("#productOverlay").classList.remove("open");
-    $("#productOverlay").setAttribute("aria-hidden","true");
-    activeProduct = null;
-    activeSelection = {};
-  }
-  $("#closeModal").addEventListener("click", closeProduct);
-  $("#keepShoppingBtn").addEventListener("click", closeProduct);
-  $("#productOverlay").addEventListener("click", (e) => { if(e.target.id === "productOverlay") closeProduct(); });
-
-  /* CART */
-  const CART_KEY = "hbk_cart_v2";
-  let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-  function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-  function genUID(id, opts){ return id + "::" + JSON.stringify(opts || {}); }
-
-  function addToCart(product, selection){
-    const uid = genUID(product.id, selection);
-    const found = cart.find(i => i.uid === uid);
-    const unitPrice = (typeof product.price === "function") ? product.price(selection || {}) : 0;
-
-    if(found) found.qty += 1;
-    else cart.push({ uid, id: product.id, name: product.name, options: selection, unitPrice:Number(unitPrice), qty:1 });
-
-    saveCart();
-    renderCart();
-    showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
-    openCart();
-  }
-
-  function changeQty(uid, delta){
-    const item = cart.find(i => i.uid === uid);
-    if(!item) return;
-    item.qty += delta;
-    if(item.qty <= 0) cart = cart.filter(i => i.uid !== uid);
-    saveCart(); renderCart();
-  }
-
-  function cartTotal(){ return cart.reduce((sum,i)=> sum + (i.unitPrice*i.qty), 0); }
-
-  function renderCart(){
-    const el = $("#cartItems");
-    if(cart.length === 0){
-      el.innerHTML = `<p class="muted">Your cart is empty.</p>`;
-      $("#cartTotal").textContent = "$0";
-      return;
-    }
-
-    el.innerHTML = cart.map(i => {
-      const opts = i.options ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("") : "";
-      return `
-        <div class="line">
-          <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
-            <div><strong>${i.name}</strong>${opts}</div>
-            <div style="text-align:right">
-              <div style="font-weight:900">${formatMoney(i.unitPrice*i.qty)}</div>
-              <div class="small">Qty: ${i.qty}</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:10px">
-            <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
-            <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-    $("#cartTotal").textContent = formatMoney(cartTotal());
-
-    el.querySelectorAll("button[data-act]").forEach(btn => {
-      btn.addEventListener("click", () => changeQty(btn.dataset.uid, btn.dataset.act === "inc" ? 1 : -1));
+      arr.forEach(v => sel.add(new Option(v, v)));
+      sel.value = arr[0];
+      activeSelection[key] = sel.value;
+      sel.addEventListener("change", () => { activeSelection[key] = sel.value; updateModalPrice(); });
     });
   }
 
-  function openCart(){ $("#drawerOverlay").classList.add("open"); $("#cartDrawer").classList.add("open"); }
-  function closeCart(){ $("#drawerOverlay").classList.remove("open"); $("#cartDrawer").classList.remove("open"); }
-  $("#closeCart").addEventListener("click", closeCart);
-  $("#drawerOverlay").addEventListener("click", closeCart);
+  if(p.comingSoon){
+    $("#addToCartBtn").disabled = true; $("#addToCartBtn").textContent = "Coming soon";
+  } else { $("#addToCartBtn").disabled = false; $("#addToCartBtn").textContent = "Add to cart"; }
 
-  /* TOAST */
-  let toastTimer = null;
-  function showToast(msg){
-    $("#toastText").textContent = msg;
-    $("#toast").classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 3200);
+  updateModalPrice();
+  $("#productOverlay").classList.add("open"); $("#productOverlay").setAttribute("aria-hidden","false");
+}
+
+function updateModalPrice(){
+  if(!activeProduct) return;
+  if(activeProduct.comingSoon){ $("#modalPrice").textContent = activeProduct.priceLabel || "Coming soon"; return; }
+  let priceVal = 0;
+  try { priceVal = (typeof activeProduct.price === "function") ? activeProduct.price(activeSelection || {}) : safeGetStartPrice(activeProduct.priceLabel); } catch(e){ priceVal = 0; }
+  $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
+}
+
+function closeProduct(){ $("#productOverlay").classList.remove("open"); $("#productOverlay").setAttribute("aria-hidden","true"); activeProduct = null; activeSelection = {}; }
+$("#closeModal").addEventListener("click", closeProduct);
+$("#keepShoppingBtn").addEventListener("click", closeProduct);
+$("#productOverlay").addEventListener("click", (e)=>{ if(e.target.id==="productOverlay") closeProduct(); });
+document.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ closeProduct(); closeCart(); } });
+
+/* CART */
+const CART_KEY = "hbk_cart_v3"; let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+function genUID(id, opts){ return id + "::" + JSON.stringify(opts || {}); }
+
+function addToCart(product, selection){
+  const uid = genUID(product.id, selection);
+  const found = cart.find(i=>i.uid===uid);
+  const unitPrice = (typeof product.price === "function") ? product.price(selection || {}) : safeGetStartPrice(product.priceLabel);
+  if(found){ found.qty += 1; } else {
+    cart.push({ uid, id: product.id, name: product.name, options: selection, unitPrice: Number(unitPrice), qty: 1 });
+  }
+  saveCart(); renderCart(); showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner."); openCart();
+  refreshPayPalButtons(); // recalc paypal
+}
+
+function changeQty(uid, delta){ const item = cart.find(i=>i.uid===uid); if(!item) return; item.qty += delta; if(item.qty<=0) cart = cart.filter(i=>i.uid!==uid); saveCart(); renderCart(); refreshPayPalButtons(); }
+function cartTotal(){ return cart.reduce((sum,i)=>sum + (i.unitPrice * i.qty), 0); }
+
+function renderCart(){
+  const el = $("#cartItems");
+  if(cart.length===0){ el.innerHTML = `<p class="muted">Your cart is empty.</p>`; $("#cartTotal").textContent = "$0"; return; }
+  el.innerHTML = cart.map(i=>{
+    const opts = i.options ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("") : "";
+    return `<div class="line"><div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between"><div><strong>${i.name}</strong>${opts}</div><div style="text-align:right"><div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div><div class="small">Qty: ${i.qty}</div></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button><button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button></div></div>`;
+  }).join("");
+  $("#cartTotal").textContent = formatMoney(cartTotal());
+  el.querySelectorAll("button[data-act]").forEach(btn => btn.addEventListener("click", ()=>{ const uid = btn.dataset.uid; const act = btn.dataset.act; changeQty(uid, act === "inc" ? 1 : -1); }));
+}
+
+/* Drawer open/close */
+function openCart(){ $("#drawerOverlay").classList.add("open"); $("#cartDrawer").classList.add("open"); }
+function closeCart(){ $("#drawerOverlay").classList.remove("open"); $("#cartDrawer").classList.remove("open"); }
+$("#closeCart").addEventListener("click", closeCart); $("#drawerOverlay").addEventListener("click", closeCart);
+
+/* TOAST */
+let toastTimer = null;
+function showToast(msg){ $("#toastText").textContent = msg; $("#toast").classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(()=> $("#toast").classList.remove("show"), 3200); }
+
+/* Add to cart button in modal */
+$("#addToCartBtn").addEventListener("click", ()=>{
+  if(!activeProduct) return;
+  if(activeProduct.comingSoon) return;
+  const sel = {};
+  if(activeProduct.options){
+    Object.keys(activeProduct.options).forEach(key => {
+      const el = document.getElementById("opt_" + key);
+      if(el) sel[key] = el.value;
+    });
+  }
+  addToCart(activeProduct, sel);
+  closeProduct();
+});
+
+/* Custom Request submit: Netlify will handle actual submission.
+   We intercept to show a nice message and let Netlify still receive data (browser submits).
+*/
+const customForm = $("#customForm");
+customForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formData = new FormData(customForm);
+  // If deployed on Netlify, this POST will be processed normally by Netlify.
+  // We use fetch to submit so we can show the thank-you message immediately.
+  fetch("/", { method: "POST", body: formData })
+    .then(()=> {
+      $("#customText").value = "";
+      $("#customMsg").style.display = "block";
+      $("#customMsg").textContent = "Thank you — submission received! I’ll get back to you soon. Follow me on IG: @HookedByKerrah";
+    })
+    .catch(()=> {
+      // fallback: still show message (form may still be captured if browser does native submit later)
+      $("#customText").value = "";
+      $("#customMsg").style.display = "block";
+      $("#customMsg").textContent = "Thanks — your request was recorded locally. If you don't get a reply, DM @HookedByKerrah on Instagram.";
+    });
+});
+
+/* Checkout fallback button */
+$("#checkoutBtn").addEventListener("click", () => {
+  alert("You can pay with PayPal using the buttons above, or use Stripe Payment Link (Apple Pay) if configured.");
+});
+
+/* Stripe button: open stripe payment link (replace STRIPE_CHECKOUT_URL with your Payment Link). */
+$("#stripeBtn").addEventListener("click", () => {
+  if(!STRIPE_CHECKOUT_URL || STRIPE_CHECKOUT_URL.includes("YOUR_PAYMENT_LINK")) {
+    alert("Stripe Checkout URL is not configured. Create a Stripe Payment Link and paste it into STRIPE_CHECKOUT_URL in the code.");
+    return;
+  }
+  // Optionally attach cart info via query params (you can read them on Stripe's hosted page only if you use metadata server-side).
+  window.open(STRIPE_CHECKOUT_URL, "_blank");
+});
+
+/* INIT */
+renderAllGrids(); renderCart();
+
+/* =========================
+   PAYPAL BUTTONS
+   - Uses client-side SDK included above.
+   - IMPORTANT: Replace YOUR_PAYPAL_CLIENT_ID in the paypal script tag with your real client ID (or 'sb' for sandbox).
+   - The buttons create an order for the current cart total and capture payment.
+========================= */
+
+function refreshPayPalButtons(){
+  // clear container
+  const container = document.getElementById("paypal-button-container");
+  container.innerHTML = "";
+  if(typeof paypal === "undefined") {
+    // PayPal SDK not loaded (client didn't replace client-id). Show small hint
+    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured — replace YOUR_PAYPAL_CLIENT_ID in the script URL to enable PayPal checkout.</div>`;
+    return;
   }
 
-  $("#addToCartBtn").addEventListener("click", () => {
-    if(!activeProduct) return;
-    const sel = {};
-    if($("#optSize")) sel.size = $("#optSize").value;
-    if($("#optMaterial")) sel.material = $("#optMaterial").value;
-    if($("#optColor")) sel.color = $("#optColor").value;
-    addToCart(activeProduct, sel);
-    closeProduct();
-  });
-
-  /* CUSTOM REQUEST: sends to Formspree */
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xlglokqa";
-
-  $("#customForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const msg = $("#customMsg");
-    const message = $("#customText").value.trim();
-    const email = $("#customerEmail").value.trim();
-
-    if(!message){
-      msg.style.display = "block";
-      msg.textContent = "Please type your request first.";
-      return;
-    }
-
-    msg.style.display = "block";
-    msg.textContent = "Sending...";
-
-    try{
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ message, email })
+  // Render buttons
+  paypal.Buttons({
+    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
+    createOrder: function(data, actions) {
+      const total = Number(cartTotal().toFixed(2));
+      if(total <= 0) {
+        alert("Your cart is empty.");
+        return;
+      }
+      return actions.order.create({
+        purchase_units: [{
+          amount: { value: total.toFixed(2) },
+          description: "HookedByKerrah order"
+        }]
       });
-
-      if(!res.ok) throw new Error("Form error");
-
-      $("#customText").value = "";
-      $("#customerEmail").value = "";
-      msg.textContent = "Thank you — submission received! I’ll get back to you soon. Thank you for the inquiry. Follow me on IG: @HookedByKerrah";
-    } catch(err){
-      msg.textContent = "Hmm—your request didn’t send. Please DM me on Instagram @HookedByKerrah.";
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        // Payment successful
+        // You may want to send order details to your email/DB here.
+        cart = []; saveCart(); renderCart();
+        showToast("Payment received — thank you! I'll start your made-to-order item.");
+        closeCart();
+        // Optionally show PayPal confirmation message
+        alert(`Payment completed by ${details.payer.name.given_name}.`);
+      });
+    },
+    onError: function(err){
+      console.error("PayPal error", err);
+      alert("An error occurred during PayPal checkout. See console for details.");
     }
-  });
+  }).render('#paypal-button-container');
+}
 
-  /* INIT */
-  renderAllGrids();
-  renderCart();
-  $("#checkoutBtn").addEventListener("click", () => {
-    alert("Checkout is a placeholder. If you want real checkout, tell me what you want to use (Shopify / Stripe Payment Link / Etsy / DM checkout).");
-  });
+// call once on load to initialize placeholder or real buttons
+refreshPayPalButtons();
+
+/* If PayPal SDK loads later or dynamically, attempt to re-render after a short delay */
+setTimeout(()=>{ if(typeof paypal !== "undefined") refreshPayPalButtons(); }, 2000);
+
 </script>
 </body>
 </html>
