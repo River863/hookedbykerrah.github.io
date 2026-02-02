@@ -702,32 +702,6 @@
       madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
     },
 
-    {
-      id: "pillow",
-      name: "Pillow Covers (Cover Only)",
-      category: "home",
-      image: "", /* add image path when you have it */
-      alt: "Pillow cover",
-      subtitle: "Standard sizes + custom sizing.",
-      priceLabel: "From $35",
-      options: {
-        sizes: ["16x16","18x18","20x20"],
-        materials: ["Regular","Glitter","Plush"],
-        colors: ["Red","Purple Ombre","Pink Ombre"]
-      },
-      price(sel){
-        let base = 35;
-        if(sel.size === "18x18") base += 5;
-        if(sel.size === "20x20") base += 10;
-        if(sel.material === "Glitter") base += 5;
-        if(sel.material === "Plush") base += 5;
-        return base;
-      },
-      material: "Yarn (type varies).",
-      uses: "Home decor accent. Great for couches, beds, gifts.",
-      pairing: "Pairs with neutral throws + textured blankets to make the room feel cozy.",
-      madeToOrder: "Allow 7+ days depending on the product. Items may ship sooner."
-    }
   ];
 
   /* =========================================================
