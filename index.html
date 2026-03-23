@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HookedByKerrah</title>
   <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and more." />
+  <script src="https://js.stripe.com/v3"></script>
   <style>
     :root{
       --bg:#fff3f6;
@@ -21,25 +22,14 @@
     }
 
     *{box-sizing:border-box}
-
-    html, body{
-      margin:0;
-      padding:0;
-      overflow-x:hidden;
-    }
-
+    html, body{margin:0;padding:0;overflow-x:hidden}
     body{
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:var(--bg);
       color:var(--text);
     }
 
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:20px;
-    }
-
+    .wrap{max-width:var(--max);margin:0 auto;padding:20px}
     header{margin-bottom:10px}
     h1{margin:0}
     .muted{color:var(--muted)}
@@ -102,7 +92,6 @@
     }
 
     .content{padding:16px}
-
     .pill{
       display:inline-block;
       font-size:12px;
@@ -114,11 +103,7 @@
       margin-bottom:10px;
     }
 
-    .price{
-      font-weight:900;
-      margin:10px 0 0;
-    }
-
+    .price{font-weight:900;margin:10px 0 0}
     .btn{
       display:inline-block;
       margin-top:12px;
@@ -134,20 +119,13 @@
 
     .btn:hover{background:var(--accent-hover)}
     .btn[disabled]{opacity:.55;cursor:not-allowed}
-
-    footer{
-      text-align:center;
-      color:var(--muted);
-      margin-top:40px;
-      font-size:14px;
-    }
+    footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
 
     a.igLink{
       color:var(--accent-hover);
       font-weight:900;
       text-decoration:none;
     }
-
     a.igLink:hover{text-decoration:underline}
 
     .overlay{
@@ -160,7 +138,6 @@
       padding:18px;
       z-index:50;
     }
-
     .overlay.open{display:flex}
 
     .modal{
@@ -175,11 +152,7 @@
       grid-template-columns:1.1fr .9fr;
     }
 
-    .modalImg{
-      min-height:280px;
-      background:#f1f1f1;
-    }
-
+    .modalImg{min-height:280px;background:#f1f1f1}
     .modalBody{
       padding:18px;
       overflow-y:auto;
@@ -203,7 +176,6 @@
       font-weight:900;
       flex-shrink:0;
     }
-
     .xBtn:hover{background:rgba(0,0,0,.10)}
 
     .meta{
@@ -227,26 +199,12 @@
       padding-top:10px;
     }
 
-    .actions .btn,
-    .actions .ghostBtn{
-      flex:1 1 220px;
-    }
-
-    .ghostBtn{
-      background:transparent;
-      border:1px solid rgba(0,0,0,.14);
-      color:var(--text);
-    }
-
+    .actions .btn,.actions .ghostBtn{flex:1 1 220px}
+    .ghostBtn{background:transparent;border:1px solid rgba(0,0,0,.14);color:var(--text)}
     .ghostBtn:hover{background:rgba(0,0,0,.04)}
 
     .field{margin-top:10px}
-    .field label{
-      display:block;
-      font-weight:800;
-      margin-bottom:6px;
-    }
-
+    .field label{display:block;font-weight:800;margin-bottom:6px}
     .field select{
       width:100%;
       padding:10px;
@@ -262,7 +220,6 @@
       display:none;
       z-index:60;
     }
-
     .drawerOverlay.open{display:block}
 
     .drawer{
@@ -279,7 +236,6 @@
       display:flex;
       flex-direction:column;
     }
-
     .drawer.open{transform:translateX(0)}
 
     .drawerHeader{
@@ -306,7 +262,6 @@
     }
 
     .small{font-size:13px;color:var(--muted)}
-
     .qtyBtn{
       border:1px solid rgba(0,0,0,.15);
       background:transparent;
@@ -315,14 +270,9 @@
       cursor:pointer;
       font-weight:850;
     }
-
     .qtyBtn:hover{background:rgba(0,0,0,.04)}
 
-    .drawerFooter{
-      padding:16px;
-      border-top:1px solid rgba(0,0,0,.08);
-    }
-
+    .drawerFooter{padding:16px;border-top:1px solid rgba(0,0,0,.08)}
     .totalRow{
       display:flex;
       justify-content:space-between;
@@ -364,65 +314,23 @@
     }
 
     @media (max-width:860px){
-      .modal{
-        grid-template-columns:1fr;
-        width:100%;
-        max-height:92vh;
-        overflow-y:auto;
-      }
-
-      .modalImg{
-        min-height:220px;
-      }
-
-      .modalBody{
-        max-height:none;
-      }
+      .modal{grid-template-columns:1fr;width:100%;max-height:92vh;overflow-y:auto}
+      .modalImg{min-height:220px}
+      .modalBody{max-height:none}
     }
 
     @media (max-width:768px){
       .wrap{padding:14px}
-
-      .grid{
-        grid-template-columns:1fr;
-        gap:14px;
-      }
-
+      .grid{grid-template-columns:1fr;gap:14px}
       .card{border-radius:16px}
       .content{padding:14px}
-
-      .overlay{
-        align-items:flex-start;
-        padding:10px;
-        overflow-y:auto;
-      }
-
-      .modal{
-        margin-top:10px;
-        border-radius:18px;
-      }
-
+      .overlay{align-items:flex-start;padding:10px;overflow-y:auto}
+      .modal{margin-top:10px;border-radius:18px}
       .modalBody{padding:14px}
-
-      .btn,
-      .ghostBtn{
-        width:100%;
-        text-align:center;
-      }
-
-      .drawer{
-        width:100vw;
-        max-width:100vw;
-      }
-
+      .btn,.ghostBtn{width:100%;text-align:center}
+      .drawer{width:100vw;max-width:100vw}
       .drawerBody{padding:12px}
-
-      nav a{
-        margin:6px 6px 0 0;
-        padding:7px 11px;
-        font-size:14px;
-      }
-
+      nav a{margin:6px 6px 0 0;padding:7px 11px;font-size:14px}
       h1{font-size:28px}
       h2{font-size:22px}
       h3{font-size:18px}
@@ -473,7 +381,7 @@
         <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">Your request</label>
         <textarea id="customText" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
 
-        <button class="btn" id="customSubmit" style="margin-top:12px" type="button">Open message draft</button>
+        <button class="btn" id="customSubmit" style="margin-top:12px" type="button">Send custom request</button>
 
         <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
 
@@ -540,11 +448,11 @@
       <span id="cartTotal">$0</span>
     </div>
 
-    <button class="btn" id="sendOrderBtn" style="width:100%;margin-bottom:8px">Send Order by Email</button>
+    <button class="btn" id="checkoutBtn" style="width:100%;margin-bottom:8px">Checkout</button>
     <button class="btn ghostBtn" id="copyOrderBtn" style="width:100%;margin-top:0">Copy Order Summary</button>
 
     <div class="checkoutNote">
-      <strong>How ordering works:</strong> send your order, then I’ll confirm details and send payment instructions.
+      <strong>How ordering works:</strong> review your cart and pay at checkout.
     </div>
   </div>
 </aside>
@@ -555,8 +463,9 @@
 </div>
 
 <script>
-const ORDER_EMAIL = "YOUR_EMAIL@example.com";
+const CHECKOUT_API_URL = "http://localhost:3000/create-checkout-session";
 const INSTAGRAM_URL = "https://instagram.com/HookedByKerrah";
+const CUSTOM_REQUEST_EMAIL = "YOUR_EMAIL@example.com";
 
 const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
 const CUP_SIZES = ["A","B","C","D"];
@@ -750,20 +659,14 @@ const PRODUCTS = [
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
-function lockBodyScroll(){
-  document.body.style.overflow = "hidden";
-}
-
-function unlockBodyScroll(){
-  document.body.style.overflow = "";
-}
+function lockBodyScroll(){ document.body.style.overflow = "hidden"; }
+function unlockBodyScroll(){ document.body.style.overflow = ""; }
 
 function createCardHtml(p){
   const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
   const img = p.image
     ? `<img src="${p.image}" alt="${p.alt || p.name}">`
     : `<div style="padding:18px;text-align:center;color:var(--muted)">Coming soon</div>`;
-
   const btnText = p.comingSoon ? "Coming soon" : "View details";
 
   return `
@@ -783,10 +686,16 @@ function createCardHtml(p){
 }
 
 function renderAllGrids(){
-  $("#featuredGrid").innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
-  $("#wearablesGrid").innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
-  $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
-  $("#comingSoonGrid").innerHTML = PRODUCTS.filter(p => p.category === "coming").map(createCardHtml).join("");
+  const featuredGrid = $("#featuredGrid");
+  const wearablesGrid = $("#wearablesGrid");
+  const accessoriesGrid = $("#accessoriesGrid");
+  const comingSoonGrid = $("#comingSoonGrid");
+  if(!featuredGrid || !wearablesGrid || !accessoriesGrid || !comingSoonGrid) return;
+
+  featuredGrid.innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
+  wearablesGrid.innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
+  accessoriesGrid.innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
+  comingSoonGrid.innerHTML = PRODUCTS.filter(p => p.category === "coming").map(createCardHtml).join("");
 
   $$(".cardBtn").forEach(btn => {
     btn.addEventListener("click", () => openProduct(btn.dataset.id));
@@ -801,32 +710,40 @@ function openProduct(id){
   if(!p) return;
 
   activeProduct = p;
-  $("#modalTitle").textContent = p.name;
-  $("#modalSubtitle").textContent = p.subtitle || "";
+  const modalTitle = $("#modalTitle");
+  const modalSubtitle = $("#modalSubtitle");
+  const modalPill = $("#modalPill");
+  const modalImg = $("#modalImg");
+  const modalDetails = $("#modalDetails");
+  const optsContainer = $("#modalOptions");
+  const addToCartBtn = $("#addToCartBtn");
+  if(!modalTitle || !modalSubtitle || !modalPill || !modalImg || !modalDetails || !optsContainer || !addToCartBtn) return;
+
+  modalTitle.textContent = p.name;
+  modalSubtitle.textContent = p.subtitle || "";
 
   if(p.pill){
-    $("#modalPill").style.display = "inline-block";
-    $("#modalPill").textContent = p.pill;
+    modalPill.style.display = "inline-block";
+    modalPill.textContent = p.pill;
   } else {
-    $("#modalPill").style.display = "none";
-    $("#modalPill").textContent = "";
+    modalPill.style.display = "none";
+    modalPill.textContent = "";
   }
 
   if(p.image){
-    $("#modalImg").src = p.image;
-    $("#modalImg").alt = p.alt || p.name;
+    modalImg.src = p.image;
+    modalImg.alt = p.alt || p.name;
   } else {
-    $("#modalImg").src = "";
-    $("#modalImg").alt = "";
+    modalImg.removeAttribute("src");
+    modalImg.alt = "";
   }
 
-  $("#modalDetails").innerHTML = `<strong>Details</strong>
+  modalDetails.innerHTML = `<strong>Details</strong>
     <div><strong>Material:</strong> ${p.material || "—"}</div>
     <div style="margin-top:6px"><strong>Uses:</strong> ${p.uses || "—"}</div>
     <div style="margin-top:6px"><strong>Style pairing:</strong> ${p.pairing || "—"}</div>
     <div style="margin-top:6px"><strong>Made to order:</strong> Allow 7+ days depending on the product. Items may ship sooner.</div>`;
 
-  const optsContainer = $("#modalOptions");
   optsContainer.innerHTML = "";
   activeSelection = {};
 
@@ -847,7 +764,7 @@ function openProduct(id){
         ? "Trim"
         : key.charAt(0).toUpperCase() + key.slice(1);
 
-      div.innerHTML = `<label>${label}</label><select id="opt_${key}"></select>`;
+      div.innerHTML = `<label for="opt_${key}">${label}</label><select id="opt_${key}"></select>`;
       optsContainer.appendChild(div);
 
       const sel = div.querySelector("select");
@@ -863,24 +780,27 @@ function openProduct(id){
   }
 
   if(p.comingSoon){
-    $("#addToCartBtn").disabled = true;
-    $("#addToCartBtn").textContent = "Coming soon";
+    addToCartBtn.disabled = true;
+    addToCartBtn.textContent = "Coming soon";
   } else {
-    $("#addToCartBtn").disabled = false;
-    $("#addToCartBtn").textContent = "Add to order";
+    addToCartBtn.disabled = false;
+    addToCartBtn.textContent = "Add to order";
   }
 
   updateModalPrice();
-  $("#productOverlay").classList.add("open");
-  $("#productOverlay").setAttribute("aria-hidden", "false");
+  $("#productOverlay")?.classList.add("open");
+  $("#productOverlay")?.setAttribute("aria-hidden", "false");
   lockBodyScroll();
 }
 
 function updateModalPrice(){
   if(!activeProduct) return;
 
+  const modalPrice = $("#modalPrice");
+  if(!modalPrice) return;
+
   if(activeProduct.comingSoon){
-    $("#modalPrice").textContent = activeProduct.priceLabel || "Coming soon";
+    modalPrice.textContent = activeProduct.priceLabel || "Coming soon";
     return;
   }
 
@@ -893,20 +813,20 @@ function updateModalPrice(){
     priceVal = 0;
   }
 
-  $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
+  modalPrice.textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
 }
 
 function closeProduct(){
-  $("#productOverlay").classList.remove("open");
-  $("#productOverlay").setAttribute("aria-hidden", "true");
+  $("#productOverlay")?.classList.remove("open");
+  $("#productOverlay")?.setAttribute("aria-hidden", "true");
   activeProduct = null;
   activeSelection = {};
   unlockBodyScroll();
 }
 
-$("#closeModal").addEventListener("click", closeProduct);
-$("#keepShoppingBtn").addEventListener("click", closeProduct);
-$("#productOverlay").addEventListener("click", (e) => {
+$("#closeModal")?.addEventListener("click", closeProduct);
+$("#keepShoppingBtn")?.addEventListener("click", closeProduct);
+$("#productOverlay")?.addEventListener("click", (e) => {
   if(e.target.id === "productOverlay") closeProduct();
 });
 
@@ -917,11 +837,22 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-const CART_KEY = "hbk_order_cart_v1";
-let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+const CART_KEY = "hbk_order_cart_v2";
+let cart = [];
+try {
+  const raw = localStorage.getItem(CART_KEY);
+  cart = raw ? JSON.parse(raw) : [];
+  if(!Array.isArray(cart)) cart = [];
+} catch {
+  cart = [];
+}
 
 function saveCart(){
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (err) {
+    console.error("Could not save cart.", err);
+  }
 }
 
 function genUID(id, opts){
@@ -974,10 +905,12 @@ function cartTotal(){
 
 function renderCart(){
   const el = $("#cartItems");
+  const totalEl = $("#cartTotal");
+  if(!el || !totalEl) return;
 
   if(cart.length === 0){
     el.innerHTML = `<p class="muted">Your order is empty.</p>`;
-    $("#cartTotal").textContent = "$0";
+    totalEl.textContent = "$0";
     return;
   }
 
@@ -1006,7 +939,7 @@ function renderCart(){
     `;
   }).join("");
 
-  $("#cartTotal").textContent = formatMoney(cartTotal());
+  totalEl.textContent = formatMoney(cartTotal());
 
   el.querySelectorAll("button[data-act]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -1018,29 +951,32 @@ function renderCart(){
 }
 
 function openCart(){
-  $("#drawerOverlay").classList.add("open");
-  $("#cartDrawer").classList.add("open");
+  $("#drawerOverlay")?.classList.add("open");
+  $("#cartDrawer")?.classList.add("open");
   lockBodyScroll();
 }
 
 function closeCart(){
-  $("#drawerOverlay").classList.remove("open");
-  $("#cartDrawer").classList.remove("open");
+  $("#drawerOverlay")?.classList.remove("open");
+  $("#cartDrawer")?.classList.remove("open");
   unlockBodyScroll();
 }
 
-$("#closeCart").addEventListener("click", closeCart);
-$("#drawerOverlay").addEventListener("click", closeCart);
+$("#closeCart")?.addEventListener("click", closeCart);
+$("#drawerOverlay")?.addEventListener("click", closeCart);
 
 let toastTimer = null;
 function showToast(msg){
-  $("#toastText").textContent = msg;
-  $("#toast").classList.add("show");
+  const toastText = $("#toastText");
+  const toast = $("#toast");
+  if(!toastText || !toast) return;
+  toastText.textContent = msg;
+  toast.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 3200);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3200);
 }
 
-$("#addToCartBtn").addEventListener("click", () => {
+$("#addToCartBtn")?.addEventListener("click", () => {
   if(!activeProduct || activeProduct.comingSoon) return;
 
   const sel = {};
@@ -1075,23 +1011,55 @@ ${opts}
 Order:
 ${lines}
 
-Estimated total: ${formatMoney(cartTotal())}
-
-Please let me know the next steps for payment and delivery/pickup.`;
+Estimated total: ${formatMoney(cartTotal())}`;
 }
 
-$("#sendOrderBtn").addEventListener("click", () => {
+$("#checkoutBtn")?.addEventListener("click", async () => {
   if(cart.length === 0){
     alert("Your order is empty.");
     return;
   }
 
-  const subject = encodeURIComponent("New HookedByKerrah Order");
-  const body = encodeURIComponent(buildOrderText());
-  window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+  const checkoutBtn = $("#checkoutBtn");
+  const originalText = checkoutBtn ? checkoutBtn.textContent : "Checkout";
+
+  try {
+    if(checkoutBtn){
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = "Starting checkout...";
+    }
+
+    const res = await fetch(CHECKOUT_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ cart })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if(!res.ok){
+      throw new Error(data.error || "Could not start checkout.");
+    }
+
+    if(!data.url){
+      throw new Error("Missing checkout URL.");
+    }
+
+    window.location.href = data.url;
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Checkout is unavailable right now. Please try again.");
+  } finally {
+    if(checkoutBtn){
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = originalText;
+    }
+  }
 });
 
-$("#copyOrderBtn").addEventListener("click", async () => {
+$("#copyOrderBtn")?.addEventListener("click", async () => {
   if(cart.length === 0){
     alert("Your order is empty.");
     return;
@@ -1107,12 +1075,15 @@ $("#copyOrderBtn").addEventListener("click", async () => {
   }
 });
 
-$("#customSubmit").addEventListener("click", () => {
-  const text = $("#customText").value.trim();
+$("#customSubmit")?.addEventListener("click", () => {
+  const text = $("#customText")?.value.trim() || "";
+  const customMsg = $("#customMsg");
 
   if(!text){
-    $("#customMsg").style.display = "block";
-    $("#customMsg").textContent = "Please type your request first.";
+    if(customMsg){
+      customMsg.style.display = "block";
+      customMsg.textContent = "Please type your request first.";
+    }
     return;
   }
 
@@ -1129,7 +1100,7 @@ Instagram:
 Please let me know the next steps.`
   );
 
-  window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:${CUSTOM_REQUEST_EMAIL}?subject=${subject}&body=${body}`;
 });
 
 renderAllGrids();
