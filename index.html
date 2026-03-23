@@ -7,63 +7,426 @@
   <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and more." />
   <style>
     :root{
-      --bg:#fff3f6; --card:#ffffff; --text:#2a2a2a; --muted:#6f6f6f;
-      --accent:#e6a6b3; --accent-hover:#d98c9a; --tab-bg:#f7d6de;
-      --shadow:0 12px 30px rgba(0,0,0,.08); --radius:18px; --max:1100px;
+      --bg:#fff3f6;
+      --card:#ffffff;
+      --text:#2a2a2a;
+      --muted:#6f6f6f;
+      --accent:#e6a6b3;
+      --accent-hover:#d98c9a;
+      --tab-bg:#f7d6de;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:18px;
+      --max:1100px;
       --overlay: rgba(0,0,0,.45);
     }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:var(--max);margin:0 auto;padding:20px}
-    header{margin-bottom:10px} h1{margin:0} .muted{color:var(--muted)}
+
+    html, body{
+      margin:0;
+      padding:0;
+      overflow-x:hidden;
+    }
+
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:20px;
+    }
+
+    header{margin-bottom:10px}
+    h1{margin:0}
+    .muted{color:var(--muted)}
+
     nav{margin-top:10px}
-    nav a{display:inline-block;margin:6px 10px 0 0;padding:8px 14px;background:var(--tab-bg);border-radius:999px;text-decoration:none;color:var(--text);font-weight:650;transition:background .2s}
+    nav a{
+      display:inline-block;
+      margin:6px 10px 0 0;
+      padding:8px 14px;
+      background:var(--tab-bg);
+      border-radius:999px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:650;
+      transition:background .2s;
+    }
     nav a:hover{background:var(--accent);color:#fff}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:18px}
-    .cardBtn{display:block;text-decoration:none;color:inherit;border:0;padding:0;background:transparent;cursor:pointer;text-align:left;}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
-    .imgBox{aspect-ratio:4/3;background:#f1f1f1;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .cardBtn{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      border:0;
+      padding:0;
+      background:transparent;
+      cursor:pointer;
+      text-align:left;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.06);
+      height:100%;
+    }
+
+    .imgBox{
+      aspect-ratio:4/3;
+      background:#f1f1f1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
     .content{padding:16px}
-    .pill{display:inline-block;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(230,166,179,.25);color:#6a2f3a;margin-bottom:10px}
-    .price{font-weight:900;margin:10px 0 0}
-    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:var(--accent);color:white;border-radius:12px;text-decoration:none;font-weight:800;border:0;cursor:pointer}
-    .btn:hover{background:var(--accent-hover)} .btn[disabled]{opacity:.55;cursor:not-allowed}
-    footer{text-align:center;color:var(--muted);margin-top:40px;font-size:14px}
-    a.igLink{color:var(--accent-hover);font-weight:900;text-decoration:none} a.igLink:hover{text-decoration:underline}
-    @media(max-width:620px){nav a{padding:6px 10px}}
 
-    .overlay{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+    .pill{
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(230,166,179,.25);
+      color:#6a2f3a;
+      margin-bottom:10px;
+    }
+
+    .price{
+      font-weight:900;
+      margin:10px 0 0;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:12px;
+      padding:10px 16px;
+      background:var(--accent);
+      color:white;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:800;
+      border:0;
+      cursor:pointer;
+    }
+
+    .btn:hover{background:var(--accent-hover)}
+    .btn[disabled]{opacity:.55;cursor:not-allowed}
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      margin-top:40px;
+      font-size:14px;
+    }
+
+    a.igLink{
+      color:var(--accent-hover);
+      font-weight:900;
+      text-decoration:none;
+    }
+
+    a.igLink:hover{text-decoration:underline}
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:var(--overlay);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+
     .overlay.open{display:flex}
-    .modal{width:min(920px,100%);background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:1.1fr .9fr}
-    @media(max-width:860px){.modal{grid-template-columns:1fr}}
-    .modalImg{min-height:280px;background:#f1f1f1}
-    .modalBody{padding:18px}
-    .modalTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-    .xBtn{border:0;background:rgba(0,0,0,.06);border-radius:12px;padding:8px 10px;cursor:pointer;font-weight:900}
+
+    .modal{
+      width:min(920px,100%);
+      max-height:min(90vh,900px);
+      background:var(--card);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.08);
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+    }
+
+    .modalImg{
+      min-height:280px;
+      background:#f1f1f1;
+    }
+
+    .modalBody{
+      padding:18px;
+      overflow-y:auto;
+      max-height:min(90vh,900px);
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .modalTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .xBtn{
+      border:0;
+      background:rgba(0,0,0,.06);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:900;
+      flex-shrink:0;
+    }
+
     .xBtn:hover{background:rgba(0,0,0,.10)}
-    .meta{margin-top:10px;padding:12px;border-radius:14px;background:rgba(230,166,179,.18);color:#5a2832;font-size:14px;line-height:1.35}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .ghostBtn{background:transparent;border:1px solid rgba(0,0,0,.14);color:var(--text)} .ghostBtn:hover{background:rgba(0,0,0,.04)}
-    .field{margin-top:10px} .field label{display:block;font-weight:800;margin-bottom:6px}
-    .field select{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.12)}
 
-    .drawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;z-index:60}
+    .meta{
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      background:rgba(230,166,179,.18);
+      color:#5a2832;
+      font-size:14px;
+      line-height:1.35;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      position:sticky;
+      bottom:0;
+      background:var(--card);
+      padding-top:10px;
+    }
+
+    .actions .btn,
+    .actions .ghostBtn{
+      flex:1 1 220px;
+    }
+
+    .ghostBtn{
+      background:transparent;
+      border:1px solid rgba(0,0,0,.14);
+      color:var(--text);
+    }
+
+    .ghostBtn:hover{background:rgba(0,0,0,.04)}
+
+    .field{margin-top:10px}
+    .field label{
+      display:block;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+
+    .field select{
+      width:100%;
+      padding:10px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+    }
+
+    .drawerOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.25);
+      display:none;
+      z-index:60;
+    }
+
     .drawerOverlay.open{display:block}
-    .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--card);box-shadow:-18px 0 50px rgba(0,0,0,.18);transform:translateX(110%);transition:transform .25s ease;z-index:70;display:flex;flex-direction:column}
+
+    .drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100%;
+      width:min(420px,92vw);
+      background:var(--card);
+      box-shadow:-18px 0 50px rgba(0,0,0,.18);
+      transform:translateX(110%);
+      transition:transform .25s ease;
+      z-index:70;
+      display:flex;
+      flex-direction:column;
+    }
+
     .drawer.open{transform:translateX(0)}
-    .drawerHeader{padding:16px;border-bottom:1px solid rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .drawerBody{padding:16px;overflow:auto;flex:1} .line{border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:12px;margin-bottom:12px}
-    .row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-    .small{font-size:13px;color:var(--muted)} .qtyBtn{border:1px solid rgba(0,0,0,.15);background:transparent;border-radius:10px;padding:6px 10px;cursor:pointer;font-weight:850}
-    .qtyBtn:hover{background:rgba(0,0,0,.04)} .drawerFooter{padding:16px;border-top:1px solid rgba(0,0,0,.08)}
-    .totalRow{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
-    .checkoutNote{font-size:12px;color:var(--muted);line-height:1.35;margin-top:10px}
 
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(720px,92vw);background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px;display:none;z-index:80}
-    .toast.show{display:block}.toast strong{display:block;margin-bottom:2px}
+    .drawerHeader{
+      padding:16px;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
 
-    .contactCard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06);padding:16px}
+    .drawerBody{
+      padding:16px;
+      overflow:auto;
+      flex:1;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .line{
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:12px;
+    }
+
+    .small{font-size:13px;color:var(--muted)}
+
+    .qtyBtn{
+      border:1px solid rgba(0,0,0,.15);
+      background:transparent;
+      border-radius:10px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-weight:850;
+    }
+
+    .qtyBtn:hover{background:rgba(0,0,0,.04)}
+
+    .drawerFooter{
+      padding:16px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+
+    .totalRow{
+      display:flex;
+      justify-content:space-between;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .checkoutNote{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.35;
+      margin-top:10px;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      width:min(720px,92vw);
+      background:#fff;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:12px 14px;
+      display:none;
+      z-index:80;
+    }
+
+    .toast.show{display:block}
+    .toast strong{display:block;margin-bottom:2px}
+
+    .contactCard{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(0,0,0,.06);
+      padding:16px;
+    }
+
+    @media (max-width:860px){
+      .modal{
+        grid-template-columns:1fr;
+        width:100%;
+        max-height:92vh;
+        overflow-y:auto;
+      }
+
+      .modalImg{
+        min-height:220px;
+      }
+
+      .modalBody{
+        max-height:none;
+      }
+    }
+
+    @media (max-width:768px){
+      .wrap{padding:14px}
+
+      .grid{
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+
+      .card{border-radius:16px}
+      .content{padding:14px}
+
+      .overlay{
+        align-items:flex-start;
+        padding:10px;
+        overflow-y:auto;
+      }
+
+      .modal{
+        margin-top:10px;
+        border-radius:18px;
+      }
+
+      .modalBody{padding:14px}
+
+      .btn,
+      .ghostBtn{
+        width:100%;
+        text-align:center;
+      }
+
+      .drawer{
+        width:100vw;
+        max-width:100vw;
+      }
+
+      .drawerBody{padding:12px}
+
+      nav a{
+        margin:6px 6px 0 0;
+        padding:7px 11px;
+        font-size:14px;
+      }
+
+      h1{font-size:28px}
+      h2{font-size:22px}
+      h3{font-size:18px}
+    }
   </style>
 </head>
 <body>
@@ -81,10 +444,14 @@
   </header>
 
   <main>
-    <section id="featured"><h2>Featured Right Now</h2><div class="grid" id="featuredGrid"></div></section>
+    <section id="featured">
+      <h2>Featured Right Now</h2>
+      <div class="grid" id="featuredGrid"></div>
+    </section>
 
     <section id="shop">
       <h2 style="margin-top:22px">Shop</h2>
+
       <h3>Wearables</h3>
       <div class="grid" id="wearablesGrid"></div>
 
@@ -130,7 +497,10 @@
 
 <div class="overlay" id="productOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
-    <div class="modalImg imgBox"><img id="modalImg" src="" alt=""></div>
+    <div class="modalImg imgBox">
+      <img id="modalImg" src="" alt="">
+    </div>
+
     <div class="modalBody">
       <div class="modalTop">
         <div>
@@ -182,18 +552,22 @@
   </div>
 </aside>
 
-<div class="toast" id="toast"><strong>Added to cart</strong><span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span></div>
+<div class="toast" id="toast">
+  <strong>Added to cart</strong>
+  <span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span>
+</div>
 
 <script src="https://www.paypal.com/sdk/js?client-id=ARWw2cLm_VxZ1BGvSgyJI3dgZV8QT_2ELUH4AcSh4Q-q9fmG8jrbo-Y6q5pwSoVjM_vMUB1xJEvrz-7T&currency=USD"></script>
+
 <script>
 const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
-const CUP_SIZES  = ["A","B","C","D"];
+const CUP_SIZES = ["A","B","C","D"];
 
 function bandUpcharge(band){
   const b = Number(band || 0);
-  if(b >= 46) return 15;
-  if(b >= 40) return 10;
-  if(b >= 36) return 5;
+  if (b >= 46) return 15;
+  if (b >= 40) return 10;
+  if (b >= 36) return 5;
   return 0;
 }
 
@@ -202,102 +576,198 @@ function cupUpcharge(cup){
   return map[cup] ?? 0;
 }
 
-function formatMoney(n){ return `$${Number(n).toFixed(0)}`; }
+function formatMoney(n){
+  return `$${Number(n).toFixed(0)}`;
+}
+
 function safeGetStartPrice(label){
   const m = (label || "").match(/\$([\d]+)/);
   return m ? Number(m[1]) : 0;
 }
 
 const PRODUCTS = [
-  { id:"cardigan_black_red", name:"Black with Red Glitter Trim Hexagon Cardigan",
-    category:"wearables", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan",
-    subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90",
+  {
+    id:"cardigan_black_red",
+    name:"Black with Red Glitter Trim Hexagon Cardigan",
+    category:"wearables",
+    image:"images/BlueHexagonCardigan.png",
+    alt:"Black with Red Glitter Trim Hexagon Cardigan",
+    subtitle:"Cozy statement layering piece.",
+    priceLabel:"Starting at $90",
     options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] },
-    price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; },
-    material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."
+    price(sel){ let base = 90; if(sel.size === "L-XL") base += 20; return base; },
+    material:"Yarn (varies).",
+    uses:"Layering.",
+    pairing:"Wear to business casual or jeans."
   },
-
-  { id:"cardigan_valentines", name:"Valentines Hexagon Cardigan", category:"featured", pill:"Featured",
-    image:"images/ValentinesHexCardi.png", alt:"Valentines Hexagon Cardigan", subtitle:"Pink ombre with glitter.",
-    priceLabel:"Starting at $110", options:{ size:["S-M","L-XL"], color:["Pink Ombre"] },
-    price(sel){ let base=110; if(sel.size==="L-XL") base+=20; return base; },
-    material:"Yarn (handmade).", uses:"Layering.", pairing:"Dress up or down."
+  {
+    id:"cardigan_valentines",
+    name:"Valentines Hexagon Cardigan",
+    category:"featured",
+    pill:"Featured",
+    image:"images/ValentinesHexCardi.png",
+    alt:"Valentines Hexagon Cardigan",
+    subtitle:"Pink ombre with glitter.",
+    priceLabel:"Starting at $110",
+    options:{ size:["S-M","L-XL"], color:["Pink Ombre"] },
+    price(sel){ let base = 110; if(sel.size === "L-XL") base += 20; return base; },
+    material:"Yarn (handmade).",
+    uses:"Layering.",
+    pairing:"Dress up or down."
   },
-
-  { id:"santahats", name:"Santa Hats", category:"featured", pill:"Seasonal favourite",
-    image:"images/SantaHats.jpeg", subtitle:"Pick glitter or regular.", priceLabel:"$40+",
+  {
+    id:"santahats",
+    name:"Santa Hats",
+    category:"featured",
+    pill:"Seasonal favourite",
+    image:"images/SantaHats.jpeg",
+    subtitle:"Pick glitter or regular.",
+    priceLabel:"$40+",
     options:{ size:["Adult"], material:["Regular","Glitter"], color:["Red Hat/Black Trim","Black Hat/Red Trim"] },
-    price(sel){ const base=40; return base + ((sel.material==="Glitter") ? 3 : 0); },
-    material:"Yarn", uses:"Holiday wear."
+    price(sel){ const base = 40; return base + ((sel.material === "Glitter") ? 3 : 0); },
+    material:"Yarn",
+    uses:"Holiday wear."
   },
-
-  { id:"croptop_drawstring", name:"Ribbed Lace Drawstring Crop Top", category:"wearables",
-    image:"images/IMG_4188.jpg", subtitle:"Custom fit — choose size + bra measurements.", priceLabel:"Starting at $120",
+  {
+    id:"croptop_drawstring",
+    name:"Ribbed Lace Drawstring Crop Top",
+    category:"wearables",
+    image:"images/IMG_4188.jpg",
+    subtitle:"Custom fit — choose size + bra measurements.",
+    priceLabel:"Starting at $120",
     options:{ size:["XS","S","M","L"], band:BAND_SIZES, cup:CUP_SIZES, color:["Coral Orange","Blue/White","Black","Pink","Mustard","Royal Blue","Pink/White"] },
     price(sel){
-      const baseBySize={XS:120,S:130,M:145,L:160};
+      const baseBySize = { XS:120, S:130, M:145, L:160 };
       let base = baseBySize[sel.size] ?? 120;
       base += bandUpcharge(sel.band);
       base += cupUpcharge(sel.cup);
       return base;
     },
-    material:"Yarn (varies).", uses:"Statement top.", pairing:"High-waisted jeans."
+    material:"Yarn (varies).",
+    uses:"Statement top.",
+    pairing:"High-waisted jeans."
   },
-
-  { id:"croptop_front_tie", name:"Front Tie Crop Top", category:"wearables",
-    image:"images/FrontTie.png", subtitle:"Pricing is based on bra band + cup size.", priceLabel:"Starting at $55",
+  {
+    id:"croptop_front_tie",
+    name:"Front Tie Crop Top",
+    category:"wearables",
+    image:"images/FrontTie.png",
+    subtitle:"Pricing is based on bra band + cup size.",
+    priceLabel:"Starting at $55",
     options:{ band:BAND_SIZES, cup:CUP_SIZES, color:["Mustard Yellow","Blue/White","Black","Pink","Royal Blue","Pink/White"] },
-    price(sel){ let base=55; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; },
-    material:"Yarn", uses:"Casual wear", pairing:"Jeans or skirts."
+    price(sel){ let base = 55; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; },
+    material:"Yarn",
+    uses:"Casual wear",
+    pairing:"Jeans or skirts."
   },
-
-  { id:"croptop_net_bow", name:"Blue/White Net Bow Crop Top", category:"wearables",
-    image:"images/Blue White Net Bow Top.png", subtitle:"Choose bra band for best fit.", priceLabel:"Starting at $40",
+  {
+    id:"croptop_net_bow",
+    name:"Blue/White Net Bow Crop Top",
+    category:"wearables",
+    image:"images/Blue White Net Bow Top.png",
+    subtitle:"Choose bra band for best fit.",
+    priceLabel:"Starting at $40",
     options:{ band:BAND_SIZES, color:["Blue/White","Black","Pink","Royal Blue","Pink/White"] },
-    price(sel){ let base=40; base += bandUpcharge(sel.band); return base; },
-    material:"Yarn", uses:"Lightweight top", pairing:"Denim."
+    price(sel){ let base = 40; base += bandUpcharge(sel.band); return base; },
+    material:"Yarn",
+    uses:"Lightweight top",
+    pairing:"Denim."
   },
-
-  { id:"tote", name:"Tote Bag", category:"accessories",
-    image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45",
+  {
+    id:"tote",
+    name:"Tote Bag",
+    category:"accessories",
+    image:"images/IMG_4125.jpg",
+    subtitle:"Everyday carry — pick your colorway.",
+    priceLabel:"$45",
     options:{ color:["Blue Multicolor"] },
-    price(){ return 45; }, material:"Yarn", uses:"Carry all."
+    price(){ return 45; },
+    material:"Yarn",
+    uses:"Carry all."
   },
-
-  { id:"scrunchies_diy", name:"Custom Scrunchie", category:"accessories", pill:"Design your own",
-    image:"images/IMG_4189.jpg", subtitle:"Choose main color + optional trim.", priceLabel:"From $10",
-    options:{ size:["Single"], material:["Regular","Plush"], color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"], trim:["No trim","Add trim (no extra charge)"], trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"] },
-    price(sel){ return (sel.material==="Plush") ? 13 : 10; },
-    material:"Yarn", uses:"Hair accessory."
+  {
+    id:"scrunchies_diy",
+    name:"Custom Scrunchie",
+    category:"accessories",
+    pill:"Design your own",
+    image:"images/IMG_4189.jpg",
+    subtitle:"Choose main color + optional trim.",
+    priceLabel:"From $10",
+    options:{
+      size:["Single"],
+      material:["Regular","Plush"],
+      color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"],
+      trim:["No trim","Add trim (no extra charge)"],
+      trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"]
+    },
+    price(sel){ return (sel.material === "Plush") ? 13 : 10; },
+    material:"Yarn",
+    uses:"Hair accessory."
   },
-
-  { id:"scrunchies_mystery", name:"Mystery Scrunchies", category:"accessories", pill:"Mystery drop",
-    image:"images/9indscrunchiesreg.jpg", subtitle:"You don’t know what color you’ll get 👀", priceLabel:"$7 / $12",
+  {
+    id:"scrunchies_mystery",
+    name:"Mystery Scrunchies",
+    category:"accessories",
+    pill:"Mystery drop",
+    image:"images/9indscrunchiesreg.jpg",
+    subtitle:"You don’t know what color you’ll get 👀",
+    priceLabel:"$7 / $12",
     options:{ pack:["1 Mystery ($7)","2 Pack ($12) — 1 black + 1 mystery"] },
     price(sel){ return (sel.pack && sel.pack.startsWith("2 Pack")) ? 12 : 7; },
-    material:"Mystery yarn", uses:"Everyday hair."
+    material:"Mystery yarn",
+    uses:"Everyday hair."
   },
-
-  { id:"soon_pillow", name:"Pillow Covers", category:"coming", pill:"Coming soon", image:"",
-    subtitle:"Custom colors + sizes.", priceLabel:"Coming soon", comingSoon:true
+  {
+    id:"soon_pillow",
+    name:"Pillow Covers",
+    category:"coming",
+    pill:"Coming soon",
+    image:"",
+    subtitle:"Custom colors + sizes.",
+    priceLabel:"Coming soon",
+    comingSoon:true
   },
-  { id:"soon_custom_cardigans", name:"Custom Cardigans", category:"coming", pill:"Coming soon", image:"",
-    subtitle:"More styles + colors.", priceLabel:"Coming soon", comingSoon:true
+  {
+    id:"soon_custom_cardigans",
+    name:"Custom Cardigans",
+    category:"coming",
+    pill:"Coming soon",
+    image:"",
+    subtitle:"More styles + colors.",
+    priceLabel:"Coming soon",
+    comingSoon:true
   },
-  { id:"soon_coasters", name:"Coasters", category:"coming", pill:"Coming soon", image:"",
-    subtitle:"Sets + singles.", priceLabel:"Coming soon", comingSoon:true
+  {
+    id:"soon_coasters",
+    name:"Coasters",
+    category:"coming",
+    pill:"Coming soon",
+    image:"",
+    subtitle:"Sets + singles.",
+    priceLabel:"Coming soon",
+    comingSoon:true
   }
 ];
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
+function lockBodyScroll(){
+  document.body.style.overflow = "hidden";
+}
+
+function unlockBodyScroll(){
+  document.body.style.overflow = "";
+}
+
 function createCardHtml(p){
   const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
   const img = p.image
     ? `<img src="${p.image}" alt="${p.alt || p.name}">`
     : `<div style="padding:18px;text-align:center;color:var(--muted)">Coming soon</div>`;
+
   const btnText = p.comingSoon ? "Coming soon" : "View details";
+
   return `
     <button class="cardBtn" type="button" data-id="${p.id}">
       <article class="card">
@@ -319,7 +789,10 @@ function renderAllGrids(){
   $("#wearablesGrid").innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
   $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
   $("#comingSoonGrid").innerHTML = PRODUCTS.filter(p => p.category === "coming").map(createCardHtml).join("");
-  $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
+
+  $$(".cardBtn").forEach(btn => {
+    btn.addEventListener("click", () => openProduct(btn.dataset.id));
+  });
 }
 
 let activeProduct = null;
@@ -402,6 +875,7 @@ function openProduct(id){
   updateModalPrice();
   $("#productOverlay").classList.add("open");
   $("#productOverlay").setAttribute("aria-hidden", "false");
+  lockBodyScroll();
 }
 
 function updateModalPrice(){
@@ -429,6 +903,7 @@ function closeProduct(){
   $("#productOverlay").setAttribute("aria-hidden", "true");
   activeProduct = null;
   activeSelection = {};
+  unlockBodyScroll();
 }
 
 $("#closeModal").addEventListener("click", closeProduct);
@@ -436,6 +911,7 @@ $("#keepShoppingBtn").addEventListener("click", closeProduct);
 $("#productOverlay").addEventListener("click", (e) => {
   if(e.target.id === "productOverlay") closeProduct();
 });
+
 document.addEventListener("keydown", (e) => {
   if(e.key === "Escape"){
     closeProduct();
@@ -443,7 +919,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-const CART_KEY = "hbk_cart_v4";
+const CART_KEY = "hbk_cart_v5";
 let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
 
 function saveCart(){
@@ -476,7 +952,8 @@ function addToCart(product, selection){
 
   saveCart();
   renderCart();
-  showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
+  showToast("Added to cart.");
+  closeProduct();
   openCart();
   refreshPayPalButtons();
 }
@@ -486,7 +963,9 @@ function changeQty(uid, delta){
   if(!item) return;
 
   item.qty += delta;
-  if(item.qty <= 0) cart = cart.filter(i => i.uid !== uid);
+  if(item.qty <= 0){
+    cart = cart.filter(i => i.uid !== uid);
+  }
 
   saveCart();
   renderCart();
@@ -508,44 +987,50 @@ function renderCart(){
 
   el.innerHTML = cart.map(i => {
     const opts = i.options
-      ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("")
+      ? Object.entries(i.options).map(([k, v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("")
       : "";
 
-    return `<div class="line">
-      <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
-        <div>
-          <strong>${i.name}</strong>
-          ${opts}
+    return `
+      <div class="line">
+        <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
+          <div>
+            <strong>${i.name}</strong>
+            ${opts}
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
+            <div class="small">Qty: ${i.qty}</div>
+          </div>
         </div>
-        <div style="text-align:right">
-          <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
-          <div class="small">Qty: ${i.qty}</div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
+          <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
         </div>
       </div>
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
-        <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
-      </div>
-    </div>`;
+    `;
   }).join("");
 
   $("#cartTotal").textContent = formatMoney(cartTotal());
 
-  el.querySelectorAll("button[data-act]").forEach(btn => btn.addEventListener("click", () => {
-    const uid = btn.dataset.uid;
-    const act = btn.dataset.act;
-    changeQty(uid, act === "inc" ? 1 : -1);
-  }));
+  el.querySelectorAll("button[data-act]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const uid = btn.dataset.uid;
+      const act = btn.dataset.act;
+      changeQty(uid, act === "inc" ? 1 : -1);
+    });
+  });
 }
 
 function openCart(){
   $("#drawerOverlay").classList.add("open");
   $("#cartDrawer").classList.add("open");
+  lockBodyScroll();
 }
 
 function closeCart(){
   $("#drawerOverlay").classList.remove("open");
   $("#cartDrawer").classList.remove("open");
+  unlockBodyScroll();
 }
 
 $("#closeCart").addEventListener("click", closeCart);
@@ -571,7 +1056,6 @@ $("#addToCartBtn").addEventListener("click", () => {
   }
 
   addToCart(activeProduct, sel);
-  closeProduct();
 });
 
 $("#checkoutBtn").addEventListener("click", () => {
@@ -601,21 +1085,12 @@ Instagram:
   window.location.href = `mailto:YOUR_EMAIL@example.com?subject=${subject}&body=${body}`;
 });
 
-function buildOrderSummary(cartItems){
-  return cartItems.map(item => {
-    const opts = item.options
-      ? Object.entries(item.options).map(([k, v]) => `${k}:${v}`).join(", ")
-      : "";
-    return `${item.name}${opts ? ` (${opts})` : ""} x${item.qty}`;
-  }).join(" | ");
-}
-
 function refreshPayPalButtons(){
   const container = document.getElementById("paypal-button-container");
   container.innerHTML = "";
 
   if(typeof paypal === "undefined"){
-    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured yet — add your real PayPal client ID in the script URL.</div>`;
+    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured yet.</div>`;
     return;
   }
 
@@ -635,14 +1110,12 @@ function refreshPayPalButtons(){
         return;
       }
 
-      const orderSummary = buildOrderSummary(cart).substring(0, 127);
-
       return actions.order.create({
         purchase_units: [{
           amount: {
+            currency_code: "USD",
             value: total.toFixed(2)
-          },
-          description: orderSummary || "HookedByKerrah order"
+          }
         }]
       });
     },
@@ -650,21 +1123,8 @@ function refreshPayPalButtons(){
     onApprove: function(data, actions){
       return actions.order.capture().then(function(details){
         const customerName = details?.payer?.name?.given_name || "Customer";
-        const total = cartTotal().toFixed(2);
-        const orderLines = cart.map(item => {
-          const opts = item.options
-            ? Object.entries(item.options).map(([k, v]) => `${k}: ${v}`).join(", ")
-            : "No options";
-          return `${item.name} | ${opts} | Qty: ${item.qty} | Unit Price: $${item.unitPrice}`;
-        }).join("\n");
 
-        console.log("NEW ORDER");
-        console.log("Order ID:", data.orderID);
-        console.log("Customer:", customerName);
-        console.log("Total:", `$${total}`);
-        console.log("Items:\n" + orderLines);
-
-        showToast("Payment received — thank you! I’ll start your made-to-order item.");
+        showToast("Payment received — thank you!");
         alert(`Thanks ${customerName}! Your payment was received.`);
 
         cart = [];
@@ -673,6 +1133,10 @@ function refreshPayPalButtons(){
         closeCart();
         refreshPayPalButtons();
       });
+    },
+
+    onCancel: function(){
+      showToast("PayPal checkout was canceled.");
     },
 
     onError: function(err){
