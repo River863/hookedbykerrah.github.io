@@ -516,7 +516,7 @@
       <div id="modalOptions" style="margin-top:12px"></div>
 
       <div class="actions">
-        <button class="btn" id="addToCartBtn">Add to cart</button>
+        <button class="btn" id="addToCartBtn">Add to order</button>
         <button class="btn ghostBtn" id="keepShoppingBtn">Keep shopping</button>
       </div>
 
@@ -528,7 +528,7 @@
 <div class="drawerOverlay" id="drawerOverlay"></div>
 <aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="drawerHeader">
-    <strong>Cart</strong>
+    <strong>Your Order</strong>
     <button class="xBtn" id="closeCart" aria-label="Close cart">✕</button>
   </div>
 
@@ -536,30 +536,28 @@
 
   <div class="drawerFooter">
     <div class="totalRow">
-      <span>Total</span>
+      <span>Estimated Total</span>
       <span id="cartTotal">$0</span>
     </div>
 
-    <div id="paypal-button-container" style="margin-bottom:10px"></div>
-
-    <div style="text-align:center;margin-top:8px">
-      <button class="btn ghostBtn" id="checkoutBtn" style="width:100%">Use PayPal to Checkout</button>
-    </div>
+    <button class="btn" id="sendOrderBtn" style="width:100%;margin-bottom:8px">Send Order by Email</button>
+    <button class="btn ghostBtn" id="copyOrderBtn" style="width:100%;margin-top:0">Copy Order Summary</button>
 
     <div class="checkoutNote">
-      <strong>Made to order:</strong> allow 7+ days depending on the product. Items may be shipped sooner.
+      <strong>How ordering works:</strong> send your order, then I’ll confirm details and send payment instructions.
     </div>
   </div>
 </aside>
 
 <div class="toast" id="toast">
-  <strong>Added to cart</strong>
-  <span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span>
+  <strong>Added to order</strong>
+  <span id="toastText">Your item was added.</span>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=ARWw2cLm_VxZ1BGvSgyJI3dgZV8QT_2ELUH4AcSh4Q-q9fmG8jrbo-Y6q5pwSoVjM_vMUB1xJEvrz-7T&currency=USD"></script>
-
 <script>
+const ORDER_EMAIL = "YOUR_EMAIL@example.com";
+const INSTAGRAM_URL = "https://instagram.com/HookedByKerrah";
+
 const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
 const CUP_SIZES = ["A","B","C","D"];
 
@@ -869,7 +867,7 @@ function openProduct(id){
     $("#addToCartBtn").textContent = "Coming soon";
   } else {
     $("#addToCartBtn").disabled = false;
-    $("#addToCartBtn").textContent = "Add to cart";
+    $("#addToCartBtn").textContent = "Add to order";
   }
 
   updateModalPrice();
@@ -919,7 +917,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-const CART_KEY = "hbk_cart_v5";
+const CART_KEY = "hbk_order_cart_v1";
 let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
 
 function saveCart(){
@@ -952,10 +950,9 @@ function addToCart(product, selection){
 
   saveCart();
   renderCart();
-  showToast("Added to cart.");
+  showToast("Added to your order.");
   closeProduct();
   openCart();
-  refreshPayPalButtons();
 }
 
 function changeQty(uid, delta){
@@ -969,7 +966,6 @@ function changeQty(uid, delta){
 
   saveCart();
   renderCart();
-  refreshPayPalButtons();
 }
 
 function cartTotal(){
@@ -980,7 +976,7 @@ function renderCart(){
   const el = $("#cartItems");
 
   if(cart.length === 0){
-    el.innerHTML = `<p class="muted">Your cart is empty.</p>`;
+    el.innerHTML = `<p class="muted">Your order is empty.</p>`;
     $("#cartTotal").textContent = "$0";
     return;
   }
@@ -1058,8 +1054,57 @@ $("#addToCartBtn").addEventListener("click", () => {
   addToCart(activeProduct, sel);
 });
 
-$("#checkoutBtn").addEventListener("click", () => {
-  alert("Use the PayPal button above to complete checkout.");
+function buildOrderText(){
+  if(cart.length === 0){
+    return "Hi! I want to place an order from HookedByKerrah.";
+  }
+
+  const lines = cart.map((item, index) => {
+    const opts = item.options
+      ? Object.entries(item.options).map(([k, v]) => `  - ${k}: ${v}`).join("\n")
+      : "  - No options";
+
+    return `${index + 1}. ${item.name}
+${opts}
+  - Qty: ${item.qty}
+  - Item total: ${formatMoney(item.unitPrice * item.qty)}`;
+  }).join("\n\n");
+
+  return `Hi! I want to place an order from HookedByKerrah.
+
+Order:
+${lines}
+
+Estimated total: ${formatMoney(cartTotal())}
+
+Please let me know the next steps for payment and delivery/pickup.`;
+}
+
+$("#sendOrderBtn").addEventListener("click", () => {
+  if(cart.length === 0){
+    alert("Your order is empty.");
+    return;
+  }
+
+  const subject = encodeURIComponent("New HookedByKerrah Order");
+  const body = encodeURIComponent(buildOrderText());
+  window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+});
+
+$("#copyOrderBtn").addEventListener("click", async () => {
+  if(cart.length === 0){
+    alert("Your order is empty.");
+    return;
+  }
+
+  const text = buildOrderText();
+
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast("Order summary copied.");
+  } catch (e) {
+    alert("Could not copy automatically. Please try again.");
+  }
 });
 
 $("#customSubmit").addEventListener("click", () => {
@@ -1079,80 +1124,16 @@ Request:
 ${text}
 
 Instagram:
-@HookedByKerrah`
+@HookedByKerrah
+
+Please let me know the next steps.`
   );
 
-  window.location.href = `mailto:YOUR_EMAIL@example.com?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
 });
-
-function refreshPayPalButtons(){
-  const container = document.getElementById("paypal-button-container");
-  container.innerHTML = "";
-
-  if(typeof paypal === "undefined"){
-    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured yet.</div>`;
-    return;
-  }
-
-  paypal.Buttons({
-    style: {
-      layout: "vertical",
-      color: "gold",
-      shape: "rect",
-      label: "paypal"
-    },
-
-    createOrder: function(data, actions){
-      const total = Number(cartTotal().toFixed(2));
-
-      if(total <= 0){
-        alert("Your cart is empty.");
-        return;
-      }
-
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            currency_code: "USD",
-            value: total.toFixed(2)
-          }
-        }]
-      });
-    },
-
-    onApprove: function(data, actions){
-      return actions.order.capture().then(function(details){
-        const customerName = details?.payer?.name?.given_name || "Customer";
-
-        showToast("Payment received — thank you!");
-        alert(`Thanks ${customerName}! Your payment was received.`);
-
-        cart = [];
-        saveCart();
-        renderCart();
-        closeCart();
-        refreshPayPalButtons();
-      });
-    },
-
-    onCancel: function(){
-      showToast("PayPal checkout was canceled.");
-    },
-
-    onError: function(err){
-      console.error("PayPal checkout error:", err);
-      alert("There was a problem with PayPal checkout. Please try again.");
-    }
-  }).render("#paypal-button-container");
-}
 
 renderAllGrids();
 renderCart();
-refreshPayPalButtons();
-
-setTimeout(() => {
-  if(typeof paypal !== "undefined") refreshPayPalButtons();
-}, 2000);
 </script>
 </body>
 </html>
