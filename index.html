@@ -33,7 +33,6 @@
     a.igLink{color:var(--accent-hover);font-weight:900;text-decoration:none} a.igLink:hover{text-decoration:underline}
     @media(max-width:620px){nav a{padding:6px 10px}}
 
-    /* Modal */
     .overlay{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
     .overlay.open{display:flex}
     .modal{width:min(920px,100%);background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.08);display:grid;grid-template-columns:1.1fr .9fr}
@@ -49,7 +48,6 @@
     .field{margin-top:10px} .field label{display:block;font-weight:800;margin-bottom:6px}
     .field select{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.12)}
 
-    /* Cart Drawer */
     .drawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;z-index:60}
     .drawerOverlay.open{display:block}
     .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--card);box-shadow:-18px 0 50px rgba(0,0,0,.18);transform:translateX(110%);transition:transform .25s ease;z-index:70;display:flex;flex-direction:column}
@@ -62,9 +60,10 @@
     .totalRow{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
     .checkoutNote{font-size:12px;color:var(--muted);line-height:1.35;margin-top:10px}
 
-    /* Toast */
     .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(720px,92vw);background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px;display:none;z-index:80}
     .toast.show{display:block}.toast strong{display:block;margin-bottom:2px}
+
+    .contactCard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06);padding:16px}
   </style>
 </head>
 <body>
@@ -103,25 +102,18 @@
       <h2>Custom Request</h2>
       <p class="muted">Want something not listed? Tell me what you have in mind.</p>
 
-      <!-- Netlify-ready form: Netlify will capture submissions when deployed on Netlify -->
-      <form id="customForm" name="custom-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="card" style="padding:16px">
-        <input type="hidden" name="form-name" value="custom-request" />
-        <p style="display:none">
-          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-        </p>
-
+      <div class="contactCard">
         <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">Your request</label>
-        <textarea id="customText" name="message" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
+        <textarea id="customText" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
 
-        <button class="btn" id="customSubmit" style="margin-top:12px" type="submit">Submit request</button>
+        <button class="btn" id="customSubmit" style="margin-top:12px" type="button">Open message draft</button>
 
         <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
 
         <p class="muted" style="margin-top:10px">Follow me on Instagram:
           <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
         </p>
-      </form>
-
+      </div>
     </section>
 
     <section id="policies" style="margin-top:28px">
@@ -136,7 +128,6 @@
   <footer>© 2026 HookedByKerrah • Handmade Crochet</footer>
 </div>
 
-<!-- PRODUCT MODAL -->
 <div class="overlay" id="productOverlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Product details">
     <div class="modalImg imgBox"><img id="modalImg" src="" alt=""></div>
@@ -164,7 +155,6 @@
   </div>
 </div>
 
-<!-- CART DRAWER -->
 <div class="drawerOverlay" id="drawerOverlay"></div>
 <aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="drawerHeader">
@@ -180,14 +170,10 @@
       <span id="cartTotal">$0</span>
     </div>
 
-    <!-- Payment area: PayPal Buttons container + Stripe Checkout link -->
     <div id="paypal-button-container" style="margin-bottom:10px"></div>
 
-    <!-- Stripe Checkout Payment Link (Apple Pay available when using Stripe Payment Link) -->
-    <button class="btn" id="stripeBtn" style="width:100%;margin-bottom:8px">Pay with Card / Apple Pay (Stripe)</button>
-
     <div style="text-align:center;margin-top:8px">
-      <button class="btn ghostBtn" id="checkoutBtn" style="width:100%">Checkout (fallback)</button>
+      <button class="btn ghostBtn" id="checkoutBtn" style="width:100%">Use PayPal to Checkout</button>
     </div>
 
     <div class="checkoutNote">
@@ -196,93 +182,172 @@
   </div>
 </aside>
 
-<!-- TOAST -->
 <div class="toast" id="toast"><strong>Added to cart</strong><span id="toastText">Made to order — allow 7+ days depending on the product. Items may ship sooner.</span></div>
 
-<!-- PayPal SDK: replace YOUR_PAYPAL_CLIENT_ID with your actual PayPal Client ID (or use 'sb' for sandbox testing) -->
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-
+<script src="https://www.paypal.com/sdk/js?client-id=ARWw2cLm_VxZ1BGvSgyJI3dgZV8QT_2ELUH4AcSh4Q-q9fmG8jrbo-Y6q5pwSoVjM_vMUB1xJEvrz-7T&currency=USD"></script>
 <script>
-/* =========================================================
-   SITE DATA (products, pricing, helpers)
-   - Keep Stripe Payment Link in STRIPE_CHECKOUT_URL
-   - Replace PayPal client id in the script src above
-========================================================= */
-
-const STRIPE_CHECKOUT_URL = "https://checkout.stripe.com/pay/YOUR_PAYMENT_LINK"; // <<--- REPLACE with your Stripe Payment Link (or leave empty)
 const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
 const CUP_SIZES  = ["A","B","C","D"];
-function bandUpcharge(band){ const b = Number(band || 0); if(b >= 46) return 15; if(b >= 40) return 10; if(b >= 36) return 5; return 0; }
-function cupUpcharge(cup){ const map = { A:0, B:5, C:10, D:15 }; return map[cup] ?? 0; }
+
+function bandUpcharge(band){
+  const b = Number(band || 0);
+  if(b >= 46) return 15;
+  if(b >= 40) return 10;
+  if(b >= 36) return 5;
+  return 0;
+}
+
+function cupUpcharge(cup){
+  const map = { A:0, B:5, C:10, D:15 };
+  return map[cup] ?? 0;
+}
 
 function formatMoney(n){ return `$${Number(n).toFixed(0)}`; }
-function safeGetStartPrice(label){ const m = (label||"").match(/\$([\d]+)/); return m ? Number(m[1]) : 0; }
+function safeGetStartPrice(label){
+  const m = (label || "").match(/\$([\d]+)/);
+  return m ? Number(m[1]) : 0;
+}
 
 const PRODUCTS = [
-  /* featured */
   { id:"cardigan_black_red", name:"Black with Red Glitter Trim Hexagon Cardigan",
-   category:"wearables", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan", subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90", options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] }, price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; }, material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."},
-  { id:"cardigan_valentines", name:"Valentines Hexagon Cardigan", category:"featured", pill:"Featured", image:"images/ValentinesHexCardi.png", alt:"Valentines Hexagon Cardigan", subtitle:"Pink ombre with glitter.", priceLabel:"Starting at $110", options:{ size:["S-M","L-XL"], color:["Pink Ombre"] }, price(sel){ let base=110; if(sel.size==="L-XL") base+=20; return base }, material:"Yarn (handmade).", uses:"Layering.", pairing:"Dress up or down."},
-  { id:"santahats", name:"Santa Hats", category:"featured", pill:"Seasonal favourite", image:"images/SantaHats.jpeg", subtitle:"Pick glitter or regular.", priceLabel:"$40+", options:{ size:["Adult"], material:["Regular","Glitter"], color:["Red Hat/Black Trim","Black Hat/Red Trim"] }, price(sel){ const base=40; return base + ((sel.material==="Glitter")?3:0) }, material:"Yarn", uses:"Holiday wear."},
+    category:"wearables", image:"images/BlueHexagonCardigan.png", alt:"Black with Red Glitter Trim Hexagon Cardigan",
+    subtitle:"Cozy statement layering piece.", priceLabel:"Starting at $90",
+    options:{ size:["S-M","L-XL"], color:["Black with red glitter trim"] },
+    price(sel){ let base=90; if(sel.size==="L-XL") base+=20; return base; },
+    material:"Yarn (varies).", uses:"Layering.", pairing:"Wear to business casual or jeans."
+  },
 
-  /* wearables */
-  { id:"croptop_drawstring", name:"Ribbed Lace Drawstring Crop Top", category:"wearables", image:"images/IMG_4188.jpg", subtitle:"Custom fit — choose size + bra measurements.", priceLabel:"Starting at $120", options:{ size:["XS","S","M","L"], band:BAND_SIZES, cup:CUP_SIZES, color:["Coral Orange","Blue/White","Black","Pink","Mustard","Royal Blue","Pink/White"] }, price(sel){ const baseBySize={XS:120,S:130,M:145,L:160}; let base = baseBySize[sel.size] ?? 120; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; }, material:"Yarn (varies).", uses:"Statement top.", pairing:"High-waisted jeans."},
+  { id:"cardigan_valentines", name:"Valentines Hexagon Cardigan", category:"featured", pill:"Featured",
+    image:"images/ValentinesHexCardi.png", alt:"Valentines Hexagon Cardigan", subtitle:"Pink ombre with glitter.",
+    priceLabel:"Starting at $110", options:{ size:["S-M","L-XL"], color:["Pink Ombre"] },
+    price(sel){ let base=110; if(sel.size==="L-XL") base+=20; return base; },
+    material:"Yarn (handmade).", uses:"Layering.", pairing:"Dress up or down."
+  },
 
-  { id:"croptop_front_tie", name:"Front Tie Crop Top", category:"wearables", image:"images/FrontTie.png", subtitle:"Pricing is based on bra band + cup size.", priceLabel:"Starting at $55", options:{ band:BAND_SIZES, cup:CUP_SIZES, color:["Mustard Yellow","Blue/White","Black","Pink","Royal Blue","Pink/White"] }, price(sel){ let base=55; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; }, material:"Yarn", uses:"Casual wear", pairing:"Jeans or skirts."},
+  { id:"santahats", name:"Santa Hats", category:"featured", pill:"Seasonal favourite",
+    image:"images/SantaHats.jpeg", subtitle:"Pick glitter or regular.", priceLabel:"$40+",
+    options:{ size:["Adult"], material:["Regular","Glitter"], color:["Red Hat/Black Trim","Black Hat/Red Trim"] },
+    price(sel){ const base=40; return base + ((sel.material==="Glitter") ? 3 : 0); },
+    material:"Yarn", uses:"Holiday wear."
+  },
 
-  { id:"croptop_net_bow", name:"Blue/White Net Bow Crop Top", category:"wearables", image:"images/Blue White Net Bow Top.png", subtitle:"Choose bra band for best fit.", priceLabel:"Starting at $40", options:{ band:BAND_SIZES, color:["Blue/White","Black","Pink","Royal Blue","Pink/White"] }, price(sel){ let base=40; base += bandUpcharge(sel.band); return base; }, material:"Yarn", uses:"Lightweight top", pairing:"Denim."},
+  { id:"croptop_drawstring", name:"Ribbed Lace Drawstring Crop Top", category:"wearables",
+    image:"images/IMG_4188.jpg", subtitle:"Custom fit — choose size + bra measurements.", priceLabel:"Starting at $120",
+    options:{ size:["XS","S","M","L"], band:BAND_SIZES, cup:CUP_SIZES, color:["Coral Orange","Blue/White","Black","Pink","Mustard","Royal Blue","Pink/White"] },
+    price(sel){
+      const baseBySize={XS:120,S:130,M:145,L:160};
+      let base = baseBySize[sel.size] ?? 120;
+      base += bandUpcharge(sel.band);
+      base += cupUpcharge(sel.cup);
+      return base;
+    },
+    material:"Yarn (varies).", uses:"Statement top.", pairing:"High-waisted jeans."
+  },
 
-  /* accessories */
-  { id:"tote", name:"Tote Bag", category:"accessories", image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45", options:{ color:["Blue Multicolor"] }, price(){ return 45; }, material:"Yarn", uses:"Carry all."},
+  { id:"croptop_front_tie", name:"Front Tie Crop Top", category:"wearables",
+    image:"images/FrontTie.png", subtitle:"Pricing is based on bra band + cup size.", priceLabel:"Starting at $55",
+    options:{ band:BAND_SIZES, cup:CUP_SIZES, color:["Mustard Yellow","Blue/White","Black","Pink","Royal Blue","Pink/White"] },
+    price(sel){ let base=55; base += bandUpcharge(sel.band); base += cupUpcharge(sel.cup); return base; },
+    material:"Yarn", uses:"Casual wear", pairing:"Jeans or skirts."
+  },
 
-  { id:"scrunchies_diy", name:"Custom Scrunchie", category:"accessories", pill:"Design your own", image:"images/IMG_4189.jpg", subtitle:"Choose main color + optional trim.", priceLabel:"From $10", options:{ size:["Single"], material:["Regular","Plush"], color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"], trim:["No trim","Add trim (no extra charge)"], trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"] }, price(sel){ return (sel.material==="Plush")?13:10; }, material:"Yarn", uses:"Hair accessory."},
+  { id:"croptop_net_bow", name:"Blue/White Net Bow Crop Top", category:"wearables",
+    image:"images/Blue White Net Bow Top.png", subtitle:"Choose bra band for best fit.", priceLabel:"Starting at $40",
+    options:{ band:BAND_SIZES, color:["Blue/White","Black","Pink","Royal Blue","Pink/White"] },
+    price(sel){ let base=40; base += bandUpcharge(sel.band); return base; },
+    material:"Yarn", uses:"Lightweight top", pairing:"Denim."
+  },
 
-  { id:"scrunchies_mystery", name:"Mystery Scrunchies", category:"accessories", pill:"Mystery drop", image:"images/9indscrunchiesreg.jpg", subtitle:"You don’t know what color you’ll get 👀", priceLabel:"$7 / $12", options:{ pack:["1 Mystery ($7)","2 Pack ($12) — 1 black + 1 mystery"] }, price(sel){ return (sel.pack && sel.pack.startsWith("2 Pack")) ? 12 : 7; }, material:"Mystery yarn", uses:"Everyday hair."},
+  { id:"tote", name:"Tote Bag", category:"accessories",
+    image:"images/IMG_4125.jpg", subtitle:"Everyday carry — pick your colorway.", priceLabel:"$45",
+    options:{ color:["Blue Multicolor"] },
+    price(){ return 45; }, material:"Yarn", uses:"Carry all."
+  },
 
-  /* coming */
-  { id:"soon_pillow", name:"Pillow Covers", category:"coming", pill:"Coming soon", image:"", subtitle:"Custom colors + sizes.", priceLabel:"Coming soon", comingSoon:true },
-  { id:"soon_custom_cardigans", name:"Custom Cardigans", category:"coming", pill:"Coming soon", image:"", subtitle:"More styles + colors.", priceLabel:"Coming soon", comingSoon:true },
-  { id:"soon_coasters", name:"Coasters", category:"coming", pill:"Coming soon", image:"", subtitle:"Sets + singles.", priceLabel:"Coming soon", comingSoon:true }
+  { id:"scrunchies_diy", name:"Custom Scrunchie", category:"accessories", pill:"Design your own",
+    image:"images/IMG_4189.jpg", subtitle:"Choose main color + optional trim.", priceLabel:"From $10",
+    options:{ size:["Single"], material:["Regular","Plush"], color:["Pink","Red","Green","Blue","White","Black","Multicolored","Purple"], trim:["No trim","Add trim (no extra charge)"], trimColor:["White","Black","Pink","Red","Green","Blue","Purple","Multicolored"] },
+    price(sel){ return (sel.material==="Plush") ? 13 : 10; },
+    material:"Yarn", uses:"Hair accessory."
+  },
+
+  { id:"scrunchies_mystery", name:"Mystery Scrunchies", category:"accessories", pill:"Mystery drop",
+    image:"images/9indscrunchiesreg.jpg", subtitle:"You don’t know what color you’ll get 👀", priceLabel:"$7 / $12",
+    options:{ pack:["1 Mystery ($7)","2 Pack ($12) — 1 black + 1 mystery"] },
+    price(sel){ return (sel.pack && sel.pack.startsWith("2 Pack")) ? 12 : 7; },
+    material:"Mystery yarn", uses:"Everyday hair."
+  },
+
+  { id:"soon_pillow", name:"Pillow Covers", category:"coming", pill:"Coming soon", image:"",
+    subtitle:"Custom colors + sizes.", priceLabel:"Coming soon", comingSoon:true
+  },
+  { id:"soon_custom_cardigans", name:"Custom Cardigans", category:"coming", pill:"Coming soon", image:"",
+    subtitle:"More styles + colors.", priceLabel:"Coming soon", comingSoon:true
+  },
+  { id:"soon_coasters", name:"Coasters", category:"coming", pill:"Coming soon", image:"",
+    subtitle:"Sets + singles.", priceLabel:"Coming soon", comingSoon:true
+  }
 ];
 
-/* HELPERS */
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
 function createCardHtml(p){
   const pill = p.pill ? `<div class="pill">${p.pill}</div>` : "";
-  const img = p.image ? `<img src="${p.image}" alt="${p.alt || p.name}">` : `<div style="padding:18px;text-align:center;color:var(--muted)">Coming soon</div>`;
+  const img = p.image
+    ? `<img src="${p.image}" alt="${p.alt || p.name}">`
+    : `<div style="padding:18px;text-align:center;color:var(--muted)">Coming soon</div>`;
   const btnText = p.comingSoon ? "Coming soon" : "View details";
   return `
     <button class="cardBtn" type="button" data-id="${p.id}">
       <article class="card">
         <div class="imgBox">${img}</div>
-        <div class="content">${pill}<h3>${p.name}</h3><p class="muted">${p.subtitle||""}</p><p class="price">${p.priceLabel||""}</p><span class="btn" style="pointer-events:none">${btnText}</span></div>
+        <div class="content">
+          ${pill}
+          <h3>${p.name}</h3>
+          <p class="muted">${p.subtitle || ""}</p>
+          <p class="price">${p.priceLabel || ""}</p>
+          <span class="btn" style="pointer-events:none">${btnText}</span>
+        </div>
       </article>
     </button>
   `;
 }
 
 function renderAllGrids(){
-  $("#featuredGrid").innerHTML = PRODUCTS.filter(p=>p.category==="featured").map(createCardHtml).join("");
-  $("#wearablesGrid").innerHTML = PRODUCTS.filter(p=>p.category==="wearables").map(createCardHtml).join("");
-  $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p=>p.category==="accessories").map(createCardHtml).join("");
-  $("#comingSoonGrid").innerHTML = PRODUCTS.filter(p=>p.category==="coming").map(createCardHtml).join("");
+  $("#featuredGrid").innerHTML = PRODUCTS.filter(p => p.category === "featured").map(createCardHtml).join("");
+  $("#wearablesGrid").innerHTML = PRODUCTS.filter(p => p.category === "wearables").map(createCardHtml).join("");
+  $("#accessoriesGrid").innerHTML = PRODUCTS.filter(p => p.category === "accessories").map(createCardHtml).join("");
+  $("#comingSoonGrid").innerHTML = PRODUCTS.filter(p => p.category === "coming").map(createCardHtml).join("");
   $$(".cardBtn").forEach(btn => btn.addEventListener("click", () => openProduct(btn.dataset.id)));
 }
 
-/* PRODUCT MODAL */
 let activeProduct = null;
 let activeSelection = {};
 
 function openProduct(id){
-  const p = PRODUCTS.find(x=>x.id===id);
+  const p = PRODUCTS.find(x => x.id === id);
   if(!p) return;
+
   activeProduct = p;
   $("#modalTitle").textContent = p.name;
   $("#modalSubtitle").textContent = p.subtitle || "";
-  if(p.pill){ $("#modalPill").style.display="inline-block"; $("#modalPill").textContent=p.pill } else { $("#modalPill").style.display="none"; $("#modalPill").textContent="" }
-  if(p.image){ $("#modalImg").src=p.image; $("#modalImg").alt=p.alt||p.name } else { $("#modalImg").src=""; $("#modalImg").alt="" }
+
+  if(p.pill){
+    $("#modalPill").style.display = "inline-block";
+    $("#modalPill").textContent = p.pill;
+  } else {
+    $("#modalPill").style.display = "none";
+    $("#modalPill").textContent = "";
+  }
+
+  if(p.image){
+    $("#modalImg").src = p.image;
+    $("#modalImg").alt = p.alt || p.name;
+  } else {
+    $("#modalImg").src = "";
+    $("#modalImg").alt = "";
+  }
 
   $("#modalDetails").innerHTML = `<strong>Details</strong>
     <div><strong>Material:</strong> ${p.material || "—"}</div>
@@ -297,84 +362,206 @@ function openProduct(id){
   if(p.options){
     Object.entries(p.options).forEach(([key, arr]) => {
       if(!Array.isArray(arr) || !arr.length) return;
+
       const div = document.createElement("div");
       div.className = "field";
-      const label = key === "band" ? "Bra Band Size" : (key === "cup" ? "Bra Cup" : (key === "pack" ? "Pack" : (key === "trim" ? "Trim" : key.charAt(0).toUpperCase()+key.slice(1))));
+
+      const label = key === "band"
+        ? "Bra Band Size"
+        : key === "cup"
+        ? "Bra Cup"
+        : key === "pack"
+        ? "Pack"
+        : key === "trim"
+        ? "Trim"
+        : key.charAt(0).toUpperCase() + key.slice(1);
+
       div.innerHTML = `<label>${label}</label><select id="opt_${key}"></select>`;
       optsContainer.appendChild(div);
+
       const sel = div.querySelector("select");
       arr.forEach(v => sel.add(new Option(v, v)));
       sel.value = arr[0];
       activeSelection[key] = sel.value;
-      sel.addEventListener("change", () => { activeSelection[key] = sel.value; updateModalPrice(); });
+
+      sel.addEventListener("change", () => {
+        activeSelection[key] = sel.value;
+        updateModalPrice();
+      });
     });
   }
 
   if(p.comingSoon){
-    $("#addToCartBtn").disabled = true; $("#addToCartBtn").textContent = "Coming soon";
-  } else { $("#addToCartBtn").disabled = false; $("#addToCartBtn").textContent = "Add to cart"; }
+    $("#addToCartBtn").disabled = true;
+    $("#addToCartBtn").textContent = "Coming soon";
+  } else {
+    $("#addToCartBtn").disabled = false;
+    $("#addToCartBtn").textContent = "Add to cart";
+  }
 
   updateModalPrice();
-  $("#productOverlay").classList.add("open"); $("#productOverlay").setAttribute("aria-hidden","false");
+  $("#productOverlay").classList.add("open");
+  $("#productOverlay").setAttribute("aria-hidden", "false");
 }
 
 function updateModalPrice(){
   if(!activeProduct) return;
-  if(activeProduct.comingSoon){ $("#modalPrice").textContent = activeProduct.priceLabel || "Coming soon"; return; }
+
+  if(activeProduct.comingSoon){
+    $("#modalPrice").textContent = activeProduct.priceLabel || "Coming soon";
+    return;
+  }
+
   let priceVal = 0;
-  try { priceVal = (typeof activeProduct.price === "function") ? activeProduct.price(activeSelection || {}) : safeGetStartPrice(activeProduct.priceLabel); } catch(e){ priceVal = 0; }
+  try {
+    priceVal = typeof activeProduct.price === "function"
+      ? activeProduct.price(activeSelection || {})
+      : safeGetStartPrice(activeProduct.priceLabel);
+  } catch(e){
+    priceVal = 0;
+  }
+
   $("#modalPrice").textContent = priceVal ? formatMoney(priceVal) : (activeProduct.priceLabel || "");
 }
 
-function closeProduct(){ $("#productOverlay").classList.remove("open"); $("#productOverlay").setAttribute("aria-hidden","true"); activeProduct = null; activeSelection = {}; }
+function closeProduct(){
+  $("#productOverlay").classList.remove("open");
+  $("#productOverlay").setAttribute("aria-hidden", "true");
+  activeProduct = null;
+  activeSelection = {};
+}
+
 $("#closeModal").addEventListener("click", closeProduct);
 $("#keepShoppingBtn").addEventListener("click", closeProduct);
-$("#productOverlay").addEventListener("click", (e)=>{ if(e.target.id==="productOverlay") closeProduct(); });
-document.addEventListener("keydown", (e)=>{ if(e.key==="Escape"){ closeProduct(); closeCart(); } });
+$("#productOverlay").addEventListener("click", (e) => {
+  if(e.target.id === "productOverlay") closeProduct();
+});
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape"){
+    closeProduct();
+    closeCart();
+  }
+});
 
-/* CART */
-const CART_KEY = "hbk_cart_v3"; let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-function genUID(id, opts){ return id + "::" + JSON.stringify(opts || {}); }
+const CART_KEY = "hbk_cart_v4";
+let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+function saveCart(){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function genUID(id, opts){
+  return id + "::" + JSON.stringify(opts || {});
+}
 
 function addToCart(product, selection){
   const uid = genUID(product.id, selection);
-  const found = cart.find(i=>i.uid===uid);
-  const unitPrice = (typeof product.price === "function") ? product.price(selection || {}) : safeGetStartPrice(product.priceLabel);
-  if(found){ found.qty += 1; } else {
-    cart.push({ uid, id: product.id, name: product.name, options: selection, unitPrice: Number(unitPrice), qty: 1 });
+  const found = cart.find(i => i.uid === uid);
+  const unitPrice = typeof product.price === "function"
+    ? product.price(selection || {})
+    : safeGetStartPrice(product.priceLabel);
+
+  if(found){
+    found.qty += 1;
+  } else {
+    cart.push({
+      uid,
+      id: product.id,
+      name: product.name,
+      options: selection,
+      unitPrice: Number(unitPrice),
+      qty: 1
+    });
   }
-  saveCart(); renderCart(); showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner."); openCart();
-  refreshPayPalButtons(); // recalc paypal
+
+  saveCart();
+  renderCart();
+  showToast("Made to order — allow 7+ days depending on the product. Items may ship sooner.");
+  openCart();
+  refreshPayPalButtons();
 }
 
-function changeQty(uid, delta){ const item = cart.find(i=>i.uid===uid); if(!item) return; item.qty += delta; if(item.qty<=0) cart = cart.filter(i=>i.uid!==uid); saveCart(); renderCart(); refreshPayPalButtons(); }
-function cartTotal(){ return cart.reduce((sum,i)=>sum + (i.unitPrice * i.qty), 0); }
+function changeQty(uid, delta){
+  const item = cart.find(i => i.uid === uid);
+  if(!item) return;
+
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(i => i.uid !== uid);
+
+  saveCart();
+  renderCart();
+  refreshPayPalButtons();
+}
+
+function cartTotal(){
+  return cart.reduce((sum, i) => sum + (i.unitPrice * i.qty), 0);
+}
 
 function renderCart(){
   const el = $("#cartItems");
-  if(cart.length===0){ el.innerHTML = `<p class="muted">Your cart is empty.</p>`; $("#cartTotal").textContent = "$0"; return; }
-  el.innerHTML = cart.map(i=>{
-    const opts = i.options ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("") : "";
-    return `<div class="line"><div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between"><div><strong>${i.name}</strong>${opts}</div><div style="text-align:right"><div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div><div class="small">Qty: ${i.qty}</div></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button><button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button></div></div>`;
+
+  if(cart.length === 0){
+    el.innerHTML = `<p class="muted">Your cart is empty.</p>`;
+    $("#cartTotal").textContent = "$0";
+    return;
+  }
+
+  el.innerHTML = cart.map(i => {
+    const opts = i.options
+      ? Object.entries(i.options).map(([k,v]) => `<div class="small"><strong>${k}:</strong> ${v}</div>`).join("")
+      : "";
+
+    return `<div class="line">
+      <div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">
+        <div>
+          <strong>${i.name}</strong>
+          ${opts}
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900">${formatMoney(i.unitPrice * i.qty)}</div>
+          <div class="small">Qty: ${i.qty}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="qtyBtn" type="button" data-act="dec" data-uid="${i.uid}">−</button>
+        <button class="qtyBtn" type="button" data-act="inc" data-uid="${i.uid}">+</button>
+      </div>
+    </div>`;
   }).join("");
+
   $("#cartTotal").textContent = formatMoney(cartTotal());
-  el.querySelectorAll("button[data-act]").forEach(btn => btn.addEventListener("click", ()=>{ const uid = btn.dataset.uid; const act = btn.dataset.act; changeQty(uid, act === "inc" ? 1 : -1); }));
+
+  el.querySelectorAll("button[data-act]").forEach(btn => btn.addEventListener("click", () => {
+    const uid = btn.dataset.uid;
+    const act = btn.dataset.act;
+    changeQty(uid, act === "inc" ? 1 : -1);
+  }));
 }
 
-/* Drawer open/close */
-function openCart(){ $("#drawerOverlay").classList.add("open"); $("#cartDrawer").classList.add("open"); }
-function closeCart(){ $("#drawerOverlay").classList.remove("open"); $("#cartDrawer").classList.remove("open"); }
-$("#closeCart").addEventListener("click", closeCart); $("#drawerOverlay").addEventListener("click", closeCart);
+function openCart(){
+  $("#drawerOverlay").classList.add("open");
+  $("#cartDrawer").classList.add("open");
+}
 
-/* TOAST */
+function closeCart(){
+  $("#drawerOverlay").classList.remove("open");
+  $("#cartDrawer").classList.remove("open");
+}
+
+$("#closeCart").addEventListener("click", closeCart);
+$("#drawerOverlay").addEventListener("click", closeCart);
+
 let toastTimer = null;
-function showToast(msg){ $("#toastText").textContent = msg; $("#toast").classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(()=> $("#toast").classList.remove("show"), 3200); }
+function showToast(msg){
+  $("#toastText").textContent = msg;
+  $("#toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 3200);
+}
 
-/* Add to cart button in modal */
-$("#addToCartBtn").addEventListener("click", ()=>{
-  if(!activeProduct) return;
-  if(activeProduct.comingSoon) return;
+$("#addToCartBtn").addEventListener("click", () => {
+  if(!activeProduct || activeProduct.comingSoon) return;
+
   const sel = {};
   if(activeProduct.options){
     Object.keys(activeProduct.options).forEach(key => {
@@ -382,108 +569,126 @@ $("#addToCartBtn").addEventListener("click", ()=>{
       if(el) sel[key] = el.value;
     });
   }
+
   addToCart(activeProduct, sel);
   closeProduct();
 });
 
-/* Custom Request submit: Netlify will handle actual submission.
-   We intercept to show a nice message and let Netlify still receive data (browser submits).
-*/
-const customForm = $("#customForm");
-customForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const formData = new FormData(customForm);
-  // If deployed on Netlify, this POST will be processed normally by Netlify.
-  // We use fetch to submit so we can show the thank-you message immediately.
-  fetch("/", { method: "POST", body: formData })
-    .then(()=> {
-      $("#customText").value = "";
-      $("#customMsg").style.display = "block";
-      $("#customMsg").textContent = "Thank you — submission received! I’ll get back to you soon. Follow me on IG: @HookedByKerrah";
-    })
-    .catch(()=> {
-      // fallback: still show message (form may still be captured if browser does native submit later)
-      $("#customText").value = "";
-      $("#customMsg").style.display = "block";
-      $("#customMsg").textContent = "Thanks — your request was recorded locally. If you don't get a reply, DM @HookedByKerrah on Instagram.";
-    });
-});
-
-/* Checkout fallback button */
 $("#checkoutBtn").addEventListener("click", () => {
-  alert("You can pay with PayPal using the buttons above, or use Stripe Payment Link (Apple Pay) if configured.");
+  alert("Use the PayPal button above to complete checkout.");
 });
 
-/* Stripe button: open stripe payment link (replace STRIPE_CHECKOUT_URL with your Payment Link). */
-$("#stripeBtn").addEventListener("click", () => {
-  if(!STRIPE_CHECKOUT_URL || STRIPE_CHECKOUT_URL.includes("YOUR_PAYMENT_LINK")) {
-    alert("Stripe Checkout URL is not configured. Create a Stripe Payment Link and paste it into STRIPE_CHECKOUT_URL in the code.");
+$("#customSubmit").addEventListener("click", () => {
+  const text = $("#customText").value.trim();
+
+  if(!text){
+    $("#customMsg").style.display = "block";
+    $("#customMsg").textContent = "Please type your request first.";
     return;
   }
-  // Optionally attach cart info via query params (you can read them on Stripe's hosted page only if you use metadata server-side).
-  window.open(STRIPE_CHECKOUT_URL, "_blank");
+
+  const subject = encodeURIComponent("Custom Request - HookedByKerrah");
+  const body = encodeURIComponent(
+`Hi! I want to request a custom crochet piece.
+
+Request:
+${text}
+
+Instagram:
+@HookedByKerrah`
+  );
+
+  window.location.href = `mailto:YOUR_EMAIL@example.com?subject=${subject}&body=${body}`;
 });
 
-/* INIT */
-renderAllGrids(); renderCart();
-
-/* =========================
-   PAYPAL BUTTONS
-   - Uses client-side SDK included above.
-   - IMPORTANT: Replace YOUR_PAYPAL_CLIENT_ID in the paypal script tag with your real client ID (or 'sb' for sandbox).
-   - The buttons create an order for the current cart total and capture payment.
-========================= */
+function buildOrderSummary(cartItems){
+  return cartItems.map(item => {
+    const opts = item.options
+      ? Object.entries(item.options).map(([k, v]) => `${k}:${v}`).join(", ")
+      : "";
+    return `${item.name}${opts ? ` (${opts})` : ""} x${item.qty}`;
+  }).join(" | ");
+}
 
 function refreshPayPalButtons(){
-  // clear container
   const container = document.getElementById("paypal-button-container");
   container.innerHTML = "";
-  if(typeof paypal === "undefined") {
-    // PayPal SDK not loaded (client didn't replace client-id). Show small hint
-    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured — replace YOUR_PAYPAL_CLIENT_ID in the script URL to enable PayPal checkout.</div>`;
+
+  if(typeof paypal === "undefined"){
+    container.innerHTML = `<div class="muted" style="font-size:14px;text-align:center;padding:8px">PayPal not configured yet — add your real PayPal client ID in the script URL.</div>`;
     return;
   }
 
-  // Render buttons
   paypal.Buttons({
-    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
-    createOrder: function(data, actions) {
+    style: {
+      layout: "vertical",
+      color: "gold",
+      shape: "rect",
+      label: "paypal"
+    },
+
+    createOrder: function(data, actions){
       const total = Number(cartTotal().toFixed(2));
-      if(total <= 0) {
+
+      if(total <= 0){
         alert("Your cart is empty.");
         return;
       }
+
+      const orderSummary = buildOrderSummary(cart).substring(0, 127);
+
       return actions.order.create({
         purchase_units: [{
-          amount: { value: total.toFixed(2) },
-          description: "HookedByKerrah order"
+          amount: {
+            value: total.toFixed(2)
+          },
+          description: orderSummary || "HookedByKerrah order"
         }]
       });
     },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
-        // Payment successful
-        // You may want to send order details to your email/DB here.
-        cart = []; saveCart(); renderCart();
-        showToast("Payment received — thank you! I'll start your made-to-order item.");
+
+    onApprove: function(data, actions){
+      return actions.order.capture().then(function(details){
+        const customerName = details?.payer?.name?.given_name || "Customer";
+        const total = cartTotal().toFixed(2);
+        const orderLines = cart.map(item => {
+          const opts = item.options
+            ? Object.entries(item.options).map(([k, v]) => `${k}: ${v}`).join(", ")
+            : "No options";
+          return `${item.name} | ${opts} | Qty: ${item.qty} | Unit Price: $${item.unitPrice}`;
+        }).join("\n");
+
+        console.log("NEW ORDER");
+        console.log("Order ID:", data.orderID);
+        console.log("Customer:", customerName);
+        console.log("Total:", `$${total}`);
+        console.log("Items:\n" + orderLines);
+
+        showToast("Payment received — thank you! I’ll start your made-to-order item.");
+        alert(`Thanks ${customerName}! Your payment was received.`);
+
+        cart = [];
+        saveCart();
+        renderCart();
         closeCart();
-        // Optionally show PayPal confirmation message
-        alert(`Payment completed by ${details.payer.name.given_name}.`);
+        refreshPayPalButtons();
       });
     },
+
     onError: function(err){
-      console.error("PayPal error", err);
-      alert("An error occurred during PayPal checkout. See console for details.");
+      console.error("PayPal checkout error:", err);
+      alert("There was a problem with PayPal checkout. Please try again.");
     }
-  }).render('#paypal-button-container');
+  }).render("#paypal-button-container");
 }
 
-// call once on load to initialize placeholder or real buttons
+renderAllGrids();
+renderCart();
 refreshPayPalButtons();
 
-/* If PayPal SDK loads later or dynamically, attempt to re-render after a short delay */
-setTimeout(()=>{ if(typeof paypal !== "undefined") refreshPayPalButtons(); }, 2000);
-
+setTimeout(() => {
+  if(typeof paypal !== "undefined") refreshPayPalButtons();
+}, 2000);
 </script>
 </body>
 </html>
