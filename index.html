@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HookedByKerrah</title>
   <meta name="description" content="HookedByKerrah — handmade crochet pieces made to order. Shop hats, totes, cardigans, scrunchies, and more." />
-  <script src="https://js.stripe.com/v3"></script>
+
   <style>
     :root{
       --bg:#fff3f6;
@@ -375,15 +375,15 @@
 
     <section id="custom" style="margin-top:28px">
       <h2>Custom Request</h2>
-      <p class="muted">Want something not listed? Tell me what you have in mind.</p>
+      <p class="muted">Want something not listed? Write your request, copy it, then paste it into an Instagram message to @HookedByKerrah.</p>
 
       <div class="contactCard">
         <label for="customText" style="font-weight:850;display:block;margin-bottom:8px">Your request</label>
         <textarea id="customText" rows="5" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(0,0,0,.14);font:inherit"></textarea>
 
-        <button class="btn" id="customSubmit" style="margin-top:12px" type="button">Send custom request</button>
+        <button class="btn" id="customSubmit" style="margin-top:12px" type="button">Copy custom request</button>
 
-        <p class="muted" id="customMsg" style="margin-top:12px;display:none"></p>
+        <p class="muted" id="customMsg" role="status" aria-live="polite" style="margin-top:12px;display:none"></p>
 
         <p class="muted" style="margin-top:10px">Follow me on Instagram:
           <a class="igLink" href="https://instagram.com/HookedByKerrah" target="_blank" rel="noopener">@HookedByKerrah</a>
@@ -448,11 +448,13 @@
       <span id="cartTotal">$0</span>
     </div>
 
-    <button class="btn" id="checkoutBtn" style="width:100%;margin-bottom:8px">Checkout</button>
+    <button class="btn" id="checkoutBtn" style="width:100%;margin-bottom:8px">Copy order for Instagram</button>
     <button class="btn ghostBtn" id="copyOrderBtn" style="width:100%;margin-top:0">Copy Order Summary</button>
 
+    <a class="btn ghostBtn" href="https://ig.me/m/hookedbykerrah" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:8px">Open Instagram messages</a>
+    <p id="orderStatus" class="muted" role="status" aria-live="polite"></p>
     <div class="checkoutNote">
-      <strong>How ordering works:</strong> review your cart and pay at checkout.
+      <strong>How ordering works:</strong> copy your order, open Instagram messages, and paste it to @HookedByKerrah. Your order is confirmed only after we agree on availability, shipping, and payment. No payment is taken on this website. Estimated totals exclude shipping and any applicable tax.
     </div>
   </div>
 </aside>
@@ -463,9 +465,9 @@
 </div>
 
 <script>
-const CHECKOUT_API_URL = "http://localhost:3000/create-checkout-session";
+
 const INSTAGRAM_URL = "https://instagram.com/HookedByKerrah";
-const CUSTOM_REQUEST_EMAIL = "YOUR_EMAIL@example.com";
+
 
 const BAND_SIZES = ["30","32","34","36","38","40","42","46","48"];
 const CUP_SIZES = ["A","B","C","D"];
@@ -1014,93 +1016,46 @@ ${lines}
 Estimated total: ${formatMoney(cartTotal())}`;
 }
 
-$("#checkoutBtn")?.addEventListener("click", async () => {
-  if(cart.length === 0){
-    alert("Your order is empty.");
-    return;
-  }
-
-  const checkoutBtn = $("#checkoutBtn");
-  const originalText = checkoutBtn ? checkoutBtn.textContent : "Checkout";
-
-  try {
-    if(checkoutBtn){
-      checkoutBtn.disabled = true;
-      checkoutBtn.textContent = "Starting checkout...";
-    }
-
-    const res = await fetch(CHECKOUT_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ cart })
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if(!res.ok){
-      throw new Error(data.error || "Could not start checkout.");
-    }
-
-    if(!data.url){
-      throw new Error("Missing checkout URL.");
-    }
-
-    window.location.href = data.url;
-  } catch (err) {
-    console.error(err);
-    alert(err.message || "Checkout is unavailable right now. Please try again.");
-  } finally {
-    if(checkoutBtn){
-      checkoutBtn.disabled = false;
-      checkoutBtn.textContent = originalText;
-    }
-  }
-});
-
-$("#copyOrderBtn")?.addEventListener("click", async () => {
-  if(cart.length === 0){
-    alert("Your order is empty.");
-    return;
-  }
-
-  const text = buildOrderText();
-
+async function copyRequest(text){
   try {
     await navigator.clipboard.writeText(text);
-    showToast("Order summary copied.");
-  } catch (e) {
-    alert("Could not copy automatically. Please try again.");
+    return true;
+  } catch (_error) {
+    window.prompt("Copy the text below, then paste it into Instagram messages:", text);
+    return false;
   }
-});
+}
 
-$("#customSubmit")?.addEventListener("click", () => {
-  const text = $("#customText")?.value.trim() || "";
-  const customMsg = $("#customMsg");
-
-  if(!text){
-    if(customMsg){
-      customMsg.style.display = "block";
-      customMsg.textContent = "Please type your request first.";
-    }
+async function prepareOrder(){
+  if(cart.length === 0){
+    alert("Your order is empty.");
     return;
   }
+  const copied = await copyRequest(buildOrderText());
+  $("#orderStatus").textContent = copied
+    ? "Order copied! Open Instagram messages below and paste it to send your request. Nothing has been sent yet."
+    : "Open Instagram messages below and paste your order after copying it. Nothing has been sent yet.";
+}
 
-  const subject = encodeURIComponent("Custom Request - HookedByKerrah");
-  const body = encodeURIComponent(
-`Hi! I want to request a custom crochet piece.
+$("#checkoutBtn")?.addEventListener("click", prepareOrder);
+$("#copyOrderBtn")?.addEventListener("click", prepareOrder);
 
-Request:
-${text}
-
-Instagram:
-@HookedByKerrah
-
-Please let me know the next steps.`
-  );
-
-  window.location.href = `mailto:${CUSTOM_REQUEST_EMAIL}?subject=${subject}&body=${body}`;
+$("#customSubmit")?.addEventListener("click", async () => {
+  const text = $("#customText")?.value.trim() || "";
+  const customMsg = $("#customMsg");
+  customMsg.style.display = "block";
+  if(!text){
+    customMsg.textContent = "Please type your request first.";
+    return;
+  }
+  const copied = await copyRequest(`Hi! I would like to request a custom crochet piece.\n\n${text}\n\nPlease let me know availability, pricing, shipping, and next steps.`);
+  customMsg.textContent = copied ? "Request copied! " : "After copying your request, ";
+  const link = document.createElement("a");
+  link.href = "https://ig.me/m/hookedbykerrah";
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = "open Instagram messages and paste it to send.";
+  customMsg.appendChild(link);
 });
 
 renderAllGrids();
